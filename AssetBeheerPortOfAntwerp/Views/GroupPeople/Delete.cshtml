@@ -1,0 +1,89 @@
+﻿@model Models.GroupPeople
+
+@{
+    ViewData["Title"] = "Group people - Delete";
+    ViewData["PageTitle"] = "Group people";
+    ViewData["PageType"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int qty = -1;
+    var test = int.TryParse(ViewData["Qty"] as string, out qty);
+
+    int qtyPeople = 0;
+    var test1 = int.TryParse(ViewData["QtyPeople"] as string, out qtyPeople);
+    string people = qtyPeople > 1 ? " People" : " Person";
+
+    int qtyAsstes = 0;
+    var test2 = int.TryParse(ViewData["QtyAssets"] as string, out qtyAsstes);
+    string assets = qtyAsstes > 1 ? " Asstes" : " Asset";
+}
+
+<br />
+
+@if (qty > 0)
+{
+    <h3>@Localizer["Attention: You can't delete this Group of people: "@Model.GroupName"!"]</h3>
+    <hr />
+    <h4>@Localizer[""@Model.GroupName" is linked to:"]</h4>
+    <ul>
+        <li>@qtyPeople x @people</li>
+        <li>@qtyAsstes x @assets</li>
+    </ul>
+
+    <p>@Localizer["It's not possible (recomendated) to delete @Model.GroupName!"]</p>
+    <hr />
+    <form>
+        <button asp-action="Edit" class="btn btn-primary" 
+        asp-route-id="@Model.GroupPeopleID">@Localizer["Edit"]</button> |
+        <button asp-action="Index" class="btn btn-outline-info">@Localizer["Back"]</button>
+    </form>
+    <br />
+    <hr />
+    @if (qtyPeople > 0)
+    {
+        <h3>@people</h3>
+        <div>
+            <partial name="PartialViews/_ListPersonGroupPeople_GroupPartial" model="ViewBag.ListGroupPeople" />
+        </div>
+
+    }
+    <hr />
+}
+
+@if (qtyAsstes > 0)
+{
+    <h3>@assets</h3>
+    <div>
+        <partial name="PartialViews/_ListOfAssetsPartial" model="@ViewData["ListAssets"]" />
+    </div>
+}
+<hr />
+
+@if (qty == 0)
+{
+    <h3>@Localizer["Are you sure you want to delete "@Model.GroupName"?"]</h3>
+    <div>
+        <h4>@Localizer["GroupPeople"]</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Ref)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Ref)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.GroupName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.GroupName)
+            </dd>
+        </dl>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="GroupPeopleID" />
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            <a class="btn btn-primary" asp-action="Index">@Localizer["Back to List"]</a>
+        </form>
+    </div>
+}

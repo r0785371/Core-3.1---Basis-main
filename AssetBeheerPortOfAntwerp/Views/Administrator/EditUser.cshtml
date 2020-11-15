@@ -1,0 +1,100 @@
+﻿@model Models.EditUser
+
+@{
+    ViewData["Title"] = "EditUser";
+    ViewData["PageTitle"] = "Edit user";
+    //ViewData["PageType"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<hr />
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="EditUser">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" disabled class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserName" class="control-label"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Afdeling" class="control-label"></label>
+                <input asp-for="Afdeling" class="form-control" />
+                @*<span asp-validation-for="Afdeling" class="text-danger"></span>*@
+            </div>
+            <div class="form-group">
+                <label asp-for="Functie" class="control-label"></label>
+                <input asp-for="Functie" class="form-control" />
+                @*<span asp-validation-for="Functie" class="text-danger"></span>*@
+            </div>
+
+            @*verzameling van alle errors die gebeuren*@
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group">
+                <input type="submit" value="Update" class="btn btn-primary" />
+                <a asp-action="ListUsers" class="btn btn-primary">@Localizer["Back"]</a>
+            </div>
+            <div class="form-group card-deck w-auto">
+                <div class="card border-dark">
+                    <div class="card-header">
+                        <h3>@Localizer["UserRolls"]</h3>
+                        <div class="card-body">
+                            @if (Model.Roles.Any())
+                            {
+                                foreach (var role in Model.Roles)
+                                {
+                                    <h5 class="card-title">@role</h5>
+                                }
+                            }
+                            else
+                            {
+                                <h5 class="card-title">@Localizer["No role in the list"]</h5>
+                            }
+                        </div>
+                        <div class="card-footer">
+                            <a asp-action="ManageUserRoles" asp-route-userId="@Model.Id" class="btn btn-primary">
+                            @Localizer["Manage rolls"]</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card border-dark">
+                    <div class="card-header">
+                        <h3>@Localizer["User Claims"]</h3>
+                        <div class="card-body">
+                            @if (Model.Claims.Any())
+                            {
+                                foreach (var claim in Model.Claims)
+                                {
+                                    <h5 class="card-title">@claim</h5>
+                                }
+                            }
+                            else
+                            {
+                                <h5 class="card-title">@Localizer["No claim in the list"]</h5>
+                            }
+                        </div>
+                        <div class="card-footer">
+                            <a asp-action="ManageUserClaims" asp-route-userId="@Model.Id"
+                               class="btn btn-primary">@Localizer["Manage claims"]</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+

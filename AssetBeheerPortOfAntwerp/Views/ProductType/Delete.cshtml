@@ -1,0 +1,200 @@
+﻿@model Models.ProductType
+
+@{
+    ViewData["Title"] = "Product type - Delete";
+    ViewData["PageTitle"] = "Product type";
+    ViewData["PageType"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+    int qty = -1;
+    var test = int.TryParse(ViewData["Qty"] as string, out qty);
+    string product = qty > 1 ? " Producten" : " Product";
+}
+
+<br />
+
+@if (qty > 0)
+{
+    <br />
+    <h3>Attention: You can't delete this license @Model.Name!</h3>
+    <hr />
+    <h4>"@Model.Name" is linked to:</h4>
+    <br />
+    <ul>
+        <li>@qty x @product</li>
+    </ul>
+
+    <p>It's not possible (recomendated) to delete @Model.Name!</p>
+    <hr />
+    <form>
+        <button asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.ProductTypeID">Edit</button> |
+        <button asp-action="Index" class="btn btn-outline-info">Back</button>
+    </form>
+    <br />
+    <hr />
+   
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Status</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Qty purchase items</th>
+                    <th width="90"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (ViewBag.ListProducts != null)
+                {
+                    @foreach (var item in ViewBag.ListProducts as List<Models.Product>)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Status.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                @*@Html.DisplayFor(modelItem => item.PurchaseItems.Count())*@
+                            </td>
+                            <td>
+                                @if (@item.ProductType.ProductChild == 0)
+                                {
+                                    <a asp-controller="Hardware" asp-action="Edit" asp-route-id="@item.ProductID"><img src="~/images/icons/Edit.png" style="max-height:30px; max-width:30px" /></a>
+                                    <a asp-controller="Hardware" asp-action="Details" asp-route-id="@item.ProductID"><img src="~/images/icons/Clipboard.png" style="max-height:30px; max-width:30px" /></a>
+                                }
+
+                                @if (@item.ProductType.ProductChild > 0)
+                                {
+                                    <a asp-controller="Software" asp-action="Edit" asp-route-id="@item.ProductID"><img src="~/images/icons/Edit.png" style="max-height:30px; max-width:30px" /></a>
+                                    <a asp-controller="Software" asp-action="Details" asp-route-id="@item.ProductID"><img src="~/images/icons/Clipboard.png" style="max-height:30px; max-width:30px" /></a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    }
+
+    @if (qty == 0)
+    {
+        <h3>Are you sure you want to delete this?</h3>
+        <div>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.ProductChild)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.ProductChild)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Ref)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Ref)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.IsGroup)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.IsGroup)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.ProductTypeGroup)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.ProductTypeGroup.Name)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.IsProduct)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.IsProduct)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.IsLicense)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.IsLicense)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.IsAsset)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.IsAsset)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.ExpirePeriodMonth)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.ExpirePeriodMonth)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.WarningPeriod)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.WarningPeriod.Name)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.TagNo)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.TagNo)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.IsComponent)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.IsComponent)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.HasBackup)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HasBackup)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.BackupInterval)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.BackupInterval)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.GoInRack)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.GoInRack)
+                </dd>
+            </dl>
+
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="ProductTypeID" />
+                <input type="submit" value="Delete" class="btn btn-danger" /> |
+                <a class="btn btn-outline-info" asp-action="Index">Back to List</a>
+            </form>
+        </div>
+    }
+
+    @if (qty < 0)
+    {
+        <partial name="PartialViews/_DeleteRecordErrorPartial" />
+    }

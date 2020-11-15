@@ -1,0 +1,108 @@
+﻿@model IEnumerable<Models.Asset>
+
+@{
+    ViewData["Title"] = "Asset which need Backup";
+    ViewData["PageTitle"] = "Asset";
+    ViewData["PageType"] = "which need Backup";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    tr.Green {
+        background-color: lightgreen;
+    }
+    tr.Orange {
+        background-color: lemonchiffon;
+    }
+    tr.Red {
+        background-color: bisque;
+    }
+
+    thead {
+        background-color: lightgrey
+    }
+
+    tr {
+        border-bottom-style: solid;
+        border-bottom-width: 2px;
+        border-bottom-color: #bbbbbb;
+    }
+
+</style>
+
+<br />
+<table class="table-sm col-12">
+    <thead >
+        <tr>
+            @*<th>
+                QR Code
+            </th>*@
+            <th width="120">
+                @Html.DisplayNameFor(model => model.MaxBackupDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AssetTag)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PurchaseItem)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TargetDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AssetOwner.OwnerDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OperationalSiteLocation.Location)
+            </th>
+            <th width="70"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            @foreach (var item in Model.OrderBy(a => a.MaxBackupDate))
+            {
+                <tr class="@item.BackupUrgency">
+                    @*<td>
+                        @{ if (item.QrCode != null)
+                            {
+                                <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(item.QrCode))" height="70" width="70" />
+                            }
+                        }
+                    </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MaxBackupDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AssetTag)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PurchaseItem.Product.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TargetDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AssetOwner.OwnerDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OperationalSiteLocation.Location.Building.Name)
+                        @*@Html.DisplayFor(modelItem => item.OperationalSiteLocation.Location.LocationDescription)*@
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.AssetID"><img src="~/images/icons/Edit.png" style="max-height:30px; max-width:30px" /></a>
+                        <a asp-action="Details" asp-route-id="@item.AssetID"><img src="~/images/icons/Clipboard.png" style="max-height:30px; max-width:30px" /></a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

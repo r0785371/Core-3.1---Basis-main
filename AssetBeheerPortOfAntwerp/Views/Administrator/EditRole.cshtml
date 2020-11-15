@@ -1,0 +1,71 @@
+﻿@model Models.EditRole
+@*@model List<Models.UserRole>*@
+
+@{
+    
+    ViewData["Title"] = "EditRole";
+    ViewData["PageTitle"] = "EditRole";
+    //ViewData["PageType"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditRole">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" disabled class="form-control" />
+                @*<span asp-validation-for="Id" class="text-danger"></span>*@
+            </div>
+            <div class="form-group">
+                <label asp-for="RoleName" class="control-label"></label>
+                <input asp-for="RoleName" class="form-control" />
+                <span asp-validation-for="RoleName" class="text-danger"></span>
+            </div>
+
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group">
+                <input type="submit" value="Update" class="btn btn-primary" />
+                <a asp-action="ListRoles" class="btn btn-primary">
+                    @Localizer["Back"]</a>
+            </div >
+            <div class="card">
+                    <div class="card-header">
+                        <h3>Localizer["UserRolls"]</h3>
+                    </div>
+                    <div class="card-body">
+                @*zijn er gebruikers in de user property*@
+                        @if(Model.Users.Any())
+                         {
+                            foreach (var user in Model.Users)
+                            {
+                    //gebruikersnaam tonen
+                    <h5 class="card-title">@user</h5>
+
+                    }
+
+                    }
+                    else
+                    {
+                    <h5 class="card-title">@Localizer["No User in database"]</h5>
+
+                    }
+</div>
+                <div class="card-footer">
+                    <div class="form-group">
+                        <a type="button" class="btn btn-primary" asp-action="EditUsersInRole"
+                           asp-controller="Administrator" asp-route-roleId="@Model.Id">
+                            @Localizer["Choose or delete users"]
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

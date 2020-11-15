@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Models.OperationalSite>
+
+@{
+    ViewData["Title"] = "Operational Site - Index";
+    ViewData["PageTitle"] = "Operational Site";
+    ViewData["PageType"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+    <div class="text-right">
+        <h4><a asp-action="Create">Create New</a></h4>
+    </div>
+<table class="table table-sm col-12">
+    <thead style="background-color: lightgrey">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Ref)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsGroup)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OperationalSiteGroup)
+            </th>
+            <th width="100"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderBy(m => m.Name))
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ref)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsGroup)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OperationalSiteGroup.Name)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.OperationalSiteID"><img src="~/images/icons/Edit.png" style="max-height:30px; max-width:30px" /></a>
+                    <a asp-action="Details" asp-route-id="@item.OperationalSiteID"><img src="~/images/icons/Clipboard.png" style="max-height:30px; max-width:30px" /></a>
+                    <a asp-action="Delete" asp-route-id="@item.OperationalSiteID"><img src="~/images/icons/Delete.png" style="max-height:30px; max-width:30px" /></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

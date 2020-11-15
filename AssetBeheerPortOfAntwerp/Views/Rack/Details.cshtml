@@ -1,0 +1,25 @@
+﻿@model Models.Rack
+
+@{
+    ViewData["Title"] = "Rack - Details";
+    ViewData["PageTitle"] = "Rack";
+    ViewData["PageType"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.RackID">Edit</a> |
+    <a class="btn btn-outline-info"  asp-action="Index">Back to List</a>
+</div>

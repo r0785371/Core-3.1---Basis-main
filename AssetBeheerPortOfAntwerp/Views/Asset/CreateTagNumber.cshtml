@@ -1,0 +1,66 @@
+﻿@model Models.PurchaseItem;
+
+@{
+    ViewData["Title"] = "Asset - Create tag number";
+    ViewData["PageTitle"] = "Asset";
+    ViewData["PageType"] = "Create tag number";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int gotTagNumber = 0;
+    string oldTagNumber = (string)ViewData["OldTagNumber"];
+
+}
+
+<hr />
+@*<form asp-controller="Asset" asp-action="CreateTagNumber" method="post">*@
+<form asp-controller="Asset" asp-action="CreateTagNumber" method="post">
+
+    @if (string.IsNullOrEmpty(oldTagNumber))
+    {
+        <h4>Pls insert the "Tag Number" for the following hardware which you want to add to Assets: </h4>
+    }
+    else
+    {
+        <h4>Pls insert a new "Tag Number" for the following hardware which you want to add to Assets: </h4>
+        <h6>The previous Tag Number (@oldTagNumber) already exists!</h6>
+    }
+
+    <br />
+    <h3>Product: @Model.Product.Name</h3>
+    <h4>Order: @Model.Purchase.Supplier.Name - No: @Model.Purchase.No from @Model.Purchase.Date.ToShortDateString()</h4>
+    <br />
+    <h4>Product type: @Model.Product.ProductType.Name</h4>
+    <br />
+    <hr />
+    @*<h4>AUT</h4> <input type="number" value="" id="tagNumber" /><h4>@Model.Product.ProductType.TagNo</h4>*@
+
+    <div class="form-row">
+        <div class="form-group col-md-1">
+            <h4>AUT</h4>
+        </div>
+        <div class="form-group col-md-4">
+            @*<label name="gotTagNumber" class="control-label"></label>*@
+            <h4><input id="gotTagNumber" name="gotTagNumber" value="@gotTagNumber" class="form-control" /></h4>
+            <span name="gotTagNumber" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-1">
+            <h4>@Model.Product.ProductType.TagNo</h4>
+        </div>
+    </div>
+
+    @*<button class="submitbutton btn-primary" asp-controller="Asset" asp-action="CreateTagNumber"  asp-route-purchaseItemID="@purchaseItem.PurchaseItemID" asp-route-gotTagNumber="15" formmethod="post">Save</button>*@
+
+    @*<button class="submitbutton btn-primary" asp-controller="Asset" asp-action="CreateTagNumber" asp-route-purchaseItemID="@purchaseItem.PurchaseItemID" asp-route-gotTagNumber="15" formmethod="post">Save</button>*@
+
+
+    <button class="submitbutton btn btn-primary" asp-route-purchaseItemID="@Model.PurchaseItemID" asp-route-gotTagNumber="@gotTagNumber" formmethod="post">Save</button>
+</form>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#gotTagNumber').focus();
+        });
+    </script>
+}

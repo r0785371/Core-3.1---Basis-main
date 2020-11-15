@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Models.Floor>
+
+@{
+    ViewData["Title"] = "Floor - Index";
+    ViewData["PageTitle"] = "Floor";
+    ViewData["PageType"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div class="text-right">
+    <h4><a asp-action="Create">@Localizer["Create New"]</a></h4>
+</div>
+<table class="table">
+    <thead style="background-color: lightgrey">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Ref)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th width="120"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ref)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.FloorID">
+                    <img src="~/images/icons/Edit.png" style="max-height:30px; max-width:30px" /></a>
+                    <a asp-action="Details" asp-route-id="@item.FloorID">
+                    <img src="~/images/icons/Clipboard.png" style="max-height:30px; max-width:30px" /></a>
+                    <a asp-action="Delete" asp-route-id="@item.FloorID">
+                    <img src="~/images/icons/Delete.png" style="max-height:30px; max-width:30px" /></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

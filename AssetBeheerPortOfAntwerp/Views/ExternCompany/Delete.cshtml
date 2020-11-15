@@ -1,0 +1,135 @@
+﻿@model Models.ExternCompany
+
+@{
+    ViewData["Title"] = "Extern company - Delete";
+    ViewData["PageTitle"] = "Extern company";
+    ViewData["PageType"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var listAssets = ViewData["ListAssets"] as List<Models.Asset>;
+    int qtyAssets = listAssets.Count();
+    string assets = qtyAssets > 1 ? "Assets" : "Asset";
+
+    int qty = qtyAssets >= 0 ? qtyAssets : -1;
+}
+
+<br />
+
+@if (qty > 0)
+{
+    <h3>@Localizer["Attention: You can't delete this extern company: @Model.Name!"]</h3>
+    <hr />
+    <h4>@Localizer[""@Model.Name" is linked to:"]</h4>
+    <ul>
+        <li>@qtyAssets x @assets</li>
+    </ul>
+    <p>@Localizer["It's not possible (recomendated) to delete @Model.Name!"]</p>
+    <hr />
+
+    <form>
+        <button asp-action="Edit" class="btn btn-primary" 
+        asp-route-id="@Model.ExternCompanyID">@Localizer["Edit"]</button> |
+        <button asp-action="Index" class="btn btn-outline-info">@Localizer["Back"]</button>
+    </form>
+
+    <br />
+
+    @if (qtyAssets > 0)
+    {
+        <hr />
+        <h3>@assets</h3>
+
+        <partial name="PartialViews/_ListOfAssetsPartial" model="@listAssets" />
+    }
+
+}
+
+@if (qty == 0)
+{
+
+    <h3>@Localizer["Are you sure you want to delete this extern company: @Model.Name?"]</h3>
+    <div>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Ref)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Ref)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Street)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Street)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Number)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Number)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Postcode)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Postcode)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.City)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.City)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.State)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.State)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Country)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Country)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Tel)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Tel)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Mail)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Mail)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.WebSite)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.WebSite)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.IsActief)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.IsActief)
+            </dd>
+        </dl>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="ExternCompanyID" />
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            <a class="btn btn-primary" asp-action="Index">@Localizer["Back to List"]</a>
+        </form>
+    </div>
+
+}

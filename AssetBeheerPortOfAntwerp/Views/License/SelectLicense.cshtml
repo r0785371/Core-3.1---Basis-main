@@ -1,0 +1,197 @@
+﻿@model List<Models.License>
+
+@{
+    ViewData["Title"] = "License - Select";
+    ViewData["PageTitle"] = "License";
+    ViewData["PageType"] = "Select";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    long test =0;
+}
+
+<br />
+<div>
+    @*<a class="form-control btn-outline-info" asp-controller="Hardware" asp-action="Edit"
+    asp-route-id="@Model.asset.PurchaseItem.ProductID" asp-route-assetID="@Model.asset.AssetID">
+        @Model.asset.PurchaseItem.Product.Name
+    </a>*@
+
+    @*<a class="from-control btn-outline-info custom-select"  value="@ViewData["SelectedSoftwareTypeID"]"
+    asp-items="ViewBag.SoftwareTypeID" asp-action="SelectLicense" asp-route-assetID="@ViewData["AssetID"]"
+    asp-route-selectedSoftwareTypeID="@ViewData["SelectedSoftwareTypeID"]">test</a>*@
+
+    @*<select id="SelectLicenseType" value="@ViewData["SelectedSoftwareTypeID"]" class="form-control" asp-items="ViewBag.SoftwareTypeID"><option disabled selected>---Select---</option></select>
+    <a class="form-control-sm" asp-controller="License" asp-action="SelectLicense"
+    asp-route-assetID="@ViewData["AssetID"]" asp-route-selectedSoftwareTypeID="@ViewData["SelectedSoftwareTypeID"]"
+    >Load</a>*@
+
+    <h3>@ViewData["SoftwareType"]</h3>
+    
+
+</div>
+
+
+    <br />
+    <form id="selectForm" asp-controller="License" asp-action="SelectLicense" method="post">
+
+        @using (Html.BeginForm("SelectLicense", "License", FormMethod.Post))
+        {
+            @*@Html.AntiForgeryToken()*@
+
+
+        <div id="LicenseList" >
+            <table class="table col-sm-12">
+                <thead>
+                    <tr>
+                        <th hidden>Index</th>
+                        <th>Select</th>
+                        <th>Status</th>
+                        <th>Software</th>
+                        <th>License Type</th>
+                        <th width="100">Qty still available</th>
+                        <th>License Validity Type</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <tr>
+                            <td hidden>
+                                @Html.TextBoxFor(m => m[i].LicenseID, new { @class = "form-control", @type = "hidden" })
+                                @Html.ValidationMessageFor(m => m[i].LicenseID, "", new { @class = "text-danger", @type = "hidden" })
+                            </td>
+                            <td>
+                                @if (Model[i].QtyLimited > 0)
+                                {
+                                    @Html.CheckBoxFor(m => m[i].AddToAsset, new { @class = "form-control" })
+                                    @*@Html.CheckBox("AddLicense");*@
+                                }
+
+                            </td>
+                            <td>
+                                @Html.DropDownListFor(m => m[i].StatusID, ViewBag.StatusID as List<SelectListItem>, "---Select item---", new { @class = "form-control", @readonly = "readonly" })
+                                @Html.ValidationMessageFor(m => m[i].StatusID, "", new { @class = "text-danger" })
+                            </td>
+                            <td>
+                                @*@:First Name: @Html.EditorFor(m => m[i].PurchaseItemID) @readonly = "readonly"*@
+                                @Html.DropDownListFor(m => m[i].PurchaseItemID, ViewBag.PurchaseItemID as List<SelectListItem>, "---Select item---", new { @class = "form-control", @readonly = "readonly" })
+                                @Html.ValidationMessageFor(m => m[i].PurchaseItemID, "", new { @class = "text-danger" })
+                            </td>
+                            <td>
+                                @Html.DropDownListFor(m => m[i].LicenseTypeID, ViewBag.LicenseTypeID as List<SelectListItem>, "---Select item---", new { @class = "form-control", @readonly = "readonly" })
+                                @Html.ValidationMessageFor(m => m[i].LicenseTypeID, "", new { @class = "text-danger" })
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(m => m[i].QtyLimited, new { @class = "form-control", @readonly = "readonly" })
+                                @Html.ValidationMessageFor(m => m[i].QtyLimited, "", new { htmlAttributes = new { @class = "form-control" } })
+                            </td>
+                            <td>
+                                @Html.DropDownListFor(m => m[i].LicenseValidityTypeID, ViewBag.LicenseValidityTypeID as List<SelectListItem>, "---Select item---", new { @class = "form-control", @readonly = "readonly" })
+                                @Html.ValidationMessageFor(m => m[i].LicenseValidityTypeID, "", new { htmlAttributes = new { @class = "text-danger" } })
+                            </td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        </div>
+
+
+
+        <div>
+
+            @*<input type="submit" value="Add" class="btn btn-primary" asp-route-assetID="@ViewData["AssetID"]" />*@
+
+            @if (Model.Count() > 0)
+            {
+                <button type="submit" class="btn btn-primary" value="Add" asp-route-assetID="@ViewData["AssetID"]"
+                asp-route-selectedSoftwareTypeID="@ViewData["SelectedSoftwareTypeID"]">
+                @Localizer["Add"]</button>
+            }
+            else
+            {
+                <a class="btn btn-primary" asp-controller="License" asp-action="SelectSoftwareType"
+                asp-route-assetID="@ViewData["AssetID"]">@Localizer["Select new Software type"]</a>
+            }
+
+            <a class="btn btn-outline-info" asp-controller="Asset" asp-action="Edit"
+            asp-route-id="@ViewData["AssetID"]">@Localizer["Back"]</a>
+        </div>
+
+        }
+    </form>
+
+    <script>
+
+
+
+    $(document).ready(function () {
+
+        $('#SelectLicenseType').change(function () {
+
+            //var id = $(this).val();
+            //if ((id != null) && (id != "")) {
+
+            //@test += $(this).val();
+
+
+            //$("#LicenseList").load('/License/SelectLicense');
+            @*var test = ('@ViewData["AssetID"]');
+            var test2 = $('#' + '@(ViewBag.AssetID)').val();*@
+
+            //stop from from submitting normally
+            event.preventDefault();
+
+                $.ajax({
+                    url: '/License/GetSelectLicense',
+                    type: 'POST',
+                    data: { assetID: ('@ViewData["AssetID"]'), selectedSoftwareTypeID: $(this).val()},
+                    datatype: 'json',
+                    success: function (data) {
+                        $('#LicenseList').html(data);
+
+                        //$("#enquirypopup").modal("hide");
+                        //location.reload();
+                    }
+                });
+            //});
+        });
+
+
+
+
+        $('.btn-link').hide();
+
+        var isChanged = false;
+        var isSubmit = false;
+
+        $('#onchange').change(function () {
+
+            if (isChanged == false) {
+                $('.create').hide();
+                $('.btn-link').show();
+
+                isChanged = true;
+            }
+
+        });
+
+        $('.submitbutton').click(function () {
+            isSubmit = true;
+        });
+
+        window.onbeforeunload = function (e) {
+            if (isChanged && (!isSubmit)) {
+                return "Make sure to save all changes.";
+            }
+        };
+
+    });
+
+
+
+
+
+    </script>

@@ -1,0 +1,85 @@
+﻿@model IEnumerable<Models.PurchaseItem>
+
+@{
+    ViewData["Title"] = "Purchase items - Ordered";
+    ViewData["PageTitle"] = "Purchase items";
+    ViewData["PageType"] = "Ordered (not delivered yet)";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model.Count() == 0)
+{
+    <br />
+    <h1>There are no items ordeded without a suppliance.</h1>
+}
+
+<style>
+    tr{
+
+        border-bottom-style: solid;
+        border-bottom-width: 2px;
+        border-bottom-color: #bbbbbb;
+
+    }
+
+</style>
+
+@if (Model.Count() > 0)
+{
+    <br />
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Purchase.Supplier)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Purchase)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Product.ProductType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Product.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PurchaseQty)
+                </th>
+                <th>
+                    Require date
+                    @*@Html.DisplayNameFor(model => model.DeliveryDate)*@
+                </th>
+                <th width="35px"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Purchase.Supplier.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Purchase.No)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Product.ProductType.Ref)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Product.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PurchaseQty)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DeliveryDate)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.PurchaseItemID"><img src="~/images/icons/Edit.png" style="max-height:30px; max-width:30px" /></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+

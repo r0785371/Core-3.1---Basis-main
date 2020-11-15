@@ -1,0 +1,34 @@
+﻿@model List<Models.AssetDetail>
+
+    <table class="table-sm col-sm-12">
+        <thead>
+            <tr>
+                <th hidden></th>
+                <th scope="col">@Html.DisplayNameFor(model => model[0].Detail.DetailMain.Name)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model[0].Detail.DetailSub.Name)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model[0].Definition1)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model[0].Definition2)</th>
+                <th scope="col" width="70"></th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                @foreach (var item in Model.OrderBy(x => x.Detail.DetailMain.Name))
+                {
+                    <tr>
+                        <td hidden>@item.AssetDetailID</td>
+                        <td>@item.Detail.DetailMain.Name</td>
+                        <td>@item.Detail.DetailSub.Name</td>
+                        <td>@item.Definition1</td>
+                        <td>@item.Definition2</td>
+                        <td>
+                            <a asp-controller="AssetDetail" asp-action="Edit" asp-route-id="@item.AssetDetailID"><img src="~/images/icons/Edit.png" style="max-height:30px; max-width:30px" /></a>
+                            <a asp-controller="AssetDetail" asp-action="Delete" asp-route-id="@item.AssetDetailID"><img src="~/images/icons/Delete.png" style="max-height:30px; max-width:30px" /></a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>

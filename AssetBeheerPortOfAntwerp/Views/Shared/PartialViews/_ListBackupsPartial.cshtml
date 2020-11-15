@@ -1,0 +1,33 @@
+﻿@model List<Models.Backup>
+
+    <table class="table-sm col-sm-12">
+        <thead style="background-color: lightgrey">
+            <tr>
+                <th hidden></th>
+                <th scope="col">@Html.DisplayNameFor(model => model[0].BackupDate)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model[0].Person.FullName)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model[0].BackupType.Name)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model[0].Notes)</th>
+                <th scope="col" width="70"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                @foreach (var item in Model.OrderByDescending(x => x.BackupDate).Take(5))
+                {
+                    <tr>
+                        <td hidden>@item.BackupID</td>
+                        <td>@item.BackupDate.ToShortDateString()</td>
+                        <td>@item.Person.FullName</td>
+                        <td>@item.BackupType.Name</td>
+                        <td>@item.Notes</td>
+                        <td>
+                            <a asp-controller="Backup" asp-action="Edit" asp-route-id="@item.BackupID"><img src="~/images/icons/Edit.png" style="max-height:30px; max-width:30px" /></a>
+                            <a asp-controller="Backup" asp-action="Delete" asp-route-id="@item.BackupID"><img src="~/images/icons/Delete.png" style="max-height:30px; max-width:30px" /></a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>

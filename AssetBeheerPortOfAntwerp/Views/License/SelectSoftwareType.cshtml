@@ -1,0 +1,103 @@
+﻿@model Models.SoftwareType
+
+@{
+    ViewData["Title"] = "License - Select";
+    ViewData["PageTitle"] = "License";
+    ViewData["PageType"] = "Select";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    //long SelectedSoftwareTypeID = 0;
+}
+
+<br />
+<form asp-controller="License" asp-action="SelectSoftwareType" method="post">
+    <div>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        @*<input type="hidden" asp-for="SoftwareTypeID" />*@
+    </div>
+    <div class="form-group row">
+        <label asp-for="SoftwareTypeID" class="col-sm-3 col-form-label">Please select a software type:</label>
+        <div class="col-sm-9">
+            <select asp-for="SoftwareTypeID" class="form-control" asp-items="ViewBag.SoftwareTypeID"><option disabled selected>---Select---</option></select>
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <input type="submit" value="Go next" asp-route-assetID="@ViewData["AssetID"]" class="submitbutton btn btn-primary" />    |
+        <a class="btn btn-outline-info" asp-controller="Asset" asp-action="Edit"
+        asp-route-id="@ViewData["AssetID"]">@Localizer["Back"]</a>
+    </div>
+</form>
+
+
+
+
+<!--<script>
+
+
+
+    $(document).ready(function () {
+
+        $('#SelectLicenseType').change(function () {-->
+
+            @*@SelectedSoftwareTypeID = $(this).val();*@
+
+
+            <!--//$("#LicenseList").load('/License/SelectLicense');-->
+            @*var test = ('@ViewData["AssetID"]');
+            var test2 = $('#' + '@(ViewBag.AssetID)').val();*@
+
+            <!--//stop from from submitting normally
+           // event.preventDefault();
+
+                $.ajax({
+                    url: '/License/SelectSoftwareType',
+                    type: 'POST',
+                    data: { assetID: ('@ViewData["AssetID"]'), selectedSoftwareTypeID: $(this).val()},
+                    datatype: 'json',
+                    success: function (data) {
+                        $('#LicenseList').html(data);
+
+                        //$("#enquirypopup").modal("hide");
+                        //location.reload();
+                    }
+                });
+            //});
+        });
+
+
+
+
+        $('.btn-link').hide();
+
+        var isChanged = false;
+        var isSubmit = false;
+
+        $('#onchange').change(function () {
+
+            if (isChanged == false) {
+                $('.create').hide();
+                $('.btn-link').show();
+
+                isChanged = true;
+            }
+
+        });
+
+        $('.submitbutton').click(function () {
+            isSubmit = true;
+        });
+
+        window.onbeforeunload = function (e) {
+            if (isChanged && (!isSubmit)) {
+                return "Make sure to save all changes.";
+            }
+        };
+
+    });
+
+
+
+
+
+</script>-->

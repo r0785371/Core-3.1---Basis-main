@@ -1,0 +1,146 @@
+﻿@model IEnumerable<Models.License>
+
+@{
+    ViewData["Title"] = "License - Index";
+    ViewData["PageTitle"] = "License";
+    ViewData["PageType"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<form asp-action="Index" method="get">
+    <div>
+        <div class="float-sm-left row col-sm-9">
+            <div class="input-group col-md-8">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><img src="~/images/icons/search.png" 
+                    style="max-height: 20px; max-width: 20px;" /></div>
+                </div>
+                <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]"
+                class="form-control col-9" />
+                <input type="submit" value="Search" class="btn-default" />
+
+            </div>
+            <div>
+                <a class="btn btn-info" asp-action="Index">@Localizer["Back to Full list"]</a>
+            </div>
+        </div>
+        <div class="text-sm-right">
+            <h4><a asp-action="Create">@Localizer["Create New"]</a></h4>
+        </div>
+    </div>
+    <br />
+
+    <div class="row">
+        <table class="table">
+            <thead style="background-color: lightgrey">
+                <tr>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["StatusSortParm"]"
+                        asp-route-searchString="@ViewData["CurrentFilter"]">
+                            <img src="~/images/icons/search.png" style="max-height: 15px; max-width: 15px; "
+                            />@Html.DisplayNameFor(model => model.Status)
+                        </a>
+                    </th>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["PurchaseItemSortParm"]"
+                        asp-route-searchString="@ViewData["CurrentFilter"]">
+                            <img src="~/images/icons/search.png" style="max-height: 15px; max-width: 15px; "
+                            />@Html.DisplayNameFor(model => model.PurchaseItem)
+                        </a>
+                    </th>
+                    @*<th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["NoSortParm"]"
+                        asp-route-searchString="@ViewData["CurrentFilter"]">
+                            <img src="~/images/icons/search.png" style="max-height: 15px; max-width: 15px; "
+                            />@Html.DisplayNameFor(model => model.No)
+                        </a>
+                    </th>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["KeySortParm"]"
+                        asp-route-searchString="@ViewData["CurrentFilter"]">
+                            <img src="~/images/icons/search.png" style="max-height: 15px; max-width: 15px; "
+                            />@Html.DisplayNameFor(model => model.Key)
+                        </a>
+                    </th>*@
+                    <th>
+                        @Html.DisplayNameFor(model => model.ColFileName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.HasCol)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ValidityTypeTime)
+                    </th>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["LicenseTypeSortParm"]"
+                        asp-route-searchString="@ViewData["CurrentFilter"]">
+                            <img src="~/images/icons/search.png" style="max-height: 15px; max-width: 15px; "
+                            />@Html.DisplayNameFor(model => model.LicenseType)
+                        </a>
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.QtyLimited)
+                    </th>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["LicenseValidityTypeSortParm"]"
+                        asp-route-searchString="@ViewData["CurrentFilter"]">
+                            <img src="~/images/icons/search.png" style="max-height: 15px; max-width: 15px; "
+                            />@Html.DisplayNameFor(model => model.LicenseValidityType)
+                        </a>
+                    </th>
+                    <th width="120"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PurchaseItem.Product.Name)
+                        </td>
+                        @*<td>
+                            @Html.DisplayFor(modelItem => item.No)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Key)
+                        </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ColFileName)
+                        </td>
+                        <td>
+                            @if (item.HasCol == true)
+                            {
+                                <a asp-action="DownloadFile" asp-route-licenseID="@item.LicenseID" target="_blank">
+                                @Localizer["COL"]</a>
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ValidityTypeTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LicenseType.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.QtyLimited)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LicenseValidityType.Name)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.LicenseID">
+                            <img src="~/images/icons/Edit.png" style="max-height:30px; max-width:30px" /></a>
+                            <a asp-action="Details" asp-route-id="@item.LicenseID">
+                            <img src="~/images/icons/Clipboard.png" style="max-height:30px; max-width:30px" /></a>
+                            <a asp-action="Delete" asp-route-id="@item.LicenseID">
+                            <img src="~/images/icons/Delete.png" style="max-height:30px; max-width:30px" /></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</form>

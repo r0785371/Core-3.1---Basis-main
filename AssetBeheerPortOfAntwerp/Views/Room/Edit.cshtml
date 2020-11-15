@@ -1,0 +1,73 @@
+﻿@model Models.Room
+
+@{
+    ViewData["Title"] = "Room - Edit";
+    ViewData["PageTitle"] = "Room";
+    ViewData["PageType"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int qty = 0;
+    var test = int.TryParse(ViewData["Qty"] as string, out qty);
+
+    string location = qty > 1 ? " Locations" : " Location";
+
+}
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="RoomID" />
+            <div class="form-group">
+                <label asp-for="Ref" class="control-label"></label>
+                <input asp-for="Ref" class="form-control" />
+                <span asp-validation-for="Ref" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" /> |
+                <a class="btn btn-outline-info" asp-action="Index">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<br />
+
+@if (qty > 0)
+{
+    <br />
+    <h3>@qty x @location linkted to this room!</h3>
+    <hr />
+    <table class="table">
+        @*<thead>
+                <tr>
+                    <th>Locations</th>
+                    <th></th>
+                </tr>
+            </thead>*@
+        <tbody>
+            @foreach (var item in ViewBag.ListLocations as List<Models.Location>)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LocationDescription)
+                    </td>
+                    <td>
+                        <a asp-controller="Location" asp-action="Edit" asp-route-id="@item.LocationID"><img src="~/images/icons/Edit.png" style="max-height:30px; max-width:30px" /></a>
+                        <a asp-controller="Location" asp-action="Details" asp-route-id="@item.LocationID"><img src="~/images/icons/Clipboard.png" style="max-height:30px; max-width:30px" /></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <hr />
+}
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

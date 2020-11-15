@@ -1,0 +1,50 @@
+﻿@model Models.PersonGroupPeople
+
+@{
+    ViewData["Title"] = "Person of group - Delete";
+    ViewData["PageTitle"] = "Person of group";
+    ViewData["PageType"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+
+<br />
+<h3>Are you sure you want to remove this person: "@Model.Person.FullName" from the group: "@Model.GroupPeoples.GroupName"?</h3>
+    <div>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Person.FullName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Person.FullName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.GroupPeoples.GroupName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.GroupPeoples.GroupName)
+            </dd>
+        </dl>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="PersonGroupPeopleID" />
+
+
+
+            @if ((bool)ViewData["GoToGroup"] == true)
+            {
+                <input type="submit" value="Delete" class="btn btn-danger" asp-route-goToGroup="@ViewBag.GoToGroup" />
+                <a class="btn btn-outline-info" asp-controller="GroupPeople" asp-action="Edit" asp-route-id="@Model.GroupPeopleID">Back</a>
+            }
+            @if ((bool)ViewData["GoToPerson"] == true)
+            {
+                <input type="submit" value="Delete" class="btn btn-danger" asp-route-goToPerson="@ViewBag.GoToPerson" />
+                <a class="btn btn-outline-info" asp-controller="Person" asp-action="Edit" asp-route-id="@Model.PersonID">Back</a>
+            }
+
+            @*<input type="submit" value="Delete" class="btn btn-danger" /> |
+            <a class="btn btn-outline-info" asp-controller="Person" asp-action="Edit" asp-route-id="@Model.PersonID">Back</a>*@
+        </form>
+    </div>

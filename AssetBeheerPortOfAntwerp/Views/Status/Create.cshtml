@@ -1,0 +1,106 @@
+﻿@model Models.Status
+
+@{
+    ViewData["Title"] = "Status - Create";
+    ViewData["PageTitle"] = "Status";
+    ViewData["PageType"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="HasProduct" /> @Html.DisplayNameFor(model => model.HasProduct)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductSequence" class="control-label"></label>
+                <input asp-for="ProductSequence" class="form-control" />
+                <span asp-validation-for="ProductSequence" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="NoSupport" /> @Html.DisplayNameFor(model => model.NoSupport)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="HasPurchase" /> @Html.DisplayNameFor(model => model.HasPurchase)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="PurchaseSequence" class="control-label"></label>
+                <input asp-for="PurchaseSequence" class="form-control" />
+                <span asp-validation-for="PurchaseSequence" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="GenerateAssetOrLicense" /> @Html.DisplayNameFor(model => model.GenerateAssetOrLicense)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="HasAsset" /> @Html.DisplayNameFor(model => model.HasAsset)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="AssetSequence" class="control-label"></label>
+                <input asp-for="AssetSequence" class="form-control" />
+                <span asp-validation-for="AssetSequence" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="HasLicense" /> @Html.DisplayNameFor(model => model.HasLicense)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="LicenceSequence" class="control-label"></label>
+                <input asp-for="LicenceSequence" class="form-control" />
+                <span asp-validation-for="LicenceSequence" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="ToOrder" /> @Html.DisplayNameFor(model => model.ToOrder)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Ordered" /> @Html.DisplayNameFor(model => model.Ordered)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="OnStock" /> @Html.DisplayNameFor(model => model.OnStock)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="InUse" /> @Html.DisplayNameFor(model => model.InUse)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="OutOfUse" /> @Html.DisplayNameFor(model => model.OutOfUse)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" /> |
+                <a class="btn btn-outline-info" asp-action="Index">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>

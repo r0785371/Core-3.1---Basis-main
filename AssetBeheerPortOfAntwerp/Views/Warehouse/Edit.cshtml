@@ -1,0 +1,87 @@
+﻿@model Models.Warehouse
+
+@{
+    ViewData["Title"] = "Warehouse - Edit";
+    ViewData["PageTitle"] = "Warehouse";
+    ViewData["PageType"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<hr />
+<div id="onchange" class="m-sm-1">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="WarehouseID" />
+
+            <div class="form-row">
+                <div class="form-group col-sm-2">
+                    <label asp-for="Ref" class="control-label"></label>
+                    <input asp-for="Ref" class="form-control" />
+                    <span asp-validation-for="Ref" class="text-danger"></span>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label asp-for="LocationId" class="control-label"></label>
+                    <select asp-for="LocationId" class="form-control" asp-items="ViewBag.LocationId"><option disabled selected>---Select---</option></select>
+                    <span asp-validation-for="LocationId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="submitbutton btn btn-primary" /> |
+                <a class="btn btn-outline-info" asp-action="Index">Back to List</a>
+            </div>
+        </form>
+</div>
+
+@if (ViewData["ListAssets"] != null)
+{
+    <br />
+    <hr />
+    <h3>Asset(s)</h3>
+    <div>
+        <partial name="PartialViews/_ListOfAssetsPartial" model="@ViewData["ListAssets"]" />
+    </div>
+}
+
+@section Scripts {
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('.btn-link').hide();
+
+            var isChanged = false;
+            var isSubmit = false;
+
+            $('#onchange').change(function () {
+
+                if (isChanged == false) {
+                    $('.create').hide();
+                    $('.btn-link').show();
+
+                    isChanged = true;
+                }
+            });
+
+            $('.submitbutton').click(function () {
+                isSubmit = true;
+            });
+
+            window.onbeforeunload = function (e) {
+                if (isChanged && (!isSubmit)) {
+                    return "Make sure to save all changes.";
+                }
+            };
+
+        });
+
+    </script>
+
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Models.Location>
+
+@{
+    ViewData["Title"] = "Location - Index";
+    ViewData["PageTitle"] = "Location";
+    ViewData["PageType"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<div class="text-right">
+    <h4><a asp-action="Create">Create New</a></h4>
+</div>
+<table class="table">
+    <thead style="background-color: lightgrey">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Building)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Floor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Room)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RoomNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsWarehouse)
+            </th>
+            <th width="120"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderBy(m => m.Building.Ref))
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Building.Ref) - @Html.DisplayFor(modelItem => item.Building.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Floor.Ref)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Room.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoomNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsWarehouse)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.LocationID"><img src="~/images/icons/Edit.png" style="max-height:30px; max-width:30px" /></a>
+                    <a asp-action="Details" asp-route-id="@item.LocationID"><img src="~/images/icons/Clipboard.png" style="max-height:30px; max-width:30px" /></a>
+                    <a asp-action="Delete" asp-route-id="@item.LocationID"><img src="~/images/icons/Delete.png" style="max-height:30px; max-width:30px" /></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

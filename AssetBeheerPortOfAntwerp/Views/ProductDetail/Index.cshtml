@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Models.ProductDetail>
+
+@{
+    ViewData["Title"] = "Product detail - Index";
+    ViewData["PageTitle"] = "Product detail";
+    ViewData["PageType"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div class="text-right">
+    <h4><a asp-action="Create">Create New</a></h4>
+</div>
+<table class="table">
+    <thead style="background-color: lightgrey">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Detail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Definition1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Definition2)
+            </th>
+            <th width="120"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Detail.DetailID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Definition1)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Definition2)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ProductDetailID"><img src="~/images/icons/Edit.png" style="max-height:30px; max-width:30px" /></a>
+                    <a asp-action="Details" asp-route-id="@item.ProductDetailID"><img src="~/images/icons/Clipboard.png" style="max-height:30px; max-width:30px" /></a>
+                    <a asp-action="Delete" asp-route-id="@item.ProductDetailID"><img src="~/images/icons/Delete.png" style="max-height:30px; max-width:30px" /></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

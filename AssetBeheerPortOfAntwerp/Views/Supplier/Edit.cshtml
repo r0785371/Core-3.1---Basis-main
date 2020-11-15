@@ -1,0 +1,128 @@
+﻿@model Models.Supplier
+
+@{
+    ViewData["Title"] = "Supplier - Edit";
+    ViewData["PageTitle"] = "Supplier";
+    ViewData["PageType"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<br />
+@*<hr />*@
+<div id="pageMain">
+    <form asp-action="Edit">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="SupplierID" />
+        <div class="form-row">
+            <div class="form-group col-sm-6">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group col-sm-1"></div>
+            <div class="form-group col-sm-1">
+                <label class="form-label" asp-for="HasHardware"></label>
+                <input class="form-control check-input" asp-for="HasHardware" />
+            </div>
+
+            <div class="form-group col-sm-1">
+                <label class="form-label" asp-for="HasSoftware"></label>
+                <input class="form-control check-input" asp-for="HasSoftware" />
+            </div>
+            <div class="form-group col-sm-2"></div>
+            <div class="form-group col-sm-1">
+
+                <label class="form-label" asp-for="IsActief"></label>
+                <input class="form-control check-input" asp-for="IsActief" />
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-sm-10">
+                <label asp-for="Street" class="control-label"></label>
+                <input asp-for="Street" class="form-control" />
+                <span asp-validation-for="Street" class="text-danger"></span>
+            </div>
+            <div class="form-group col-sm-2">
+                <label asp-for="Number" class="control-label"></label>
+                <input asp-for="Number" class="form-control" />
+                <span asp-validation-for="Number" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-sm-2">
+                <label asp-for="Postcode" class="control-label"></label>
+                <input asp-for="Postcode" class="form-control" />
+                <span asp-validation-for="Postcode" class="text-danger"></span>
+            </div>
+            <div class="form-group col-sm-4">
+                <label asp-for="City" class="control-label"></label>
+                <input asp-for="City" class="form-control" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+            <div class="form-group col-sm-3">
+                <label asp-for="State" class="control-label"></label>
+                <input asp-for="State" class="form-control" />
+                <span asp-validation-for="State" class="text-danger"></span>
+            </div>
+            <div class="form-group col-sm-3">
+                <label asp-for="Country" class="control-label"></label>
+                <input asp-for="Country" class="form-control" />
+                <span asp-validation-for="Country" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-sm-4">
+                <label asp-for="ServiceDeskTel" class="control-label"></label>
+                <input asp-for="ServiceDeskTel" class="form-control" />
+                <span asp-validation-for="ServiceDeskTel" class="text-danger"></span>
+            </div>
+            <div class="form-group col-sm-4">
+                <label asp-for="ServiceDeskMail" class="control-label"></label>
+                <input asp-for="ServiceDeskMail" class="form-control" />
+                <span asp-validation-for="ServiceDeskMail" class="text-danger"></span>
+            </div>
+            <div class="form-group col-sm-4">
+                <label asp-for="ServiceDeskWeb" class="control-label"></label>
+                <input asp-for="ServiceDeskWeb" class="form-control" />
+                <span asp-validation-for="ServiceDeskWeb" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary" /> |
+            <a class="btn btn-outline-info" asp-action="Index">Back to List</a>
+        </div>
+    </form>
+</div>
+<br />
+
+@if (ViewBag.ListHardware != null)
+{
+    <h3>Hardware</h3>
+    <div>
+        <partial name="_ListHardwarePartial" model="@ViewBag.ListHardware" />
+    </div>
+    <br />
+}
+
+@if (ViewBag.ListSoftware != null)
+{
+    <h3>Software</h3>
+    <div>
+        <partial name="_ListSoftwarePartial" model="@ViewBag.ListSoftware" />
+        <br />
+    </div>
+}
+
+@if (ViewBag.ListPurchase != null)
+{
+    <h3>Purchase</h3>
+    <div>
+        <partial name="_ListPurchasePartial" model="@ViewBag.ListPurchase" />
+    </div>
+}
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

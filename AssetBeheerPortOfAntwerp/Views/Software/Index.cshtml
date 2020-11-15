@@ -1,0 +1,121 @@
+﻿@model IEnumerable<Models.Software>
+
+@{
+    ViewData["Title"] = "Software - Index";
+    ViewData["PageTitle"] = "Software";
+    ViewData["PageType"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+    <form asp-action="Index" method="get">
+        <div>
+            <div class="float-sm-left row col-sm-9">
+                <div class="input-group col-md-8">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><img src="~/images/icons/search.png" style="max-height: 20px; max-width: 20px;" /></div>
+                    </div>
+                    <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" class="form-control col-9" />
+                    <input type="submit" value="Search" class="btn-default" />
+
+                </div>
+                <div>
+                    <a class="btn btn-info" asp-action="Index">Back to Full list</a>
+                </div>
+            </div>
+            <div class="text-sm-right">
+                <h4><a asp-action="Create">Create New</a></h4>
+            </div>
+        </div>
+        <br />
+
+        <table class="table-sm col-12">
+            <thead style="background-color: lightgrey">
+                <tr>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["StatusSortParm"]" asp-route-searchString="@ViewData["CurrentFilter"]">
+                            <img src="~/images/icons/search.png" style="max-height: 15px; max-width: 15px; " />@Html.DisplayNameFor(model => model.Status)
+                        </a>
+                    </th>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["ProductTypeSortParm"]" asp-route-searchString="@ViewData["CurrentFilter"]">
+                            <img src="~/images/icons/search.png" style="max-height: 15px; max-width: 15px; " />@Html.DisplayNameFor(model => model.ProductType)
+                        </a>
+                    </th>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["SoftwareTypeSortParm"]" asp-route-searchString="@ViewData["CurrentFilter"]">
+                            <img src="~/images/icons/search.png" style="max-height: 15px; max-width: 15px; " />@Html.DisplayNameFor(model => model.SoftwareType)
+                        </a>
+                    </th>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-searchString="@ViewData["CurrentFilter"]">
+                            <img src="~/images/icons/search.png" style="max-height: 15px; max-width: 15px; " />@Html.DisplayNameFor(model => model.Name)
+                        </a>
+                    </th>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["DescriptionSortParm"]" asp-route-searchString="@ViewData["CurrentFilter"]">
+                            <img src="~/images/icons/search.png" style="max-height: 15px; max-width: 15px; " />@Html.DisplayNameFor(model => model.Description)
+                        </a>
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SoftwareVersion)
+                    </th>
+                    @*<th>
+                        @Html.DisplayNameFor(model => model.HasFile)
+                    </th>*@
+                    <th>
+                        @Html.DisplayNameFor(model => model.SpecificationFileName)
+                    </th>
+                    <th>
+                        Info PDF
+                    </th>
+                    <th width="100"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductType.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SoftwareType.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SoftwareVersion)
+                        </td>
+                        @*<td>
+                            @Html.DisplayFor(modelItem => item.HasFile)
+                        </td>*@
+                        <td>
+                            @if (item.HasFile == true)
+                            {
+                                @Html.DisplayFor(modelItem => item.SpecificationFileName)
+                            }
+                        </td>
+                        <td>
+                            @if (item.HasFile == true)
+                            {
+                                <a asp-action="DownloadFile" asp-route-productID="@item.ProductID" target="_blank">PDF</a>
+                            }
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.ProductID"><img src="~/images/icons/Edit.png" style="max-height:30px; max-width:30px" /></a>
+                            <a asp-action="Details" asp-route-id="@item.ProductID"><img src="~/images/icons/Clipboard.png" style="max-height:30px; max-width:30px" /></a>
+                            <a asp-action="Delete" asp-route-id="@item.ProductID"><img src="~/images/icons/Delete.png" style="max-height:30px; max-width:30px" /></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </form>

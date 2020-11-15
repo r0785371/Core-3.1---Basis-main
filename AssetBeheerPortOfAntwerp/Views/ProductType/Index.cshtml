@@ -1,0 +1,118 @@
+﻿@model IEnumerable<Models.ProductType>
+
+@{
+    ViewData["Title"] = "Product type - Index";
+    ViewData["PageTitle"] = "Product type";
+    ViewData["PageType"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div class="text-right">
+    <h4><a asp-action="Create">Create New</a></h4>
+</div>
+<div>
+    <table class="table">
+        <thead style="background-color: lightgrey">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductChild)
+                </th>
+                @*<th>
+                    @Html.DisplayNameFor(model => model.Ref)
+                </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                @*<th>
+                    @Html.DisplayNameFor(model => model.TagNo)
+                </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.IsGroup)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductTypeGroup)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsProduct)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsLicense)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsAsset)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsComponent)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HasBackup)
+                </th>
+                @*<th>
+                    @Html.DisplayNameFor(model => model.BackupInterval)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ExpirePeriodMonth)
+                </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.WarningPeriod)
+                </th>
+                <th width="120"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductChild)
+                    </td>
+                    @*<td>
+                        @Html.DisplayFor(modelItem => item.Ref)
+                    </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    @*<td>
+                        @Html.DisplayFor(modelItem => item.TagNo)
+                    </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsGroup)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductTypeGroup.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsProduct)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsLicense)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsAsset)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsComponent)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HasBackup)
+                    </td>
+                    @*<td>
+                        @Html.DisplayFor(modelItem => item.BackupInterval)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ExpirePeriodMonth)
+                    </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WarningPeriod.Name)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.ProductTypeID"><img src="~/images/icons/Edit.png" style="max-height:30px; max-width:30px" alt="Edit"/></a>
+                        <a asp-action="Details" asp-route-id="@item.ProductTypeID"><img src="~/images/icons/Clipboard.png" style="max-height:30px; max-width:30px" alt="View" /></a>
+                        <a asp-action="Delete" asp-route-id="@item.ProductTypeID"><img src="~/images/icons/Delete.png" style="max-height:30px; max-width:30px" alt="Delete" /></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,250 @@
+﻿@model Models.Asset
+
+@{
+    ViewData["Title"] = "Create";
+    ViewData["PageTitle"] = "Asset";
+    ViewData["PageType"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<form asp-action="Create" asp-antiforgery="true">
+    <div>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="AssetID" />
+        <input type="hidden" asp-for="AssetTag" />
+        <input type="hidden" asp-for="PurchaseItemID" />
+    </div>
+
+
+    <div class="form-row">
+        <div class="form-group col-sm-2">
+            <label asp-for="AssetTag" class="control-label"></label>
+            <input asp-for="AssetTag" class="form-control" disabled>
+            <span asp-validation-for="AssetTag" class="text-danger"></span>
+        </div>
+        <div class="form-group col-sm-6">
+            <label asp-for="PurchaseItemID" class="control-label"></label>
+            <select asp-for="PurchaseItemID" class="form-control" asp-items="ViewBag.PurchaseItemID" disabled><option disabled selected>---Select---</option></select>
+            <span asp-validation-for="PurchaseItemID" class="text-danger"></span>
+        </div>
+        <div class="form-group col-sm-4">
+            <label asp-for="StatusID" class="control-label"></label>
+            <select asp-for="StatusID" class="form-control" asp-items="ViewBag.StatusID"><option disabled selected>---Select---</option></select>
+            <span asp-validation-for="StatusID" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-sm-6">
+            <label asp-for="SerieNo" class="control-label"></label>
+            <input asp-for="SerieNo" class="form-control">
+            <span asp-validation-for="SerieNo" class="text-danger"></span>
+        </div>
+        <div class="form-group col-sm-6">
+            <label asp-for="ServiceTag" class="control-label"></label>
+            <input asp-for="ServiceTag" class="form-control">
+            <span asp-validation-for="ServiceTag" class="text-danger"></span>
+        </div>
+    </div>
+
+    @*<div class="form-row">
+            <div class="form-group col-sm-4">
+                <label asp-for="AssetOwnerID" class="control-label"></label>
+                <select id="AssetOwnerID" asp-for="AssetOwnerID" class="form-control" asp-items="@ViewBag.AssetOwnerID"><option disabled selected>---Select---</option></select>
+                <span asp-validation-for="AssetOwnerID" class="text-danger"></span>
+            </div>
+
+            <div class="form-group col-sm-4">
+                <label asp-for="OperationalSiteLocationID" class="control-label"></label>
+                <select id="Location" asp-for="OperationalSiteLocationID" class="form-control" asp-items="@ViewBag.OperationalSiteLocationID"><option disabled selected>---Select---</option><option value="null">---None---</option></select>
+                <span asp-validation-for="OperationalSiteLocationID" class="text-danger"></span>
+            </div>
+            <div class="form-group col-sm-2">
+                <label asp-for="RackLocationID" class="control-label"></label>
+                <select id="RackLocationID" asp-for="RackLocationID" class="form-control" asp-items="ViewBag.RackLocationID"><option disabled selected>---Select---</option><option value="null">---None---</option></select>
+                <span asp-validation-for="RackLocationID" class="text-danger"></span>
+            </div>
+            <div class="form-group col-sm-2">
+                <label asp-for="URackID" class="control-label"></label>
+                <select asp-for="URackID" class="form-control" asp-items="ViewBag.URackID"><option disabled selected>---Select---</option><option value="null">---None---</option></select>
+                <span asp-validation-for="URackID" class="text-danger"></span>
+            </div>
+        </div>*@
+
+    <div class="form-row">
+        <div class="form-group col-sm-3">
+            <label asp-for="AssetOwnerID" class="control-label"></label>
+            <select id="AssetOwnerID" asp-for="AssetOwnerID" class="form-control" asp-items="ViewBag.AssetOwnerID"><option disabled selected>---Select---</option></select>
+            <span asp-validation-for="AssetOwnerID" class="text-danger"></span>
+        </div>
+        <div id="divLocation" class="form-group col-sm-6">
+            <label asp-for="OperationalSiteLocationID" class="control-label"></label>
+            <select id="Location" asp-for="OperationalSiteLocationID" class="form-control" asp-items="ViewBag.OperationalSiteLocationID"><option disabled selected>---Select---</option><option value="null">---None---</option></select>
+            <span asp-validation-for="OperationalSiteLocationID" class="text-danger"></span>
+        </div>
+        <div id="divRackLocation" class="form-group col-sm-2">
+            <label asp-for="RackLocationID" class="control-label"></label>
+            <select id="RackLocationID" asp-for="RackLocationID" class="form-control" asp-items="ViewBag.RackLocationID"><option disabled selected>---Select---</option><option value="null">---None---</option></select>
+            <span asp-validation-for="RackLocationID" class="text-danger"></span>
+        </div>
+        <div id="divURack" class="form-group col-sm-1">
+            <label asp-for="URackID" class="control-label"></label>
+            <select id="URackID" asp-for="URackID" class="form-control" asp-items="ViewBag.URackID"><option disabled selected>---Select---</option><option value="null">---None---</option></select>
+            <span asp-validation-for="URackID" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-sm-6">
+            <label asp-for="TargetDescription" class="control-label"></label>
+            <input asp-for="TargetDescription" class="form-control" />
+            <span asp-validation-for="TargetDescription" class="text-danger"></span>
+        </div>
+        <div class="form-group col-sm-6">
+            <label asp-for="Remarks" class="control-label"></label>
+            <input asp-for="Remarks" class="form-control" />
+            <span asp-validation-for="Remarks" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-sm-2">
+            <label asp-for="DeliveryDate" class="control-label"></label>
+            <input asp-for="DeliveryDate" class="form-control" />
+            <span asp-validation-for="DeliveryDate" class="text-danger"></span>
+        </div>
+        <div class="form-group col-sm-2">
+            <label asp-for="WarentyIntervalMonth" class="control-label"></label>
+            <input asp-for="WarentyIntervalMonth" class="form-control" />
+            <span asp-validation-for="WarentyIntervalMonth" class="text-danger"></span>
+        </div>
+        <div class="form-group col-sm-2">
+            <label asp-for="UsingDateStart" class="control-label"></label>
+            <input asp-for="UsingDateStart" class="form-control" />
+            <span asp-validation-for="UsingDateStart" class="text-danger"></span>
+        </div>
+        <div class="form-group col-sm-2">
+            <label asp-for="ExpirePeriodMonth" class="control-label"></label>
+            <input asp-for="ExpirePeriodMonth" class="form-control" />
+            <span asp-validation-for="ExpirePeriodMonth" class="text-danger"></span>
+        </div>
+        <div class="form-group col-sm-2">
+            <label asp-for="WarningPeriodID" class="control-label"></label>
+            <select asp-for="WarningPeriodID" class="form-control" asp-items="ViewBag.WarningPeriodID"><option disabled selected>---Select---</option></select>
+            <span asp-validation-for="WarningPeriodID" class="text-danger"></span>
+        </div>
+        <div class="form-group col-sm-2">
+            <label asp-for="UsingDateEnd" class="control-label"></label>
+            <input asp-for="UsingDateEnd" class="form-control" />
+            <span asp-validation-for="UsingDateEnd" class="text-danger"></span>
+        </div>
+    </div>
+
+    @*<div class="form-row">
+        <div class="form-group col-sm-3">
+            <label asp-for="DeliveryDate" class="control-label"></label>
+            <input asp-for="DeliveryDate" class="form-control" />
+            <span asp-validation-for="DeliveryDate" class="text-danger"></span>
+        </div>
+        <div class="form-group col-sm-3">
+            <label asp-for="WarentyIntervalMonth" class="control-label"></label>
+            <input asp-for="WarentyIntervalMonth" class="form-control" />
+            <span asp-validation-for="WarentyIntervalMonth" class="text-danger"></span>
+        </div>
+        <div class="form-group col-sm-3">
+            <label asp-for="ExpirePeriodMonth" class="control-label"></label>
+            <input asp-for="ExpirePeriodMonth" class="form-control" />
+            <span asp-validation-for="ExpirePeriodMonth" class="text-danger"></span>
+        </div>
+        <div class="form-group col-sm-3">
+            <label asp-for="WarningPeriodID" class="control-label"></label>
+            <select asp-for="WarningPeriodID" class="form-control" asp-items="ViewBag.WarningPeriodID"><option disabled selected>---Select---</option></select>
+            <span asp-validation-for="WarningPeriodID" class="text-danger"></span>
+        </div>
+    </div>*@
+    <div>
+        <text>Asset(s) that still need to be added: @ViewData["QtyAssetsStillNeedToAdd"].ToString() x</text>
+    </div>
+    <br />
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" asp-route-purchaseItemID="@Model.PurchaseItemID" /> |
+        <a class="btn btn-outline-info" asp-action="Index">Back to List</a>
+    </div>
+</form>
+
+
+@section Scripts {
+
+    <script>
+
+        $(document).ready(function () {
+
+            $('#AssetOwnerID').change(function () {
+                $.ajax({
+                    url: '/Asset/OperationalSiteLocationByOwner',
+                    type: 'POST',
+                    data: { assetOwnerID: $(this).val() },
+                    datatype: 'json',
+                    success: function (data) {
+                        var options = '<option disabled selected>---Select---</option><option value="null">---None---</option>';
+                        //var options = '';
+                        $.each(data, function () {
+                            options += '<option value="' + this.id + '">' + this.location + '</option>';
+                        });
+                        $('#Location').prop('disabled', false).html(options);
+                    }
+                });
+            });
+
+            $('#Location').change(function () {
+                $.ajax({
+                    url: '/Asset/GetRackLocationsIDByOperationalSiteLocation',
+                    type: 'POST',
+                    data: { operationalSiteLocationID: $(this).val() },
+                    datatype: 'json',
+                    success: function (data) {
+                        var options = '<option disabled selected>---Select---</option><option value="null">---None---</option>';
+                        //var options = '';
+                        $.each(data, function () {
+                            options += '<option value="' + this.id + '">' + this.rack + '</option>';
+                        });
+                        //$('#Location').prop('disabled', false).html(options);
+                        $('#RackLocationID').prop('disabled', false).html(options);
+                    }
+                });
+            });
+
+            $('.btn-link').hide();
+
+            var isChanged = false;
+            var isSubmit = false;
+
+            $('#onchange').change(function () {
+
+                if (isChanged == false) {
+                    $('.create').hide();
+                    $('.btn-link').show();
+
+                    isChanged = true;
+                }
+            });
+
+            $('.submitbutton').click(function () {
+                isSubmit = true;
+            });
+
+            window.onbeforeunload = function (e) {
+                if (isChanged && (!isSubmit)) {
+                    return "Make sure to save all changes.";
+                }
+            };
+        });
+
+    </script>
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+
+

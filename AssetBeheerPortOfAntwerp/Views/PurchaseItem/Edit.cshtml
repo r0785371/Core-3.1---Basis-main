@@ -1,0 +1,134 @@
+﻿@model Models.PurchaseItem
+
+@{
+    ViewData["Title"] = "Purchase items - Edit";
+    ViewData["PageTitle"] = "Purchase items";
+    ViewData["PageType"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewData["PurchaseItemID"] = Model.PurchaseItemID;
+
+    var listAssets = ViewData["ListAssets"] as List<Models.Asset>;
+    int qtyAssets = listAssets.Count();
+
+    var listLicence = ViewData["ListLicense"] as List<Models.License>;
+    int qtyLicence = listLicence.Count();
+
+}
+
+<hr />
+<div>
+    <form asp-action="Edit">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="PurchaseItemID" />
+        <input type="hidden" asp-for="PurchaseID" />
+        <input type="hidden" asp-for="ProductID" />
+        <input type="hidden" asp-for="PurchaseQty" />
+        <input type="hidden" asp-for="StatusID" />
+
+        <div class="form-row">
+            @if (Model.Status.ToOrder == true || Model.Status.Ordered == true)
+            {
+                <div class="form-group col-sm-3">
+                    <label asp-for="StatusID" class="control-label"></label>
+                    <select asp-for="StatusID" class="form-control" asp-items="ViewBag.StatusID"><option selected>---Select---</option></select>
+                    <span asp-validation-for="StatusID" class="text-danger"></span>
+                </div>
+            }
+            else
+            {
+                <div class="form-group col-sm-3">
+                    <label asp-for="StatusID" class="control-label"></label>
+                    <select asp-for="StatusID" class="form-control" asp-items="ViewBag.StatusID" disabled><option selected>---Select---</option></select>
+                    <span asp-validation-for="StatusID" class="text-danger"></span>
+                </div>
+            }
+
+            <div class="form-group col-sm-1">
+                <label asp-for="PurchaseQty" class="control-label"></label>
+                <input asp-for="PurchaseQty" class="form-control" disabled />
+                <span asp-validation-for="PurchaseQty" class="text-danger"></span>
+            </div>
+            <div class="form-group col-sm-8">
+                <label asp-for="ProductID" class="control-label"></label>
+                <select asp-for="ProductID" class="form-control" asp-items="ViewBag.ProductID" disabled><option disabled selected>---Select---</option></select>
+                <span asp-validation-for="ProductID" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-sm-4">
+                <label asp-for="DeliveryDate" class="control-label"></label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><img src="~/images/icons/calendar.png" style="max-height: 25px; max-width: 25px;" /></div>
+                    </div>
+                    <input type="date" asp-for="DeliveryDate" asp-format="{0:yyyy-MM-dd}" class="form-control" />
+                </div>
+                <span asp-validation-for="DeliveryDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group col-sm-4">
+                <label asp-for="Price" class="control-label"></label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><img src="~/images/icons/euro-money-bag.png" style="max-height: 25px; max-width: 25px;" /></div>
+                    </div>
+                    <input type="number" asp-for="Price" class="form-control" />
+                </div>
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group col-sm-4">
+                <label asp-for="WarentyIntervalMonth" class="control-label"></label>
+                <input type="number" asp-for="WarentyIntervalMonth" class="form-control" />
+                <span asp-validation-for="WarentyIntervalMonth" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group btn-group-lg">
+            <input type="submit" value="Save" class="btn btn-primary" /> |
+
+            @*@if (Model.Product.ProductType.ProductChild == 0 && Model.HasAssetOrLicense == true)*@
+            @*@if (Model.Product.ProductType.ProductChild == 0 && qtyAssets > 0)
+        {
+            <a asp-controller="Asset" asp-action="EditList" asp-route-purchaseID="@Model.PurchaseID" asp-route-purchaseItemID="@Model.PurchaseItemID" class="btn btn-info">Update list of assets</a>
+        }*@
+
+            <a class="btn btn-outline-info" asp-controller="Purchase" asp-action="Edit" asp-route-id="@Model.PurchaseID">Back to Purchase</a>
+
+
+            @if (ViewData["AssetID"] != null)
+            {
+                <a class="btn btn-outline-info" asp-controller="Asset" asp-action="Edit" asp-route-id="@ViewData["AssetID"]">Back to Asset</a>
+            }
+            @if (ViewData["LicenseID"] != null)
+            {
+                <a class="btn btn-outline-info" asp-controller="License" asp-action="Edit" asp-route-id="@ViewData["LicenseID"]">Back to License</a>
+            }
+
+        </div>
+    </form>
+
+</div>
+
+
+@if (qtyAssets > 0)
+{
+    <hr />
+    <h3>Asstes</h3>
+
+    <partial name="PartialViews/_ListOfAssetsPartial" model="@listAssets" />
+}
+
+@if (qtyLicence > 0)
+{
+    <hr />
+    <h3>License</h3>
+
+    <partial name="PartialViews/_ListLicensesPartial" model="@listLicence" view-data="ViewData" />
+}
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

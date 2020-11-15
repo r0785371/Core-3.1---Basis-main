@@ -1,0 +1,44 @@
+﻿@model Models.AssetDetail
+
+@{
+    ViewData["Title"] = "Asset detail - Create";
+    ViewData["PageTitle"] = "Asset detail";
+    ViewData["PageType"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*<div class="form-group">
+                <label asp-for="AssetID" class="control-label"></label>
+                <input type="hidden" asp-for="AssetID" class ="form-control" />
+            </div>*@
+        <div class="form-group">
+            <label asp-for="DetailID" class="control-label"></label>
+            <select asp-for="DetailID" class="form-control" asp-items="ViewBag.DetailID"><option disabled selected>---Select---</option><option value="null">---None---</option></select>
+            <span asp-validation-for="DetailID" class="text-danger"></span>
+        </div>
+            <div class="form-group">
+                <label asp-for="Definition1" class="control-label"></label>
+                <input asp-for="Definition1" class="form-control" />
+                <span asp-validation-for="Definition1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Definition2" class="control-label"></label>
+                <input asp-for="Definition2" class="form-control" />
+                <span asp-validation-for="Definition2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button type="submit" value="Create" class="btn btn-primary" asp-route-assetID="@ViewData["AssetID"]">Save</button>|
+                <a class="btn btn-outline-info" asp-controller="Asset" asp-action="Edit" asp-route-id="@ViewData["AssetID"]">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

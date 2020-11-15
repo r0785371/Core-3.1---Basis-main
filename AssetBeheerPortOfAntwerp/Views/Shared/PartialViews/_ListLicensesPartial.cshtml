@@ -1,0 +1,81 @@
+﻿@model List<Models.License>
+
+@{ 
+    long purchaseItemID = (long)ViewData["PurchaseItemID"];
+}
+
+<table class="table-sm col-sm-12">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].PurchaseItem)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].ColFileName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].HasCol)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].ValidityTypeTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].LicenseType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].QtyLimited)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].LicenseValidityType)
+            </th>
+            <th width="70"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PurchaseItem.Product.Name)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.No)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Key)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.ColFileName)
+                </td>
+                <td>
+                    @if (item.HasCol == true)
+                    {
+                        <a asp-action="DownloadFile" asp-route-licenseID="@item.LicenseID" target="_blank">COL</a>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValidityTypeTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LicenseType.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QtyLimited)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LicenseValidityType.Name)
+                </td>
+                <td>
+                    <a asp-controller="License" asp-action="Edit" asp-route-id="@item.LicenseID" asp-route-purchaseItemID ="@purchaseItemID"><img src="~/images/icons/Edit.png" style="max-height:30px; max-width:30px" /></a>
+                    <a asp-controller="License" asp-action="Details" asp-route-id="@item.LicenseID"><img src="~/images/icons/Clipboard.png" style="max-height:30px; max-width:30px" /></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

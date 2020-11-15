@@ -1,0 +1,74 @@
+﻿@model BLL.ViewModels.softwareViewModel
+
+@{
+    ViewData["Title"] = "Software - Create";
+    ViewData["PageTitle"] = "Software";
+    ViewData["PageType"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<hr />
+<div class="row m-1">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="software.StatusID" class="control-label"></label>
+                <select asp-for="software.StatusID" class="form-control" asp-items="ViewBag.StatusID"><option disabled selected>---Select---</option></select>
+                <span asp-validation-for="software.StatusID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="software.ProductTypeID" class="control-label"></label>
+                <select asp-for="software.ProductTypeID" class="form-control" asp-items="ViewBag.ProductTypeID"><option disabled selected>---Select---</option></select>
+                <span asp-validation-for="software.ProductTypeID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="software.SoftwareTypeID" class="control-label"></label>
+                <select asp-for="software.SoftwareTypeID" class="form-control" asp-items="ViewBag.SoftwareTypeID"><option disabled selected>---Select---</option></select>
+                <span asp-validation-for="software.SoftwareTypeID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="software.Name" class="control-label"></label>
+                <input asp-for="software.Name" class="form-control" />
+                <span asp-validation-for="software.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="software.Description" class="control-label"></label>
+                <input asp-for="software.Description" class="form-control" />
+                <span asp-validation-for="software.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="software.SoftwareVersion" class="control-label"></label>
+                <input asp-for="software.SoftwareVersion" class="form-control" />
+                <span asp-validation-for="software.SoftwareVersion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="software.InfoUrl" class="control-label"></label>
+                <input asp-for="software.InfoUrl" class="form-control" />
+                <span asp-validation-for="software.InfoUrl" class="text-danger"></span>
+            </div>
+            @*<div class="form-row">*@
+            <div class="form-group">
+                <label asp-for="FileDescription" class="control-label"></label>
+                <input type="text" asp-for="FileDescription" class="form-control" />
+                <span asp-validation-for="FileDescription" class="text-danger"></span>
+            </div>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" asp-for="File">
+                @*<label class="custom-file-label" asp-for="File" ></label>*@
+                <label class="custom-file-label" asp-for="File" data-browse="Bestand kiezen">Only 1 pdf can be added !</label>
+                <span asp-validation-for="File" class="text-danger"></span>
+            </div>
+            @*</div>*@
+            <br/>
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" /> | 
+            <a class="btn btn-outline-info" asp-action="Index">Back to List</a>
+        </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

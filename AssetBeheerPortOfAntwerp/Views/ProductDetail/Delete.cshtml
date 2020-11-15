@@ -1,0 +1,49 @@
+﻿@model Models.ProductDetail
+
+@{
+    ViewData["Title"] = "Product detail - Delete";
+    ViewData["PageTitle"] = "Product detail";
+    ViewData["PageType"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Detail)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Detail.DetailID)
+        </dd class>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Definition1)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Definition1)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Definition2)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Definition2)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ProductDetailID" />
+        <input type="submit" value="Delete" class="btn btn-danger" asp-route-productChild="@Model.Product.ProductType.ProductChild.ToString()" /> |
+
+        @*As this view is used by Software and Hardware, when go back needs to go to the correct controller*@
+        @if (Model.Product.ProductType.ProductChild.ToString() == "Software")
+        {
+            <a class="btn btn-outline-info" asp-controller="Software" asp-action="Edit" asp-route-id="@Model.ProductID">Back to List</a>
+        }
+        @if (Model.Product.ProductType.ProductChild.ToString() == "Hardware")
+        {
+            <a class="btn btn-outline-info" asp-controller="Hardware" asp-action="Edit" asp-route-id="@Model.ProductID">Back to List</a>
+        }
+    </form>
+</div>

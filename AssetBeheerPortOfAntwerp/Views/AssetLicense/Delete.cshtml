@@ -1,0 +1,43 @@
+﻿@model Models.AssetLicense
+
+@{
+    ViewData["Title"] = "Delete";
+    ViewData["PageTitle"] = "License";
+    ViewData["PageType"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to remove this License from this Asset?</h3>
+<p>The License will be free to be used on a other Asset</p>
+<div>
+    <h4>License</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Asset)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Asset.AssetTag)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Asset.PurchaseItem.Product)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Asset.PurchaseItem.Product.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.License)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.License.PurchaseItem.Product.Name)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="AssetLicenseID" />
+        <button type="submit" value="Delete" class="btn btn-danger" asp-route-assetID="@ViewData["AssetID"]">Delete</button> |
+        <a class="btn btn-outline-info" asp-controller="Asset" asp-action="Edit" asp-route-id="@ViewData["AssetID"]" >Back to List</a>
+    </form>
+</div>

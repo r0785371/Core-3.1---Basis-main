@@ -1,0 +1,211 @@
+﻿@model Models.Asset
+
+@{
+    ViewData["Title"] = "Asset - Delete";
+    ViewData["PageTitle"] = "Asset";
+    ViewData["PageType"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int qty = -1;
+    var test = int.TryParse(ViewData["Qty"] as string, out qty);
+
+    int qtyBackup = 0;
+    var test1 = int.TryParse(ViewData["QtyBackups"] as string, out qtyBackup);
+    string backups = qtyBackup > 1 ? " Backups" : " Backup";
+
+    int qtyAssetDetails = 0;
+    var test2 = int.TryParse(ViewData["QtyAssetDetails"] as string, out qtyAssetDetails);
+    string assetDetails = qtyAssetDetails > 1 ? " Details" : " Detail";
+
+    int qtyLicenses = 0;
+    var test3 = int.TryParse(ViewData["QtyLicenses"] as string, out qtyLicenses);
+    string licenses = qtyLicenses > 1 ? " Licenses" : " License";
+
+
+    //ViewData["QtyBackups"] = qtyBackups != 0 ? qtyBackups.ToString() : "0";
+    //ViewData["ListBackups"] = new List<Backup>(asset.Item3);
+
+    //ViewData["QtyAssetDetails"] = qtyAssetDetails != 0 ? qtyAssetDetails.ToString() : "0";
+    //ViewData["ListAssetDetails"] = new List<AssetDetail>(asset.Item4);
+
+    //ViewData["QtyLicenses"] = qtyLicenses != 0 ? qtyLicenses.ToString() : "0";
+    //ViewData["ListLicenses"] = new List<License>(asset.Item5);
+
+}
+
+<hr />
+
+@if (qty > 0)
+{
+    <br />
+    <h3>Attention: You can't delete this Asset: "@Model.AssetTag - @Model.PurchaseItem.Product.Name"!</h3>
+    <hr />
+    <h4>"@Model.PurchaseItem.Product.Name" is linked to:</h4>
+    <br />
+    <ul>
+        <li>@qtyBackup x @backups</li>
+        <li>@qtyAssetDetails x @assetDetails</li>
+        <li>@qtyLicenses x @licenses</li>
+    </ul>
+    <p>It's not possible (recomendated) to delete @Model.AssetTag - @Model.PurchaseItem.Product.Name!</p>
+    <hr />
+
+    <form>
+        <button asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.AssetID">Edit</button> |
+        <button asp-action="Index" class="btn btn-outline-info">Back to List</button>
+    </form>
+    <hr />
+
+    @if (qtyBackup > 0)
+    {
+        <h3>@backups</h3>
+        <div>
+            <partial name="PartialViews/_ListBackupsPartial" model="@ViewData["ListBackups"]" />
+        </div>
+        <br />
+    }
+
+    @if (qtyAssetDetails > 0)
+    {
+        <h3>@assetDetails</h3>
+        <div>
+            <partial name="PartialViews/_ListAssetDetailsPartial" model="@ViewData["ListAssetDetails"]" />
+        </div>
+        <br />
+    }
+
+    @if (qtyLicenses > 0)
+    {
+        <h3>@licenses</h3>
+        <div>
+            <partial name="PartialViews/_ListLicensesPartial" model="@ViewData["ListLicenses"]" />
+        </div>
+        <br />
+    }
+
+}
+
+@if (qty == 0)
+{
+    <h1>Are you sure you want to delete this?</h1>
+    <br />
+    <h3>Pls keep the asset and change the status to out / inactive!</h3>
+    <div>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.PurchaseItem.Product)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.PurchaseItem.Product.Name)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Status)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Status.Name)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.AssetTag)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.AssetTag)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.SerieNo)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.SerieNo)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ServiceTag)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ServiceTag)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.TargetDescription)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.TargetDescription)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.DeliveryDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DeliveryDate)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ExpirePeriodMonth)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ExpirePeriodMonth)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.WarningPeriod)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.WarningPeriod.Name)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.WarentyIntervalMonth)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.WarentyIntervalMonth)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.UsingDateStart)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.UsingDateStart)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.UsingDateEnd)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.UsingDateEnd)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Remarks)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Remarks)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.AssetOwner)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.AssetOwner.OwnerDescription)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.OperationalSiteLocation.Location)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.OperationalSiteLocation.Location.LocationDescription)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.RackLocation)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.RackLocation.RackNo)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.URack)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.URack.URackID)
+            </dd>
+        </dl>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="AssetID" />
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            <a class="btn btn-outline-info" asp-action="Index">Back to List</a>
+        </form>
+    </div>
+}
+
+@if (qty < 0)
+{
+    <partial name="PartialViews/_DeleteRecordErrorPartial" />
+}

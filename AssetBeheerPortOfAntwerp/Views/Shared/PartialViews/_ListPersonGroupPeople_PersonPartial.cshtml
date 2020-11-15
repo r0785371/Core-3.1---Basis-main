@@ -1,0 +1,36 @@
+﻿@model List<Models.PersonGroupPeople>
+
+    <table class="table-sm col-sm-12">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model[0].GroupPeoples.Ref)</th>
+                <th>@Html.DisplayNameFor(model => model[0].GroupPeoples)</th>
+                @*<th>@Html.DisplayNameFor(model => model[0].Person.Department)</th>*@
+                <th width="70"></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @if (ViewBag.ListGroupPeople != null)
+            {
+                @foreach (var item in ViewBag.ListGroupPeople as List<Models.PersonGroupPeople>)
+                {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GroupPeoples.Ref)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GroupPeoples.GroupName)
+                </td>
+                @*<td>
+            @Html.DisplayFor(modelItem => item.Person.Department.Name)
+        </td>*@
+                <td>
+                    <a asp-controller="GroupPeople" asp-action="Edit" asp-route-id="@item.GroupPeopleID"><img src="~/images/icons/Edit.png" style="max-height:30px; max-width:30px" /></a>
+                    <a asp-controller="PersonGroupPeople" asp-action="Delete" asp-route-id="@item.PersonGroupPeopleID" asp-route-goToPerson="true"><img src="~/images/icons/Delete.png" style="max-height:30px; max-width:30px" /></a>
+                </td>
+            </tr>
+                }
+            }
+        </tbody>
+    </table>

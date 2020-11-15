@@ -1,0 +1,41 @@
+﻿@model Models.AssetDetail
+
+@{
+    ViewData["Title"] = "Asset detail - Edit";
+    ViewData["PageTitle"] = "Asset detail";
+    ViewData["PageType"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="AssetDetailID" />
+            <div class="form-group">
+                <label asp-for="DetailID" class="control-label"></label>
+                <select asp-for="DetailID" class="form-control" asp-items="ViewBag.DetailID"></select>
+                <span asp-validation-for="DetailID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Definition1" class="control-label"></label>
+                <input asp-for="Definition1" class="form-control" />
+                <span asp-validation-for="Definition1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Definition2" class="control-label"></label>
+                <input asp-for="Definition2" class="form-control" />
+                <span asp-validation-for="Definition2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button type="submit" value="Save" class="btn btn-primary" asp-route-assetID="@Model.AssetID">Save</button>|
+                <a class="btn btn-outline-info" asp-controller="Asset" asp-action="Edit" asp-route-id="@Model.AssetID">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

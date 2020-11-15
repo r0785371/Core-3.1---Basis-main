@@ -1,0 +1,118 @@
+﻿@model Models.Status
+
+@{
+    ViewData["Title"] = "Status - Edit";
+    ViewData["PageTitle"] = "Status";
+    ViewData["PageType"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="StatusID" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="HasProduct" /> @Html.DisplayNameFor(model => model.HasProduct)
+                    <span asp-validation-for="HasProduct" class="text-danger"></span>
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductSequence" class="control-label"></label>
+                <input asp-for="ProductSequence" class="form-control" />
+                <span asp-validation-for="ProductSequence" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="NoSupport" /> @Html.DisplayNameFor(model => model.NoSupport)
+                    <span asp-validation-for="NoSupport" class="text-danger"></span>
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="HasPurchase" /> @Html.DisplayNameFor(model => model.HasPurchase)
+                    <span asp-validation-for="HasPurchase" class="text-danger"></span>
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="PurchaseSequence" class="control-label"></label>
+                <input asp-for="PurchaseSequence" class="form-control" />
+                <span asp-validation-for="PurchaseSequence" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="GenerateAssetOrLicense" /> @Html.DisplayNameFor(model => model.GenerateAssetOrLicense)
+                    <span asp-validation-for="GenerateAssetOrLicense" class="text-danger"></span>
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="HasAsset" /> @Html.DisplayNameFor(model => model.HasAsset)
+                    <span asp-validation-for="HasAsset" class="text-danger"></span>
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="AssetSequence" class="control-label"></label>
+                <input asp-for="AssetSequence" class="form-control" />
+                <span asp-validation-for="AssetSequence" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="HasLicense" /> @Html.DisplayNameFor(model => model.HasLicense)
+                    <span asp-validation-for="HasLicense" class="text-danger"></span>
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="LicenceSequence" class="control-label"></label>
+                <input asp-for="LicenceSequence" class="form-control" />
+                <span asp-validation-for="LicenceSequence" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="ToOrder" /> @Html.DisplayNameFor(model => model.ToOrder)
+                    <span asp-validation-for="ToOrder" class="text-danger"></span>
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Ordered" /> @Html.DisplayNameFor(model => model.Ordered)
+                    <span asp-validation-for="Ordered" class="text-danger"></span>
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="OnStock" /> @Html.DisplayNameFor(model => model.OnStock)
+                    <span asp-validation-for="OnStock" class="text-danger"></span>
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="InUse" /> @Html.DisplayNameFor(model => model.InUse)
+                    <span asp-validation-for="InUse" class="text-danger"></span>
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="OutOfUse" /> @Html.DisplayNameFor(model => model.OutOfUse)
+                    <span asp-validation-for="OutOfUse" class="text-danger"></span>
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" /> |
+                <a class="btn btn-outline-info" asp-action="Index">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>

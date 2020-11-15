@@ -1,0 +1,42 @@
+﻿@model Models.OperationalSite
+
+@{
+    ViewData["Title"] = "Operational Site - Details";
+    ViewData["PageTitle"] = "Operational Site";
+    ViewData["PageType"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Ref)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Ref)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IsGroup)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IsGroup)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OperationalSiteGroup)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OperationalSiteGroup.Ref)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.OperationalSiteID">Edit</a> |
+    <a class="btn btn-outline-info" asp-action="Index">Back to List</a>
+</div>

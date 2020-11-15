@@ -1,0 +1,82 @@
+﻿@model Models.Purchase
+
+@{
+    ViewData["Title"] = "Purchase - Delete";
+    ViewData["PageTitle"] = "Purchase";
+    ViewData["PageType"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int qty = -1;
+    var test = int.TryParse(ViewData["QtyPurchaseItems"] as string, out qty);
+}
+
+@if (qty > 0)
+{
+    <br />
+    <br />
+    <h3>Attention: You can't delete this @Model.PurchaseType.Name of supplier: @Model.Supplier.Name with ref: @Model.No from date: @Model.Date.ToShortDateString()!</h3>
+    <hr />
+    <h4>The @Model.PurchaseType.Name has still @ViewData["QtyPurchaseItems"] item(s).</h4>
+    <br />
+    <p>If you want really to delete this, pls click on "Edit" and delete first the item(s).</p>
+    <hr />
+
+    <form>
+        <button asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.PurchaseID">Edit</button> |
+        <button asp-action="Index" class="btn btn-outline-info">Back</button>
+    </form>
+    <p></p>
+}
+
+@if (qty == 0)
+{
+
+
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Supplier)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Supplier.Name)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.No)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.No)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Date)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Date)
+                @*</dd>
+                    @Html.DisplayNameFor(model => model.IsPurchase)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.IsPurchase)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.IsProcurement)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.IsProcurement)
+                    </dd>*@
+        </dl>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="PurchaseID" />
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            <a class="btn btn-outline-info" asp-action="Index">Back to List</a>
+        </form>
+    </div>
+}
+
+@if (qty < 0)
+{
+    <partial name="PartialViews/_DeleteRecordErrorPartial" />
+}

@@ -1,0 +1,80 @@
+﻿@model Models.License
+
+@{
+    ViewData["Title"] = "License - Details";
+    ViewData["PageTitle"] = "License";
+    ViewData["PageType"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h4>@Localizer["License"]</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.StatusID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PurchaseItem)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PurchaseItem.PurchaseItemID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.No)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.No)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Key)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Key)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.HasCol)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.HasCol)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ColFileName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ColFileName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ValidityTypeTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ValidityTypeTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LicenseType)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LicenseType.Name)
+        </dd>
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.QtyLimited)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.QtyLimited)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LicenseValidityType)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LicenseValidityType.Name)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.LicenseID">@Localizer["Edit"]</a> |
+    <a class="btn btn-outline-info" asp-action="Index">@Localizer["Back to List"]</a>
+</div>

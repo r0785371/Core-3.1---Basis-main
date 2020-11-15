@@ -1,0 +1,41 @@
+﻿@model Models.HomeDetails
+@inject SignInManager<Models.ApplicationUser> signInManager;
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    //om foto variabel te maken , ?? afvragen of photopath is niet null , zoja display noimage
+    var photoPath = "~/Images/" + (Model.Employee.PhotoPath ?? "noimage.png");
+}
+
+<div class="row justify-content-center m-3">
+    <div class="col-sm-8">
+        <div class="card-header">
+            <h1>@Model.Employee.Name</h1>
+        </div>
+        <img class="card-img-top" img src="@photoPath" asp-append-version="true" />
+        <div class="card-body text-center">
+            <h4>@Localizer["Employee ID : @Model.Employee.Id"]</h4>
+            <h4>@Localizer["Email : @Model.Employee.Email"]</h4>
+            <h4>@Localizer["Department : @Model.Employee.Afdeling"]</h4>
+            <h4>@Localizer["Function : @Model.Employee.Functie"]</h4>
+        </div>
+        <div class="card-footer text-center">
+            <a asp-action="index" asp-controller="home" class="btn btn-primary">@Localizer["Back"]</a>
+            @if (signInManager.IsSignedIn(User) && (User.Identity.Name == Model.Employee.Email))
+            {
+                <a asp-action="edit" asp-controller="home" asp-route-id="@Model.Employee.Id"
+                class="btn btn-primary">@Localizer["Edit"]</a>
+                @if (User.IsInRole("Administrator"))
+                {
+                    @*<a href="#" class="btn btn-primary">Delete</a>
+                    <a asp-action="DeleteUser" asp-controller="administrator" asp-route-id="@Model.Employee.Id"
+                    class="btn btn-primary">Delete</a>*@
+                }}
+
+
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,138 @@
+﻿@model List<Models.PurchaseItem>
+
+@{
+    ViewData["Title"] = "Purchase items - Index";
+    ViewData["PageTitle"] = "Purchase items";
+    ViewData["PageType"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div class="text-right">
+    <h4><a asp-action="Create">Create New</a></h4>
+</div>
+<table class="table-sm">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Purchase)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].WarentyIntervalMonth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].DeliveryDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].AssetID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].LicenseID)
+            </th>
+            <th width="120"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Purchase.No)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WarentyIntervalMonth)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeliveryDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AssetID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LicenseID)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.PurchaseItemID"><img src="~/images/icons/Edit.png" style="max-height:30px; max-width:30px" /></a>
+                    <a asp-action="Details" asp-route-id="@item.PurchaseItemID"><img src="~/images/icons/Clipboard.png" style="max-height:30px; max-width:30px" /></a>
+                    <a asp-action="Delete" asp-route-id="@item.PurchaseItemID"><img src="~/images/icons/Delete.png" style="max-height:30px; max-width:30px" /></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@*<hr />
+    <br />
+
+    <div class="container">
+
+        <div>
+            <input type="button" class="btn btn-info" value="Export to Excel" />
+        </div>
+
+        <div id="pivotoutput" style="margin:30px;"></div>
+    </div>
+
+    <script>
+        var myInvoiceDetails = [];
+        function drawPivot() {
+            $(function () {
+                $("#pivotoutput").pivotUI(
+                    myInvoiceDetails,
+                    {
+                        rows: ["Product.Name"],
+                        cols: ["DeliveryDate"],
+                        vals: ["PurchaseQty"],
+                        aggregatorName: "Sum"
+                    }
+
+                )
+            });
+        }
+
+        function getPivot() {
+            //return fetch('./Index?handler=InvoicePivotData',
+            //return fetch('./Home/OnGetInvoicePivotData',
+            return fetch('./OnGetPurchaseItemPivotData',
+
+                {
+                    method: 'get',
+                    headers: {
+                        'Content-Type': 'application/json;charset=UTF-8'
+                    }
+                })
+                .then(function (response) {
+                    if (response.ok) {
+                        return response.text();
+                    } else {
+                        throw Error("Response Not Ok");
+                    }
+                })
+                .then(function (text) {
+                    try {
+                        return JSON.parse(text);
+                    } catch (err) {
+                        throw Error("Method Not Found");
+                    }
+                })
+                .then(function (responseJSON) {
+                    myInvoiceDetails = responseJSON;
+                    drawPivot();
+                })
+        }
+
+        getPivot();
+
+    </script>*@

@@ -1,0 +1,52 @@
+﻿@model Models.ProductSupplier
+
+@{
+    ViewData["Title"] = "Supplier - Details";
+    ViewData["PageTitle"] = "Supplier";
+    ViewData["PageType"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Supplier)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Supplier.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.RefSupplier)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RefSupplier)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ProductNameSupplier)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ProductNameSupplier)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.ProductSupplierID">Edit</a> |
+
+    @*As this view is used by Software and Hardware, when go back needs to go to the correct controller*@
+    @if (@Model.Product.ProductType.ProductChild.ToString() == "Software")
+    {
+        <a class="btn btn-outline-info" asp-controller="Software" asp-action="Edit" asp-route-id="@ViewData["ProductID"]">Back to List</a>
+    }
+    @if (@Model.Product.ProductType.ProductChild.ToString() == "Hardware")
+    {
+        <a class="btn btn-outline-info" asp-controller="Hardware" asp-action="Edit" asp-route-id="@ViewData["ProductID"]">Back to List</a>
+    }
+</div>
+

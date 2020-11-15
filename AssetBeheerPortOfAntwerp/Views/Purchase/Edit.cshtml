@@ -1,0 +1,155 @@
+﻿@model BLL.ViewModels.purchaseViewModel
+
+@{
+    ViewData["Title"] = "Purchase - Edit";
+    ViewData["PageTitle"] = "Purchase";
+    ViewData["PageType"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="onchange" class="col-md-12">
+    <form asp-action="Edit">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="purchase.PurchaseID" />
+
+        <fieldset class="form-group">
+            <legend class="col-sm-3 control-label"></legend>
+
+            <div class="form-row col-md-12">
+                <div class="custom-checkbox"></div>
+                @{
+                    for (int i = 0; i < @Model.purchase.ListPurchaseTypes.Count(); i++)
+                    {
+                        <input asp-for="@Model.SelectedPurchaseTypeID" value="@Model.purchase.ListPurchaseTypes[i].PurchaseTypeID" type="radio" />
+                        <label asp-for="@Model.purchase.ListPurchaseTypes[i].PurchaseTypeID">  @Model.purchase.ListPurchaseTypes[i].Name  </label>
+                        <input asp-for="@Model.purchase.ListPurchaseTypes[i].PurchaseTypeID" type="hidden" />
+                    }
+                }
+
+                <div class="col-1"></div>
+
+                <div class="form-group col-md-4">
+                    <label asp-for="@Model.purchase.SupplierID" class="control-label"></label>
+                    <select asp-for="@Model.purchase.SupplierID" class="form-control" asp-items="ViewBag.SupplierID"><option disabled selected>---Select---</option></select>
+                    <span asp-validation-for="@Model.purchase.SupplierID" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="@Model.purchase.No" class="control-label"></label>
+                    <input type="text" asp-for="@Model.purchase.No" class="form-control" />
+                    <span asp-validation-for="@Model.purchase.No" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="@Model.purchase.Date" class="control-label"></label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><img src="~/images/icons/calendar.png" style="max-height: 25px; max-width: 25px;" /></div>
+                        </div>
+
+                        <input type="date" asp-for="@Model.purchase.Date" asp-format="{0:yyyy-MM-dd}" class="form-control" />
+                    </div>
+                    <span asp-validation-for="@Model.purchase.Date" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group btn-group-lg">
+                <input type="submit" value="Save" class="submitbutton btn btn-primary" />
+                <a class="btn btn-outline-info" asp-action="Index">Back to List</a>
+            </div>
+        </fieldset>
+
+
+        <hr />
+
+        @*SubForm: Items*@
+        <div>
+            <div class="float-sm-left">
+                <h3>Item(s)</h3>
+            </div>
+            <div class="float-md-right row">
+                <h3>Add: &nbsp</h3>
+                @if (Model.purchase.Supplier.HasHardware == true)
+                {
+                    <a class="create" asp-controller="PurchaseItem" asp-action="Create" asp-route-purchaseID="@Model.purchase.PurchaseID" asp-route-hasHardware="true"><h3>hardware</h3></a>
+                    <button class="submitbutton btn-link" asp-action="Edit" asp-route-id="@Model.purchase.PurchaseID" asp-route-goToPurchaseItem="true" asp-route-hasHardware="true" formmethod="post" style="background-color: transparent; border:none"><h3>hardware</h3></button>
+                }
+                @if (Model.purchase.Supplier.HasHardware == true && Model.purchase.Supplier.HasSoftware == true)
+                {
+                    <h3> &nbsp | &nbsp </h3>
+                }
+                @if (Model.purchase.Supplier.HasSoftware == true)
+                {
+                    <a class="create" asp-controller="PurchaseItem" asp-action="Create" asp-route-purchaseID="@Model.purchase.PurchaseID" asp-route-hasSoftware="true"><h3>software</h3></a>
+                    <button class="submitbutton btn-link" asp-action="Edit" asp-route-id="@Model.purchase.PurchaseID" asp-route-goToPurchaseItem="true" asp-route-hasSoftware="true" formmethod="post" style="background-color: transparent; border:none"><h3>software</h3></button>
+                }
+            </div>
+        </div>
+    </form>
+</div>
+
+<table class="table-sm col-12">
+    <thead>
+        <tr>
+            <th hidden></th>
+            <th scope="col">@Html.DisplayNameFor(model => model.purchaseItems[0].Product.Name)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.purchaseItems[0].PurchaseQty)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.purchaseItems[0].Price)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.purchaseItems[0].DeliveryDate)</th>
+            <th scope="col">Status</th>
+            <th scope="col" width="70"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.purchaseItems.OrderBy(x => x.Product.Name))
+        {
+            <tr>
+                <td hidden>@item.PurchaseItemID</td>
+                <td>@item.Product.Name</td>
+                <td>@item.PurchaseQty</td>
+                <td>@item.Price</td>
+                <td>@item.DeliveryDate.ToShortDateString()</td>
+                <td>@item.Status.Name</td>
+                <td>
+                    <a asp-controller="PurchaseItem" asp-action="Edit" asp-route-id="@item.PurchaseItemID"><img src="~/images/icons/Edit.png" style="max-height:30px; max-width:30px" /></a>
+                    <a asp-controller="PurchaseItem" asp-action="Delete" asp-route-id="@item.PurchaseItemID"><img src="~/images/icons/Delete.png" style="max-height:30px; max-width:30px" /></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('.btn-link').hide();
+
+        var isChanged = false;
+        var isSubmit = false;
+
+        $('#onchange').change(function () {
+
+            if (isChanged == false) {
+                $('.create').hide();
+                $('.btn-link').show();
+
+                isChanged = true;
+            }
+        });
+
+        $('.submitbutton').click(function () {
+            isSubmit = true;
+        });
+
+        window.onbeforeunload = function (e) {
+            if (isChanged && (!isSubmit)) {
+                return "Make sure to save all changes.";
+            }
+        };
+    });
+
+</script>
+}

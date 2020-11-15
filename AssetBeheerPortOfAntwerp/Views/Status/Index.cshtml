@@ -1,0 +1,188 @@
+﻿@model IEnumerable<Models.Status>
+
+@{
+    ViewData["Title"] = "Status - Index";
+    ViewData["PageTitle"] = "Status";
+    ViewData["PageType"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    th.rotate {
+        white-space: normal;
+        height: 130px;
+        text-size-adjust:auto;
+    }
+
+        th.rotate > .intact {
+            
+            transform-origin: 0px bottom center ;
+            transform: rotate(270deg);
+            width: 50px;
+
+        }
+
+    td.text-md-left {
+        margin-left: 30px;
+        transform-origin: 5px;
+    }
+</style>
+
+<br />
+<div class="text-right">
+    <h4><a asp-action="Create">Create New</a></h4>
+</div>
+
+@*<div class="form-group col-md-12">*@
+    <table  border="1" class="col-md-12">
+        <thead style="background-color: lightgrey">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th class="rotate text-center">
+                    <div class="intact">
+                        @Html.DisplayNameFor(model => model.HasProduct)
+                    </div>
+                </th>
+                <th class="rotate text-center">
+                    <div class="intact">
+                        @Html.DisplayNameFor(model => model.ProductSequence)
+                    </div>
+                </th>
+                <th class="rotate">
+                    <div class="intact">
+                        @Html.DisplayNameFor(model => model.NoSupport)
+                    </div>
+                </th>
+                <th class="rotate text-center">
+                    <div class="intact">
+                        @Html.DisplayNameFor(model => model.HasPurchase)
+                    </div>
+                </th>
+                <th class="rotate text-center">
+                    <div class="intact">
+                        @Html.DisplayNameFor(model => model.PurchaseSequence)
+                    </div>
+                </th>
+                <th class="rotate text-center">
+                    <div class="intact">
+                        @Html.DisplayNameFor(model => model.GenerateAssetOrLicense)
+                    </div>
+                </th>
+                <th class="rotate text-center">
+                    <div class="intact">
+                        @Html.DisplayNameFor(model => model.HasAsset)
+                    </div>
+                </th>
+                <th class="rotate">
+                    <div class="intact">
+                        @Html.DisplayNameFor(model => model.AssetSequence)
+                    </div>
+                </th>
+                <th class="rotate">
+                    <div class="intact">
+                        @Html.DisplayNameFor(model => model.HasLicense)
+                    </div>
+                </th>
+                <th class="rotate">
+                    <div class="intact">
+                        @Html.DisplayNameFor(model => model.LicenceSequence)
+                    </div>
+                </th>
+                <th class="rotate">
+                    <div class="intact">
+                        @Html.DisplayNameFor(model => model.ToOrder)
+                    </div>
+                </th>
+                <th class="rotate">
+                    <div class="intact">
+                        @Html.DisplayNameFor(model => model.Ordered)
+                    </div>
+                </th>
+                <th class="rotate">
+                    <div class="intact">
+                        @Html.DisplayNameFor(model => model.OnStock)
+                    </div>
+                </th>
+                <th class="rotate">
+                    <div class="intact">
+                        @Html.DisplayNameFor(model => model.InUse)
+                    </div>
+                </th>
+                <th class="rotate">
+                    <div class="intact">
+                        @Html.DisplayNameFor(model => model.OutOfUse)
+                    </div>
+                </th>
+                <th width="120"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td class="text-md-left">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td class="text-md-left">
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.HasProduct)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.ProductSequence)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.NoSupport)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.HasPurchase)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.PurchaseSequence)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.GenerateAssetOrLicense)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.HasAsset)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.AssetSequence)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.HasLicense)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.LicenceSequence)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.ToOrder)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.Ordered)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.OnStock)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.InUse)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.OutOfUse)
+                </td>
+                <td class="text-center">
+                    <a asp-action="Edit" asp-route-id="@item.StatusID"><img src="~/images/icons/Edit.png" style="max-height:30px; max-width:30px" /></a>
+                    <a asp-action="Details" asp-route-id="@item.StatusID"><img src="~/images/icons/Clipboard.png" style="max-height:30px; max-width:30px" /></a>
+                    <a asp-action="Delete" asp-route-id="@item.StatusID"><img src="~/images/icons/Delete.png" style="max-height:30px; max-width:30px" /></a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+@*</div>*@

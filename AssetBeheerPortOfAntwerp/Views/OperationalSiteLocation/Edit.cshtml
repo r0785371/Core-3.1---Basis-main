@@ -1,0 +1,37 @@
+﻿@model Models.OperationalSiteLocation
+
+@{
+    ViewData["Title"] = "Operational Site Location - Edit";
+    ViewData["PageTitle"] = "Operational site location";
+    ViewData["PageType"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<hr />
+<form asp-action="Edit">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <input type="hidden" asp-for="OperationalSiteLocationID" />
+
+            <div class="form-group">
+                <label asp-for="OperationalSiteID" class="control-label"></label>
+                <select disabled asp-for="OperationalSiteID" class="form-control" asp-items="ViewBag.OperationalSiteID"><option disabled selected>---Select---</option></select>
+                <span asp-validation-for="OperationalSiteID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LocationID" class="control-label"></label>
+                <select asp-for="LocationID" class="form-control" asp-items="ViewBag.LocationID"><option disabled selected>---Select---</option></select>
+                <span asp-validation-for="LocationID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" /> |
+                <a class="btn btn-outline-info" asp-controller="OperationalSite" asp-action="Edit" asp-route-id="@Model.OperationalSiteID">Back to List</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

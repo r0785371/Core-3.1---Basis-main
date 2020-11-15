@@ -1,0 +1,123 @@
+﻿@model Models.Person
+
+@{
+    ViewData["Title"] = "Person - Delete";
+    ViewData["PageTitle"] = "Person";
+    ViewData["PageType"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int qty = -1;
+    var test = int.TryParse(ViewData["Qty"] as string, out qty);
+
+    int qtyAsstes = 0;
+    var test2 = int.TryParse(ViewData["QtyAssets"] as string, out qtyAsstes);
+    string assets = qtyAsstes > 1 ? " Assets" : " Asset";
+
+    int qtyPersonGroup = 0;
+    var test3 = int.TryParse(ViewData["QtyPersonGroups"] as string, out qtyPersonGroup);
+    string personGroups = qtyPersonGroup > 1 ? " Person groups" : " Person group";
+
+}
+
+
+<br />
+
+@if (qty > 0)
+{
+    <br />
+    <h3>Attention: You can't delete this person: "@Model.FullName"!</h3>
+    <hr />
+    <h4>"@Model.FullName" is linked to:</h4>
+    <ul>
+        <li>@qtyPersonGroup x @personGroups</li>
+        <li>@qtyAsstes x @assets</li>
+    </ul>
+
+    <p>It's not possible (recomendated) to delete @Model.FullName!</p>
+    <hr />
+    <form>
+        <button asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.PersonID">Edit</button> |
+        <button asp-action="Index" class="btn btn-outline-info">Back</button>
+    </form>
+    <br />
+    <hr />
+
+    @if (qtyPersonGroup > 0)
+    {
+        <h3>@personGroups</h3>
+
+            <partial name="PartialViews/_ListPersonGroupPeople_PersonPartial" model="@ViewBag.ListGroupPeople" />
+    }
+
+    @if (qtyAsstes > 0)
+    {
+        <br />
+        <h3>@assets</h3>
+
+            <partial name="PartialViews/_ListOfAssetsPartial" model="@ViewBag.ListAssets" />
+    }
+}
+
+@if (qty == 0)
+{
+
+    <h3>Are you sure you want to delete: "@Model.FullName"?</h3>
+    <div>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Ref)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Ref)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.FirstName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.FirstName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.LastName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.LastName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Phone)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Phone)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Department)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Department.Name)
+            </dd>
+            @*<dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.GroupPeople)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.GroupPeople.GroupName)
+            </dd>*@
+        </dl>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="PersonID" />
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            <a class="btn btn-outline-info" asp-action="Index">Back to List</a>
+        </form>
+    </div>
+}
+
+@if (qty < 0)
+{
+    <partial name="PartialViews/_DeleteRecordErrorPartial" />
+}

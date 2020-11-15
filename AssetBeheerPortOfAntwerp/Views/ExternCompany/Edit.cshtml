@@ -1,0 +1,133 @@
+﻿@model Models.ExternCompany
+
+@{
+    ViewData["Title"] = "Extern company - Edit";
+    ViewData["PageTitle"] = "Extern company";
+    ViewData["PageType"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<form asp-action="Edit">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="ExternCompanyID" />
+
+    <div class="form-row">
+
+        <div class="form-group col-md-2">
+            <label asp-for="Ref" class="control-label"></label>
+            <input asp-for="Ref" class="form-control" />
+            <span asp-validation-for="Ref" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-8">
+            <label asp-for="Name" class="control-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group col-sm-1"></div>
+        <div class="form-group col-sm-1">
+
+            <label class="form-label" asp-for="IsActief"></label>
+            <input class="form-control check-input" asp-for="IsActief" />
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-8">
+            <label asp-for="Street" class="control-label"></label>
+            <input asp-for="Street" class="form-control" />
+            <span asp-validation-for="Street" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="Number" class="control-label"></label>
+            <input asp-for="Number" class="form-control" />
+            <span asp-validation-for="Number" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <label asp-for="Postcode" class="control-label"></label>
+            <input asp-for="Postcode" class="form-control" />
+            <span asp-validation-for="Postcode" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="City" class="control-label"></label>
+            <input asp-for="City" class="form-control" />
+            <span asp-validation-for="City" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-3">
+            <label asp-for="State" class="control-label"></label>
+            <input asp-for="State" class="form-control" />
+            <span asp-validation-for="State" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-3">
+            <label asp-for="Country" class="control-label"></label>
+            <input asp-for="Country" class="form-control" />
+            <span asp-validation-for="Country" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label asp-for="Tel" class="control-label"></label>
+            <input asp-for="Tel" class="form-control" />
+            <span asp-validation-for="Tel" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="Mail" class="control-label"></label>
+            <input asp-for="Mail" class="form-control" />
+            <span asp-validation-for="Mail" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="WebSite" class="control-label"></label>
+            <input asp-for="WebSite" class="form-control" />
+            <span asp-validation-for="WebSite" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Save" class="submitbutton btn btn-primary" /> |
+        <a class="btn btn-outline-info" asp-action="Index">@Localizer["Back to List"]</a>
+    </div>
+</form>
+
+<hr />
+<h3>@Localizer["Asset(s)"]</h3>
+<div>
+    <partial name="PartialViews/_ListOfAssetsPartial" model="@ViewData["ListAssets"]" />
+</div>
+
+@section Scripts {
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('.btn-link').hide();
+
+            var isChanged = false;
+            var isSubmit = false;
+
+            $('#onchange').change(function () {
+
+                if (isChanged == false) {
+                    $('.create').hide();
+                    $('.btn-link').show();
+
+                    isChanged = true;
+                }
+            });
+
+            $('.submitbutton').click(function () {
+                isSubmit = true;
+            });
+
+            window.onbeforeunload = function (e) {
+                if (isChanged && (!isSubmit)) {
+                    return "Make sure to save all changes.";
+                }
+            };
+
+        });
+
+    </script>
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

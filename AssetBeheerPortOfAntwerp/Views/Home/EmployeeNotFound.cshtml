@@ -1,0 +1,14 @@
+﻿@model int
+
+@{ 
+
+    ViewBag.Title = "404 Error";
+}
+
+<div class="alert alert-danger mt-1 mb-1">
+    <h4>@Localizer["404 Not Found Error :"]</h4>
+    <hr />
+    <h5>@Localizer["Employee with Id = @Model doesn't exsist"]</h5>
+</div> 
+<a asp-action="index" asp-controller="home" class="btn btn-outline-success">
+   @Localizer["Click here for list of all employees."]</a>

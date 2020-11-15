@@ -1,0 +1,39 @@
+﻿@model List<Models.AssetLicense>
+
+@{
+    var assetID = (long)ViewData["AssetID"];
+}
+
+<table class="table-sm col-sm-12">
+    <thead style="background-color: lightgrey">
+        <tr>
+            <th hidden></th>
+            <th scope="col">@Html.DisplayNameFor(model => model[0].License.PurchaseItem.Product.Name)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model[0].License.LicenseType.Name)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model[0].License.LicenseValidityType.Name)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model[0].License.No)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model[0].License.Key)</th>
+            <th scope="col" width="70"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            @foreach (var item in Model.OrderBy(x => x.License.PurchaseItem.Product.Name))
+            {
+                <tr>
+                    <td hidden>@item.LicenseID</td>
+                    <td>@item.License.PurchaseItem.Product.Name</td>
+                    <td>@item.License.LicenseType.Name</td>
+                    <td>@item.License.LicenseValidityType.Name</td>
+                    <td>@item.License.No</td>
+                    <td>@item.License.Key</td>
+                    <td>
+                        <a asp-controller="License" asp-action="Edit" asp-route-id="@item.LicenseID" asp-route-assetID="@assetID"><img src="~/images/icons/Edit.png" style="max-height:30px; max-width:30px" /></a>
+                        <a asp-controller="AssetLicense" asp-action="Delete" asp-route-id="@item.AssetLicenseID" asp-route-assetID="@assetID"><img src="~/images/icons/Delete.png" style="max-height:30px; max-width:30px" /></a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

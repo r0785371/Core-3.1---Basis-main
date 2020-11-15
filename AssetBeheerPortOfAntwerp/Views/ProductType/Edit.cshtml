@@ -1,0 +1,111 @@
+﻿@model Models.ProductType
+
+@{
+    ViewData["Title"] = "Product type - Edit";
+    ViewData["PageTitle"] = "Product type";
+    ViewData["PageType"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ProductTypeID" />
+
+            <div class="form-group">
+                @foreach (var c in System.Enum.GetValues(typeof(Models.ProductChildren)).OfType<Models.ProductChildren>())
+                {
+                    <label asp-for="@Model.ProductChild">@c</label>
+                    <input type="radio" asp-for="@Model.ProductChild" value="@((int)c)" checked="@(c == Model?.ProductChild)" />
+                }
+
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Ref" class="control-label"></label>
+                <input asp-for="Ref" class="form-control" />
+                <span asp-validation-for="Ref" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TagNo" class="control-label"></label>
+                <input asp-for="TagNo" class="form-control" />
+                <span asp-validation-for="TagNo" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsGroup" /> @Html.DisplayNameFor(model => model.IsGroup)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductTypeGroupID" class="control-label"></label>
+                <select asp-for="ProductTypeGroupID" class="form-control" asp-items="ViewBag.ProductTypeGroupID"><option disabled selected>---Select---</option><option value="null">---None---</option></select>
+                <span asp-validation-for="ProductTypeGroupID" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsProduct" /> @Html.DisplayNameFor(model => model.IsProduct)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsLicense" /> @Html.DisplayNameFor(model => model.IsLicense)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsAsset" /> @Html.DisplayNameFor(model => model.IsAsset)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsComponent" /> @Html.DisplayNameFor(model => model.IsComponent)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="HasBackup" /> @Html.DisplayNameFor(model => model.HasBackup)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="BackupInterval" class="control-label"></label>
+                <input asp-for="BackupInterval" class="form-control" />
+                <span asp-validation-for="BackupInterval" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ExpirePeriodMonth" class="control-label"></label>
+                <input asp-for="ExpirePeriodMonth" class="form-control" />
+                <span asp-validation-for="ExpirePeriodMonth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WarningPeriodID" class="control-label"></label>
+                <select asp-for="WarningPeriodID" class="form-control" asp-items="ViewBag.WarningPeriodID"><option disabled selected>---Select---</option></select>
+                <span asp-validation-for="WarningPeriodID" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="GoInRack" /> @Html.DisplayNameFor(model => model.GoInRack)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" /> |
+                <a class="btn btn-outline-info" asp-action="Index">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

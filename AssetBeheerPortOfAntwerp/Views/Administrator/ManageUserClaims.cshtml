@@ -1,0 +1,42 @@
+﻿@model UserClaimsViewModel
+
+
+<div class="col-md-4">
+    <form asp-action="UserClaim">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="card">
+            <div class="card-header">
+                <h2>@Localizer["Manage user claims:"]</h2>
+            </div>
+            <div class="card-body">
+                @*lijst van userClaim objecten*@
+                @for (int i = 0; i < Model.Claims.Count; i++)
+                {
+                    <div class="form-check">
+                        @*input element is verborgen en binding met ClaimType
+                            geeft informatie door naar property van UserClaim object*@
+                        <input type="hidden" asp-for="@Model.Claims[i].ClaimType" />                        
+                        @*checkbox mee in lijst*@
+                        @*asp-for is voor binding*@
+                        <input asp-for="@Model.Claims[i].IsSelected" class="form-check-input" />
+                        @*claims tonen*@
+                        @*gebruik van asp-for is om claim ook te gebruiken om checkbox aan
+                            te vinken door op de claim te klikken => label*@
+                        <label class="form-check-label" asp-for="@Model.Claims[i].IsSelected">
+                            @Model.Claims[i].ClaimType
+                        </label>
+                    </div>
+                }
+                <div asp-validation-summary="All" class="text-danger"></div>
+            </div>
+            <div class="card-footer">
+                <div class="form-group">
+                    <input type="submit" value="Update" class="btn btn-primary" />
+                    <a asp-action="EditUser" asp-route-id="@Model.UserId"
+                       class="btn btn-primary">@Localizer["Back"]</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+

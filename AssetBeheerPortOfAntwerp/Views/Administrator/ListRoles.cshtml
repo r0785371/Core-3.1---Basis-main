@@ -1,0 +1,113 @@
+﻿@model IEnumerable<IdentityRole>
+@*Autorisatie per rol toewijzen*@
+@*Staat nu in _ViewImports*@
+@*@using Microsoft.AspNetCore.Authorization*@
+
+@inject IAuthorizationService authorizationService
+
+@{
+    ViewData["Title"] = "AllRoles";
+    ViewData["PageTitle"] = "All Roles";
+    //ViewData["PageType"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-5">
+        <form asp-action="ListRoles">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            @*nakijken of er een rol is die getoond kan worden*@
+            @if (Model.Any())
+            {
+        <div class="form-group">           
+            
+                <a type="button" value="Creeër rol" class="btn btn-primary"
+                   asp-controller="administrator" asp-action="CreateRole">@Localizer["Create Roll"]</a>
+            
+
+        </div>
+
+                foreach (var role in Model)
+                {<div class="form-group card-deck">
+
+                        <div class="card border-dark">
+                            <div class="card-header">
+                               <h4>@Localizer["Attention. Case sensitive"]</h4>
+
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">@role.Name</h5>
+                            </div>
+                            <div class="card-footer">
+                                <div class="form-group">
+                                    @*<a type="button" value="Edit" class="btn btn-primary"
+                                         asp-controller="Administrator" asp-action="EditRole"
+                                        asp-route-id="@role.Id">Edit</a>  |
+                                          <input type="submit" value="Delete" class="btn btn-danger"
+                                        asp-controller="Administrator" asp-action="DeleteRole"
+                                        asp-route-id="@role.Id"/>*@
+                                    @*Enkel tonen wanneer de gebruiker de juiste claim heeft*@
+                                    @*Moet gebruiker en claimspolicy toewijzen aan methode*@
+                                                                        
+                                        <a type="button" value="Edit" class="btn btn-primary"
+                                           asp-controller="Administrator" asp-action="EditRole"
+                                           asp-route-id="@role.Id">@Localizer["Edit"]</a>
+                                    
+                                    
+
+                                    @*gebruik maken van user.id om de delete uniek te maken*@
+                                    <span id="confirmDeleteSpan_@role.Id" style="display:none">
+                                        <span>@Localizer["Delete roll?"]</span>
+                                        <button type="submit" class="btn btn-danger"
+                                                asp-controller="Administrator" asp-action="DeleteRole"
+                                                asp-route-id="@role.Id">
+                                            Yes
+                                        </button>
+                                        @* onclick => hierin roepen we de methode uit het CustomScript
+                                            en we geven mee de ID , en true or false voor het al dan niet
+                                            indrukken van de knop*@
+                                        <a href="#" class="btn btn-primary" onclick="confirmDelete('@role.Id', false)">
+                                        @Localizer["No"]</a>
+                                    </span>
+
+                                    <span id="deleteSpan_@role.Id">
+                                        <a href="#" class="btn btn-danger" onclick="confirmDelete('@role.Id', true)">
+                                        @Localizer["Delete"]</a>
+                                    </span>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                }
+
+            }
+            else
+            {
+                <div class="card">
+                    <div class="card-header">
+                       No rolls added
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            Use button to create a roll
+                        </h5>
+                        <div class="form-group">
+                            <input type="submit" value="Creeër rol" class="btn btn-primary"
+                                   asp-controller="administrator" asp-action="CreateRole" />
+                        </div>
+                    </div>
+                </div>
+
+
+            }
+        </form>
+    </div>
+</div>
+@*script nodig voor de delete knop met bevestiging *@
+@section Scripts {
+    <script src="~/js/CustomScript.js"></script>
+}

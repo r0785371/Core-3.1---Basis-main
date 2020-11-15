@@ -1,0 +1,44 @@
+﻿@model List<Models.Purchase>
+
+    <table class="table-sm col-12">
+        <thead style="background-color: lightgrey">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model[0].PurchaseType.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model[0].Supplier.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model[0].No)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model[0].Date)
+                </th>
+                <th width="70"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PurchaseType.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Supplier.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.No)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        <a asp-controller="Purchase" asp-action="Edit" asp-route-id="@item.PurchaseID"><img src="~/images/icons/Edit.png" style="max-height:30px; max-width:30px" /></a>
+                        <a asp-controller="Purchase" asp-action="Details" asp-route-id="@item.PurchaseID"><img src="~/images/icons/Clipboard.png" style="max-height:30px; max-width:30px" /></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>

@@ -1,0 +1,17 @@
+﻿@{ 
+    ViewBag.title = "Not Found";
+    ViewData["Title"] = "NotFound";
+    ViewData["PageTitle"] = "Page not found";
+    //ViewData["PageType"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+}
+
+<h1>@ViewBag.ErrorMessage</h1>
+
+
+
+<a asp-action="index" asp-controller="home">
+    Click here for home page.
+</a>

@@ -1,0 +1,225 @@
+@*@model IEnumerable<Models.Asset>*@
+@model List<Models.Asset>
+
+@{
+    ViewData["Title"] = "Assets - Overview";
+    ViewData["PageTitle"] = "Assets";
+    ViewData["PageType"] = "Overview";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var pivot = ViewData["AssetPivot"] as IEnumerable<Object>;
+
+    //var chart = ViewBag["AssetPivot"];
+
+    //var myInvoiceDetails1 = ViewData["AssetPivotData"] as List<Models.Asset>;
+
+}
+
+<br />
+
+@*<table class="table">
+    <thead>
+        <tr>
+            <th>Owner</th>
+                <th>Computer</th>
+                <th>Switch</th>
+                <th>Drive</th>
+                <th>Ups</th>
+                <th>PLC</th>
+                <th>EngStation</th>
+                <th>ScadaServer</th>
+                <th>Laptop</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (ViewData["AssetPivot"] != null)
+        {
+            @foreach (var item in pivot)
+
+            {
+                <tr>
+                    @foreach (var property in item.GetType().GetProperties())
+                    {
+                        <td>
+                            @property.GetValue(item)
+                        </td>
+                    }
+
+                </tr>
+            }
+        }
+    </tbody>
+</table>*@
+
+@*<form>
+
+        <div class="container">
+            <canvas id="myChart"></canvas>
+        </div>
+
+        <script>
+
+            let myChart = document.getElementById('myChart').getContext('2d');
+
+            // Global Options
+            Chart.defaults.global.defaultFontFamily = 'Lato';
+            Chart.defaults.global.defaultFontsize = 18;
+            Chart.defaults.global.defaultFontColor = '#777';
+
+
+            let PrPopChart = new Chart(myChart, {
+                type: 'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+                data: {
+                    labels: ['Computer', 'Switch', 'Drive', 'Ups', 'PLC', 'EngStation', 'ScadaServer' ,'Laptop'],
+                    datasets: [{
+                        label: 'Population',
+                        data: [@ViewBag.AssetPivot],
+                        //    418140,
+                        //    203499
+                        //],
+
+                        // backgroundColor: 'green',
+                        backgroundColor: [
+                            '#228B22',
+                            '#e65100',
+                            '#fb8c00',
+                            '#ff9800',
+                            '#ffa726',
+                            '#ffb74d',
+                            '#ffcc80',
+                            '#ffe0b2',
+                            '#fff3e0'
+                        ],
+                        borderWidth: 1,
+                        borderColor: 'white',
+                        hoverBorderWidth: 3,
+                        hoverBorderColor: 'grey'
+                    }]
+                },
+                options: {
+                    title: {
+                        display: true,
+                        text: 'Assets',
+                        fontSize: 25
+                    },
+                    legend: {
+                        display: true,
+                        position: 'right',
+                        labels: {
+                            fontColor: '#000'
+                        }
+                    },
+                    layout: {
+                        padding: {
+                            left: 50,
+                            right: 0,
+                            bottom: 0,
+                            top: 0
+                        }
+                    },
+                    tooltips: {
+                        enabled: true
+                    }
+                }
+            });
+        </script>
+    </form>*@
+
+
+
+<hr />
+<br />
+
+<div class="container">
+
+    <div>
+        <input type="button" class="btn btn-info" onclick="tableToExcel('pvtTable', 'PivotDownload')" value="Export to Excel" />
+    </div>
+
+    <div id="pivotoutput" style="margin:30px;"></div>
+</div>
+
+<script>
+
+    //https://pivottable.js.org/examples/index.html
+
+
+    var myInvoiceDetails = [];
+    function drawPivot() {
+        $(function () {
+            $("#pivotoutput").pivotUI(
+                myInvoiceDetails,
+                {
+                    rows: ["productType"],
+                    cols: ["warningPeriodYear","warningPeriodMonth"],
+                    //vals: ["Price"],
+                    
+                    rowOrder: "key_a_to_z", colOrder: "key_a_to_z",
+                    //rowOrder: "value_z_to_a", colOrder: "value_a_to_z",
+
+                    //Remark: Manually sort, need to mention in the [..., ..., ...] beloow:
+                    //sorters: {
+                    //    "ProductName": sortAs([]),
+                    //    "DeliveryDate": sortAs([]),
+                    //},
+                    //aggregatorName: "Sum",
+                    aggregatorName: "Count",
+                    //aggregators["Count"](),
+                    //renderName: "Heatmap"
+                }
+
+            )
+        });
+    }
+
+    function getPivot() {
+        //return fetch('./Index?handler=InvoicePivotData',
+        //return fetch('./Home/OnGetInvoicePivotData',
+        return fetch('./OnGetAssetPivotData',
+            
+            {
+                method: 'get',
+                headers: {
+                    'Content-Type': 'application/json;charset=UTF-8'
+                }
+            })
+            .then(function (response) {
+                if (response.ok) {
+                    return response.text();
+                } else {
+                    throw Error("Response Not Ok");
+                }
+            })
+            .then(function (text) {
+                try {
+                    return JSON.parse(text);
+                } catch (err) {
+                    throw Error("Method Not Found");
+                }
+            })
+            .then(function (responseJSON) {
+                myInvoiceDetails = responseJSON;
+                drawPivot();
+            })
+    }
+
+    getPivot();
+
+</script>
+
+<script type="text/javascript">
+
+    var tableToExcel = (function () {
+        var uri = 'data:application/vnd.ms-excel;base64,'
+            , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns = "http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--> <meta http-equiv="content-type" content="text/plain; charset=UTF-8"/></head><body><table>{table}</table></body></html>'
+            , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
+            , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
+        return function (table, name) {
+            if (!table.nodeType) table = document.getElementsByClassName(table)[0]
+            var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
+            window.location.href = uri + base64(format(template, ctx))
+        }    
+    })();
+</script>

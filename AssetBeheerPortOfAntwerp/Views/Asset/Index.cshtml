@@ -1,0 +1,266 @@
+﻿@model IEnumerable<Models.Asset>
+
+@{
+    ViewData["Title"] = "Assets - Index";
+    ViewData["PageTitle"] = "Assets";
+    ViewData["PageType"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var pivot = ViewData["AssetPivot"] as IEnumerable<Object>;
+
+    bool qrCodeSwitch = (bool)ViewData["qrCodeSwitch"];
+    bool outSwitch = (bool)ViewData["outSwitch"];
+
+}
+
+
+<style>
+    tr.Green {
+        background-color: lightgreen;
+    }
+
+    tr.Orange {
+        background-color: lemonchiffon;
+    }
+
+    tr.Red {
+        background-color: bisque;
+    }
+
+    tr.NoSupport {
+        background-color: orangered;
+    }
+
+    tr.OutOfUse {
+        background-color: gray;
+    }
+
+</style>
+
+
+@*****************************************************************@
+
+<br />
+
+<form asp-action="Index" method="get">
+    <div>
+        <div class="float-sm-left row col-sm-9">
+            <div class="input-group col-md-8">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><img src="~/images/icons/search.png" style="max-height: 20px; max-width: 20px;" /></div>
+                </div>
+                <input type="text" id="SearchString" name="SearchString" value="@ViewData["CurrentFilter"]" class="form-control col-9" />
+                <input type="submit" value="Search" class="btn-default" asp-route-qrCodeSwitch="@qrCodeSwitch" />
+
+            </div>
+            <div>
+                <a class="btn btn-info" asp-action="Index" asp-route-qrCodeSwitch="@qrCodeSwitch">Back to Full list</a>
+            </div>
+        </div>
+
+    </div>
+    <div class="row text-sm-right">
+        @*<h4><a asp-action="Create">Create New</a></h4>*@
+
+        <div id="showHideQrCode" class="custom-control custom-switch" >
+            <input type="checkbox" class="custom-control-input" id="qrCodeSwitch" name="qrCodeSwitch" value="@qrCodeSwitch"  />
+            @*<input type="checkbox" class="custom-control-input"  name="qrCodeSwitch" value="on" />*@
+            <label class="custom-control-label" for="qrCodeSwitch">QR-Code visible?</label>
+        </div>
+    </div>
+    <br />
+</form>
+
+<table id="table" class="table-sm col-12">
+    <thead style="background-color: lightgrey">
+        <tr>
+            <th class="columnToHide" style="">
+                QR Code
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["AssetTagSortParm"]" asp-route-searchString="@ViewData["CurrentFilter"]">
+                    <img src="~/images/icons/search.png" style="max-height: 15px; max-width: 15px; " />@Html.DisplayNameFor(model => model.AssetTag)
+                </a>
+                @*@Html.DisplayNameFor(model => model.AssetTag)*@
+            </th>
+            <th style="width:100px">
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["StatusSortParm"]" asp-route-searchString="@ViewData["CurrentFilter"]">
+                    <img src="~/images/icons/search.png" style="max-height:15px; max-width:15px;" />@Html.DisplayNameFor(model => model.Status)
+                </a>
+                @*@Html.DisplayNameFor(model => model.Status)*@
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["PurchaseItemSortParm"]" asp-route-searchString="@ViewData["CurrentFilter"]">
+                    <img src="~/images/icons/search.png" style="max-height:15px; max-width:15px;" />@Html.DisplayNameFor(model => model.PurchaseItem)
+                </a>
+                @*@Html.DisplayNameFor(model => model.PurchaseItem)*@
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["OwnerSortParm"]" asp-route-searchString="@ViewData["CurrentFilter"]">
+                    <img src="~/images/icons/search.png" style="max-height:15px; max-width:15px;" />@Html.DisplayNameFor(model => model.AssetOwner.OwnerDescription)
+                </a>
+                @*@Html.DisplayNameFor(model => model.AssetOwner.OwnerDescription)*@
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["LocationSortParm"]" asp-route-searchString="@ViewData["CurrentFilter"]">
+                    <img src="~/images/icons/search.png" style="max-height:15px; max-width:15px;" />@Html.DisplayNameFor(model => model.OperationalSiteLocation.Location)
+                </a>
+                @*@Html.DisplayNameFor(model => model.OperationalSiteLocation.Location)*@
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["WarningDateSortParm"]" asp-route-searchString="@ViewData["CurrentFilter"]">Warning</a>
+                @*<a asp-action="Index" asp-route-sortOrder="@ViewData["WarningDateSortParm"]">@Html.DisplayNameFor(model => model.WarningDate)</a>*@
+                @*@Html.DisplayNameFor(model => model.WarningDate)*@
+            </th>
+            @*<th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["ExpireDateSortParm"]" asp-route-searchString="@ViewData["CurrentFilter"]">Expire</a>
+            </th>*@
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NoSupportSortParm"]" asp-route-searchString="@ViewData["CurrentFilter"]">FO</a>
+            </th>
+            <th width="100"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            @foreach (var item in Model)
+            {
+                <tr class="@item.WarningUrgency">
+                    <td class="columnToHide" >
+                        @{ if (item.QrCode != null)
+                            {
+                                <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(item.QrCode))" height="70" width="70" />
+                            }
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AssetTag)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PurchaseItem.Product.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AssetOwner.OwnerDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OperationalSiteLocation.Location.LocationDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WarningDate)
+                    </td>
+                    @*<td>
+                        @Html.DisplayFor(modelItem => item.ExpireDate)
+                    </td>*@
+                    <td>
+                        @Html.CheckBoxFor(modelItem => item.PurchaseItem.Product.Status.NoSupport)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.AssetID"><img src="~/images/icons/Edit.png" style="max-height:30px; max-width:30px" /></a>
+                        <a asp-action="Details" asp-route-id="@item.AssetID"><img src="~/images/icons/Clipboard.png" style="max-height:30px; max-width:30px" /></a>
+                        <a asp-action="Delete" asp-route-id="@item.AssetID"><img src="~/images/icons/Delete.png" style="max-height:30px; max-width:30px" /></a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+<script type="text/javascript">
+        $(document).ready(function () {
+
+            @*if (@qrCodeSwitch === false) {
+                $('.columnToHide').hide();
+            }*@
+
+            $('.columnToHide').hide();
+
+            $('#qrCodeSwitch').click(function () {
+
+                if ($('#qrCodeSwitch').is(':checked')) {
+                    $('.columnToHide').show();
+                    @qrCodeSwitch == true;
+                }
+                else {
+                    $('.columnToHide').hide();
+                    @qrCodeSwitch == false;
+                }
+            });
+
+
+        });
+
+   
+</script>
+
+}
+
+@*<script type="text/javascript">
+
+
+        document.getElementById("#qrCodeSwitch").onclick = function () {
+            document.getElementById("qrCode").style.display = "none";
+        }
+
+
+
+        $(document).ready(function ()
+        {
+            $('#checkboxQrCode').change(function){
+
+
+            }
+
+            $('#qrCodeSwitch').change(function () {
+                //e.preventDefault();
+                //$('qrCode').toggle('slow');
+
+                if (this.checked) {
+                    $('#qrCodeHeader').hide();
+                    $('.qrCode').hide();
+                    qrCodeHeader.display;
+
+                }
+                else {
+                    $('#qrCodeHeader').show();
+                    $('.qrCode').show();
+                }
+
+    </script>*@
+
+@*<script type="text/javascript">
+
+        $(document).ready(function () {
+
+            QrCodeVisible();
+
+            $("#qrCodeSwitch").change(function () {
+                QrCodeVisible();
+            });
+        });
+
+        function QrCodeVisible() {
+
+            var v = $("#qrCodeSwitch").val();
+            //var v = $('#checkboxQrCode').val();
+
+            if (v == true) {
+                //$("#qrCodeHeader").closest("div").show();
+                $("#qrCodeHeader").show();
+                $("#qrCode").show();
+            } else {
+                $("#qrCodeHeader").hide();
+                $("#qrCode").hide();
+            }
+
+            $("#qrCodeHeader").load();
+
+        }
+
+    </script>*@

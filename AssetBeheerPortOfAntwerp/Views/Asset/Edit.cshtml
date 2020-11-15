@@ -1,0 +1,444 @@
+﻿@*@model Models.Asset*@
+@model BLL.ViewModels.AssetViewModel
+
+@{
+    ViewData["Title"] = "Asset - Edit";
+    ViewData["PageTitle"] = "Asset";
+    ViewData["PageType"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewData["AssetID"] = Model.asset.AssetID;
+
+}
+
+<br />
+<div id="onchange" class="m-sm-1">
+    <form asp-action="Edit" asp-antiforgery="true">
+        <div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="asset.AssetID" />
+            <input type="hidden" asp-for="asset.AssetTag" />
+            <input type="hidden" asp-for="asset.PurchaseItemID" />
+        </div>
+        <div class="form-row">
+
+            <div class="form-group col-sm-2">
+                @{
+                    if (Model.asset.QrCode != null)
+                    {
+
+                        <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.asset.QrCode))" style="max-height: 160px; max-width: 160px" class="img-thumbnail float-left" />
+
+                    }
+                }
+            </div>
+            <div class="form-group col-sm-10">
+                <div class="form-row">
+
+                    <div class="form-group col-sm-2">
+                        <label asp-for="asset.AssetTag" class="control-label"></label>
+                        <input asp-for="asset.AssetTag" class="form-control" disabled />
+                        <span asp-validation-for="asset.AssetTag" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label asp-for="asset.StatusID" class="control-label"></label>
+                        <select asp-for="asset.StatusID" class="form-control" asp-items="ViewBag.StatusID"><option disabled selected>---Select---</option></select>
+                        <span asp-validation-for="asset.StatusID" class="text-danger"></span>
+                    </div>
+
+                    @if (Model.asset.PurchaseItem.Product.HasFile == false)
+                    {
+
+                        <div class="form-group col-md-7">
+                            <label asp-for="asset.PurchaseItemID" class="control-label"></label>
+                            <a class="form-control btn-outline-info" asp-controller="Hardware" asp-action="Edit" asp-route-id="@Model.asset.PurchaseItem.ProductID" asp-route-assetID="@Model.asset.AssetID">
+                                @Model.asset.PurchaseItem.Product.Name
+                            </a>
+                            <span asp-validation-for="asset.PurchaseItemID" class="text-danger"></span>
+                        </div>
+                    }
+
+                    @if (Model.asset.PurchaseItem.Product.HasFile)
+                    {
+                        <div class="form-group col-md-6">
+                            <label asp-for="asset.PurchaseItemID" class="control-label"></label>
+                            <a class="form-control btn-outline-info" asp-controller="Hardware" asp-action="Edit" asp-route-id="@Model.asset.PurchaseItem.ProductID" asp-route-assetID="@Model.asset.AssetID">
+                                @Model.asset.PurchaseItem.Product.Name
+                            </a>
+                            <span asp-validation-for="asset.PurchaseItemID" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-1">
+                            <label class="control-label">PDF</label>
+                            <a class="form-control btn-info" asp-controller="Hardware" asp-action="DownloadFile" asp-route-productID="@Model.asset.PurchaseItem.ProductID" target="_blank">Open</a>
+                        </div>
+                    }
+
+
+
+                    @*<div class="form-group col-sm-7">
+                        <label asp-for="asset.PurchaseItemID" class="control-label"></label>
+                        <select asp-for="asset.PurchaseItemID" class="form-control" asp-items="ViewBag.PurchaseItemID" disabled><option disabled selected>---Select---</option></select>
+                        <span asp-validation-for="asset.PurchaseItemID" class="text-danger"></span>
+                        </div>*@
+
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-5">
+                        <label asp-for="asset.PurchaseItem.Purchase" class="control-label"></label>
+                        <a class="form-control btn-outline-info" asp-controller="PurchaseItem" asp-action="Edit" asp-route-id="@Model.asset.PurchaseItemID" asp-route-assetID="@Model.asset.AssetID">
+                            @*@Model.asset.PurchaseItem.Purchase.Supplier.Name, @Model.asset.PurchaseItem.Purchase.No, @Model.asset.PurchaseItem.Purchase.Date.ToShortDateString()*@
+
+                            @Model.asset.PurchaseItem.Purchase.Supplier.Name, No: @Model.asset.PurchaseItem.Purchase.No, @Model.asset.PurchaseItem.Purchase.Date.ToString("dd/MM/yy")
+                        </a>
+                        <span asp-validation-for="asset.PurchaseItemID" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label asp-for="asset.SerieNo" class="control-label"></label>
+                        <input asp-for="asset.SerieNo" class="form-control" />
+                        <span asp-validation-for="asset.SerieNo" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label asp-for="asset.ServiceTag" class="control-label"></label>
+                        <input asp-for="asset.ServiceTag" class="form-control" />
+                        <span asp-validation-for="asset.ServiceTag" class="text-danger"></span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-sm-3">
+                <label asp-for="asset.AssetOwnerID" class="control-label"></label>
+                @*<select name="AssetOwnerID" id="AssetOwnerID" asp-for="asset.AssetOwnerID" class="form-control" asp-items="ViewBag.AssetOwnerID"><option disabled selected>---Select---</option></select>*@
+                <select id="AssetOwnerID" asp-for="asset.AssetOwnerID" class="form-control" asp-items="ViewBag.AssetOwnerID"><option disabled selected>---Select---</option></select>
+                <span asp-validation-for="asset.AssetOwnerID" class="text-danger"></span>
+            </div>
+            <div id="divLocation" class="form-group col-sm-6">
+                <label asp-for="asset.OperationalSiteLocationID" class="control-label"></label>
+                <select id="Location" asp-for="asset.OperationalSiteLocationID" class="form-control" asp-items="ViewBag.OperationalSiteLocationID"><option disabled selected>---Select---</option><option value="null">---None---</option></select>
+
+                @*<select id="Location" asp-for="asset.OperationalSiteLocationID" class="form-control" asp-items=" Enumerable.Empty<SelectListItem>()" disabled><option disabled selected>---Select---</option><option value="null">---None---</option></select>*@
+                @*<select name="Location" id="Location" asp-for="asset.OperationalSiteLocationID" class="form-control" asp-items=" Enumerable.Empty<SelectListItem>()" disabled></select>*@
+                @*<select name="Location"  id="Location" asp-for="asset.OperationalSiteLocationID" class="form-control" asp-items="Enumerable.Empty<SelectListItem>()" disabled></select>*@
+
+                @*<select name="Location" id="Location" asp-for="asset.OperationalSiteLocationID" asp-items="ViewBag.OperationalSiteLocationID" class="form-control" ></select>*@
+
+                @*@Html.DropDownList("Location", Enumerable.Empty<SelectListItem>(), "OperationalSiteLocations", new { @disabled = "disabled" })*@
+                <span asp-validation-for="asset.OperationalSiteLocationID" class="text-danger"></span>
+            </div>
+            <div id="divRackLocation" class="form-group col-sm-2">
+                <label asp-for="asset.RackLocationID" class="control-label"></label>
+                <select id="RackLocationID" asp-for="asset.RackLocationID" class="form-control" asp-items="ViewBag.RackLocationID"><option disabled selected>---Select---</option><option value="null">---None---</option></select>
+                <span asp-validation-for="asset.RackLocationID" class="text-danger"></span>
+            </div>
+            <div id="divURack" class="form-group col-sm-1">
+                <label asp-for="asset.URackID" class="control-label"></label>
+                <select id="URackID" asp-for="asset.URackID" class="form-control" asp-items="ViewBag.URackID"><option disabled selected>---Select---</option><option value="null">---None---</option></select>
+                <span asp-validation-for="asset.URackID" class="text-danger"></span>
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <input type="submit" value="Save" class="submitbutton btn btn-primary" />    |
+            <a class="btn btn-outline-info" asp-action="Index">Back to List</a>
+        </div>
+        @*<hr />*@
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist" style="background-color: lightgray;">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active" id="info-tab" data-toggle="tab" href="#info" role="tab" aria-controls="info" aria-selected="true">Info</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="license-tab" data-toggle="tab" href="#license" role="tab" aria-controls="license" aria-selected="false">Licenses</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="details-tab" data-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="false">Details</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="backup-tab" data-toggle="tab" href="#backup" role="tab" aria-controls="backup" aria-selected="false">Back-up</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="statusHistory-tab" data-toggle="tab" href="#statusHistory" role="tab" aria-controls="statusHistory" aria-selected="false">Status history</a>
+            </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div class="tab-pane active" id="info" role="tabpanel" aria-labelledby="info-tab">
+
+                @*Subform Info*@
+                <br />
+                @*<div>
+                        <h3>Info</h3>
+                    </div>*@
+                <div>
+                    <div class="form-row">
+                        <div class="form-group col-sm-6">
+                            <label asp-for="asset.TargetDescription" class="control-label"></label>
+                            <input asp-for="asset.TargetDescription" class="form-control" />
+                            <span asp-validation-for="asset.TargetDescription" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label asp-for="asset.Remarks" class="control-label"></label>
+                            <input asp-for="asset.Remarks" class="form-control" />
+                            <span asp-validation-for="asset.Remarks" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-sm-2">
+                            <label asp-for="asset.DeliveryDate" class="control-label"></label>
+                            <input asp-for="asset.DeliveryDate" class="form-control" />
+                            <span asp-validation-for="asset.DeliveryDate" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-sm-2">
+                            <label asp-for="asset.WarentyIntervalMonth" class="control-label"></label>
+                            <input asp-for="asset.WarentyIntervalMonth" class="form-control" />
+                            <span asp-validation-for="asset.WarentyIntervalMonth" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-sm-2">
+                            <label asp-for="asset.UsingDateStart" class="control-label"></label>
+                            <input asp-for="asset.UsingDateStart" class="form-control" />
+                            <span asp-validation-for="asset.UsingDateStart" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-sm-2">
+                            <label asp-for="asset.ExpirePeriodMonth" class="control-label"></label>
+                            <input asp-for="asset.ExpirePeriodMonth" class="form-control" />
+                            <span asp-validation-for="asset.ExpirePeriodMonth" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-sm-2">
+                            <label asp-for="asset.WarningPeriodID" class="control-label"></label>
+                            <select asp-for="asset.WarningPeriodID" class="form-control" asp-items="ViewBag.WarningPeriodID"><option disabled selected>---Select---</option></select>
+                            <span asp-validation-for="asset.WarningPeriodID" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-sm-2">
+                            <label asp-for="asset.UsingDateEnd" class="control-label"></label>
+                            <input asp-for="asset.UsingDateEnd" class="form-control" />
+                            <span asp-validation-for="asset.UsingDateEnd" class="text-danger"></span>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="tab-pane" id="license" role="tabpanel" aria-labelledby="license-tab">
+
+                @*Subform AssetLicenses*@
+                <br />
+
+                <div>
+                    <div class="float-sm-left">
+                        <h3>Licenses</h3>
+                    </div>
+                    <div class="text-sm-right">
+                        @*<a class="create" asp-controller="License" asp-action="AllUnusedLicenses" asp-route-assetID="@Model.asset.AssetID"><h3>Add License</h3></a>*@
+
+                        <a class="create" asp-controller="License" asp-action="SelectSoftwareType" asp-route-assetID="@Model.asset.AssetID"><h3>Add License</h3></a>
+                        <button class="submitbutton btn-link" asp-action="Edit" asp-route-id="@Model.asset.AssetID" asp-route-goToAssetLicense="true" formmethod="post" style="background-color: transparent; border:none"><h3>Add License</h3></button>
+                    </div>
+                </div>
+                <div>
+                    <partial name="PartialViews/_ListAssetLicensePartial" model="@Model.assetLicenses" view-data="ViewData" />
+                </div>
+            </div>
+
+            <div class="tab-pane" id="details" role="tabpanel" aria-labelledby="details-tab">
+
+                @*Subform AssetDetail*@
+                <br />
+                <div>
+                    <div class="float-sm-left">
+                        <h3>Details</h3>
+                    </div>
+                    <div class="text-sm-right">
+                        <a class="create" asp-controller="AssetDetail" asp-action="Create" asp-route-assetID="@Model.asset.AssetID"><h3>Add Detail</h3></a>
+                        <button class="submitbutton btn-link" asp-action="Edit" asp-route-id="@Model.asset.AssetID" asp-route-goToAssetDetail="true" formmethod="post" style="background-color: transparent; border:none"><h3>Add Detail</h3></button>
+                    </div>
+                </div>
+                <div>
+                    <partial name="PartialViews/_ListAssetDetailsPartial" model="@Model.assetDetails" />
+                </div>
+            </div>
+
+            <div class="tab-pane" id="backup" role="tabpanel" aria-labelledby="backup-tab">
+
+
+                @*Subform Backups*@
+
+                @if (Model.asset.PurchaseItem.Product.ProductType.HasBackup == true)
+                {
+                    <br />
+                    <div>
+                        <div class="float-sm-left">
+                            <h3>Back ups / every @Model.asset.PurchaseItem.Product.ProductType.BackupInterval month(s)</h3>
+                        </div>
+                        <div class="text-sm-right">
+                            <a class="create" asp-controller="Backup" asp-action="Create" asp-route-assetID="@Model.asset.AssetID"><h3>Add Backup</h3></a>
+                            <button class="submitbutton btn-link" asp-action="Edit" asp-route-id="@Model.asset.AssetID" asp-route-goToCreateBackup="true" formmethod="post" style="background-color: transparent; border:none"><h3>Add Backup</h3></button>
+                        </div>
+                    </div>
+                    <div>
+                        <partial name="PartialViews/_ListBackupsPartial" model="@Model.backups" />
+                    </div>
+                    <h6 class="lead small embed-responsive"> (Only the latest 5x ones!)</h6>
+                }
+            </div>
+
+            <div class="tab-pane" id="statusHistory" role="tabpanel" aria-labelledby="statusHistory-tab">
+
+                @*Subform AssetHistory*@
+                <br />
+                <div class="float-sm-left">
+                    <h3>Status history</h3>
+                </div>
+                <div>
+                    <partial name="PartialViews/_ListAssetHistoryPartial" model="@Model.assetHistories" />
+                </div>
+
+
+            </div>
+        </div>
+
+
+
+
+
+
+
+    </form>
+</div>
+
+
+
+@*<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+            asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+            asp-fallback-test="window.jQuery"
+            crossorigin="anonymous"
+            integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+    </script>*@
+
+
+<script>
+
+    
+
+    $(document).ready(function () {
+
+        $("#divRackLocation").hide();
+        $('#divURack').hide();
+
+
+        var disabled = "";
+        if (@Model.asset.AssetOwner.OwnerType == "Warehouse" || @Model.asset.AssetOwner.OwnerType == "Person" ||
+            @Model.asset.AssetOwner.OwnerType == "Group people" || @Model.asset.AssetOwner.OwnerType == "Extern company")
+        {
+            $("#divRackLocation").hide();
+            $('#divURack').hide();
+            //$('#').hide();
+
+            $('#RackLocationID').prop('hide', true);
+        }
+
+        $('#AssetOwnerID').change(function () {
+            $.ajax({
+                url: '/Asset/OperationalSiteLocationByOwner',
+                type: 'POST',
+                data: { assetOwnerID: $(this).val() },
+                datatype: 'json',
+                success: function (data) {
+                    var options = '<option disabled selected>---Select---</option><option value="null">---None---</option>';
+                    //var options = '';
+                    $.each(data, function () {
+                        options += '<option value="' + this.id + '">' + this.location + '</option>';
+                    });
+                    //$('#Location').prop('disabled', false).html(options);
+                    $('#Location').prop('disabled', false).html(options);
+                }
+            });
+
+        });
+
+        $('#Location').change(function () {
+            $.ajax({
+                url: '/Asset/GetRackLocationsIDByOperationalSiteLocation',
+                type: 'POST',
+                data: { operationalSiteLocationID: $(this).val() },
+                datatype: 'json',
+                success: function (data) {
+                    var options = '<option disabled selected>---Select---</option><option value="null">---None---</option>';
+                    //var options = '';
+                    $.each(data, function () {
+                        options += '<option value="' + this.id + '">' + this.rack + '</option>';
+                    });
+                    //$('#Location').prop('disabled', false).html(options);
+                    $('#RackLocationID').prop('disabled', false).html(options);
+                }
+            });
+        });
+
+
+        $('.btn-link').hide();
+
+        var isChanged = false;
+        var isSubmit = false;
+
+        $('#onchange').change(function () {
+
+            if (isChanged == false) {
+                $('.create').hide();
+                $('.btn-link').show();
+
+                isChanged = true;
+            }
+
+        });
+
+        $('.submitbutton').click(function () {
+            isSubmit = true;
+        });
+
+        window.onbeforeunload = function (e) {
+            if (isChanged && (!isSubmit)) {
+                return "Make sure to save all changes.";
+            }
+        };
+
+    });
+
+
+
+
+    //$.ajax({
+    //    url: '/Asset/GetSubOperationalSiteLocation',
+    //    type: 'GET',
+    //    data: { assetOwnerID: $('#AssetOwnerID').val() },
+    //    datatype: 'json',
+    //    success: function (data) {
+    //        var options = '<option disabled selected>---Select---</option><option value="null">---None---</option>';
+    //        $.each(data, function () {
+    //            options += '<option value="' + this.id + '">' + this.location + '</option>';
+    //        });
+    //        $('#Location').prop('disabled', false).html(options);
+    //    }
+    //});
+
+
+</script>
+
+
+@*<script type="text/javascript">
+        Document.ready(function () {
+            $('#Owner').change(function () {
+                var url = '@Url.Content("~/")' + "GetSubOperationalSiteLocation";
+                var ddlsource = "Owner";
+                $.getJSON(url, {Owner: (ddlsource).val()}, function(data))
+            });
+        });
+    </script>*@
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

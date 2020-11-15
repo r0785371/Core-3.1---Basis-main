@@ -1,0 +1,102 @@
+﻿@model Models.LicenseValidityType
+
+@{
+    ViewData["Title"] = "License validity type - Delete";
+    ViewData["PageTitle"] = "License validity type";
+    ViewData["PageType"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int qty = -1;
+    var test = int.TryParse(ViewData["Qty"] as string, out qty);
+
+    int qtyLicense = 0;
+    var test1 = int.TryParse(ViewData["QtyLicense"] as string, out qtyLicense);
+
+    string license = qtyLicense > 1 ? " Licenses" : " License";
+
+}
+
+@if (qty > 0)
+{
+    <br />
+    <h3>Attention: You can't delete this License Validity Type: "@Model.Name"!</h3>
+    <hr />
+    <h4>"@Model.Name" is linked to:</h4>
+    <ul>
+        <li>@qtyLicense x @license</li>
+    </ul>
+
+    <p>It's not possible (recomendated) to delete @Model.Name!</p>
+    <hr />
+    <form>
+        <button asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.LicenseValidityTypeID">Edit</button> |
+        <button asp-action="Index" class="btn btn-outline-info">Back</button>
+    </form>
+    <br />
+    <hr />
+
+    @if (qtyLicense > 0)
+    {
+        <h2>@license</h2>
+        <table class="table-sm col-sm-12">
+            <thead>
+                <tr>
+                    <th>Status</th>
+                    <th>Name</th>
+                    <th>License Type</th>
+                    <th width="70px"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.ListLicenses as List<Models.License>)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PurchaseItem.Product.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LicenseType.Name)
+                        </td>
+                        <td>
+                            <a asp-controller="License" asp-action="Edit" asp-route-id="@item.LicenseID"><img src="~/images/icons/Edit.png" style="max-height:30px; max-width:30px" /></a>
+                            <a asp-controller="License" asp-action="Details" asp-route-id="@item.LicenseID"><img src="~/images/icons/Clipboard.png" style="max-height:30px; max-width:30px" /></a>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+    <hr />
+}
+
+@if (qty == 0)
+{
+    <h3>Are you sure you want to delete this License Validity Type: "@Model.Name"?</h3>
+    <div>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+        </dl>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="LicenseValidityTypeID" />
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            <a class="btn btn-outline-info" asp-action="Index">Back to List</a>
+        </form>
+    </div>
+}
+
+@if (qty < 0)
+{
+    <partial name="PartialViews/_DeleteRecordErrorPartial" />
+}

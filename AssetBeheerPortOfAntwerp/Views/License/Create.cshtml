@@ -1,0 +1,170 @@
+﻿@model Models.License
+
+@{
+    ViewData["Title"] = "License - Create";
+    ViewData["PageTitle"] = "License";
+    ViewData["PageType"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label asp-for="StatusID" class="control-label"></label>
+                    <select asp-for="StatusID" class="form-control" asp-items="ViewBag.StatusID" required><option disabled selected>---Select---</option></select>
+                    <span asp-validation-for="StatusID" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-9">
+                    <label asp-for="PurchaseItemID" class="control-label"></label>
+                    <select asp-for="PurchaseItemID" class="form-control" asp-items="ViewBag.PurchaseItemID" required><option disabled selected>---Select---</option></select>
+                    <span asp-validation-for="PurchaseItemID" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label asp-for="LicenseTypeID" class="control-label"></label>
+                    <select id="LicenseTypeID" asp-for="LicenseTypeID" class="form-control" asp-items="ViewBag.LicenseTypeID"><option disabled selected>---Select---</option></select>
+                    <span asp-validation-for="LicenseTypeID" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="QtyLimited" class="control-label"></label>
+                    <input id="QtyLimited" type="number" asp-for="QtyLimited" class="form-control" />
+                    <span asp-validation-for="QtyLimited" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="LicenseValidityTypeID" class="control-label"></label>
+                    <select asp-for="LicenseValidityTypeID" class="form-control" asp-items="ViewBag.LicenseValidityTypeID"><option disabled selected>---Select---</option></select>
+                    <span asp-validation-for="LicenseValidityTypeID" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="ValidityTypeTime" class="control-label"></label>
+                    <input asp-for="ValidityTypeTime" class="form-control" />
+                    <span asp-validation-for="ValidityTypeTime" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label asp-for="No" class="control-label"></label>
+                    <input asp-for="No" class="form-control" />
+                    <span asp-validation-for="No" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="Key" class="control-label"></label>
+                    <input asp-for="Key" class="form-control" />
+                    <span asp-validation-for="Key" class="text-danger"></span>
+                </div>
+            </div>
+            @*<div class="form-row">
+                <div class="form-group col-md-1">
+                    <label asp-for="HasCol" class="form-label"></label>
+                    <input class="form-control check-input" asp-for="HasCol" />
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label asp-for="ColFileName" class="control-label"></label>
+                    <input asp-for="ColFileName" class="form-control" />
+                    <span asp-validation-for="ColFileName" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-5">
+                    <label class="control-label">Specification file (PDF)</label>
+                    <div class="custom-file">
+                        <label class="custom-file-label" asp-for="File" data-browse="Bestand kiezen">
+                        @Localizer["Only 1 PDF file can be added"]</label>
+                        <input type="file" class="form-control custom-file-input" asp-for="File">
+                        <span asp-validation-for="File" class="text-danger"></span>
+                    </div>
+                </div>
+                @if (Model.HasCol == true)
+                {
+                    <div class="custom-file col-md-2">
+                        <label></label>
+                        <a class="form-control btn btn-info" asp-action="DownloadFile"
+                        asp-route-licenseID="@Model.LicenseID" target="_blank">@Localizer["Open PDF"]</a>
+                    </div>
+                }
+
+            </div>*@
+
+
+
+
+
+            @*<div class="form-row">
+            <div class="form-group col-2">
+                <label asp-for="StatusID" class="control-label"></label>
+                <select asp-for="StatusID" class="form-control" asp-items="ViewBag.StatusID" required>
+                <option disabled selected>---Select---</option></select>
+                <span asp-validation-for="StatusID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PurchaseItemID" class="control-label"></label>
+                <select asp-for="PurchaseItemID" class="form-control" asp-items="ViewBag.PurchaseItemID" required>
+                <option disabled selected>---Select---</option></select>
+                <span asp-validation-for="PurchaseItemID" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-6">
+                <label asp-for="No" class="control-label"></label>
+                <input asp-for="No" class="form-control" />
+                <span asp-validation-for="No" class="text-danger"></span>
+            </div>
+            <div class="form-group col-6">
+                <label asp-for="Key" class="control-label"></label>
+                <input asp-for="Key" class="form-control" />
+                <span asp-validation-for="Key" class="text-danger"></span>
+            </div>
+        </div>
+
+
+        <div class="form-row">
+            <div class="form-group col-3">
+                <label asp-for="LicenseTypeID" class="control-label"></label>
+                <select asp-for="LicenseTypeID" class="form-control" asp-items="ViewBag.LicenseTypeID">
+                <option disabled selected>---Select---</option></select>
+            </div>
+            <div class="form-group col-3">
+                <label asp-for="QtyLimited" class="control-label"></label>
+                <input type="number" asp-for="QtyLimited" class="form-control" />
+                <span asp-validation-for="QtyLimited" class="text-danger"></span>
+            </div>
+            <div class="form-group col-3">
+                <label asp-for="LicenseValidityTypeID" class="control-label"></label>
+                <select asp-for="LicenseValidityTypeID" class="form-control"
+                asp-items="ViewBag.LicenseValidityTypeID"><option disabled selected>---Select---</option></select>
+            </div>
+            <div class="form-group col-3">
+                <label asp-for="ValidityTypeTime" class="control-label"></label>
+                <input asp-for="ValidityTypeTime" class="form-control" />
+                <span asp-validation-for="ValidityTypeTime" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="HasCol" /> @Html.DisplayNameFor(model => model.HasCol)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="ColFileName" class="control-label"></label>
+                <input asp-for="ColFileName" class="form-control" />
+                <span asp-validation-for="ColFileName" class="text-danger"></span>
+            </div>
+        </div>*@
+            <div class="form-group btn-group-lg">
+                <input type="submit" value="Create" class="btn btn-primary" /> |
+                <a class="btn btn-outline-info" asp-action="Index">@Localizer["Back to List"]</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

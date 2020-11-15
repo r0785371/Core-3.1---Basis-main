@@ -1,0 +1,244 @@
+﻿@*@model Models.Hardware*@
+@model BLL.ViewModels.HardwareViewModel
+
+@{
+    ViewData["Title"] = "Hardware - Edit";
+    ViewData["PageTitle"] = "Hardware";
+    ViewData["PageType"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div id="onchange" class="row">
+    <div class="col-md-12">
+
+        @*<form asp-action="Edit" enctype="multipart/form-data" method="post">*@
+
+        <form asp-action="Edit" asp-antiforgery="true" enctype="multipart/form-data">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input id="productID" type="hidden" asp-for="hardware.ProductID" />
+
+            <div id="updatePost">
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label asp-for="hardware.ProductTypeID" class="control-label"></label>
+                        <select asp-for="hardware.ProductTypeID" class="form-control" asp-items="ViewBag.ProductTypeID"><option disabled selected>---Select---</option></select>
+                        <span asp-validation-for="hardware.ProductTypeID" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label asp-for="hardware.StatusID" class="control-label"></label>
+                        <select asp-for="hardware.StatusID" class="form-control" asp-items="ViewBag.StatusID"><option disabled selected>---Select---</option></select>
+                        <span asp-validation-for="hardware.StatusID" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-8">
+                        <label asp-for="hardware.Name" class="control-label"></label>
+                        <input asp-for="hardware.Name" class="form-control" />
+                        <span asp-validation-for="hardware.Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-7">
+                        <label asp-for="hardware.Description" class="control-label"></label>
+                        <input asp-for="hardware.Description" class="form-control" />
+                        <span asp-validation-for="hardware.Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-5">
+                        <label asp-for="hardware.InfoUrl" class="control-label"></label>
+                        <input asp-for="hardware.InfoUrl" class="form-control" />
+                        <span asp-validation-for="hardware.InfoUrl" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-row col-md-12">
+                    <div class="form-group col-md-1">
+                        <label id="HasFile" asp-for="hardware.HasFile" class="form-label"></label>
+                        <input class="form-control check-input" asp-for="hardware.HasFile" disabled />
+
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="FileDescription" class="control-label"></label>
+                        <input id="FileDescription" asp-for="FileDescription" class="form-control" />
+                        <span asp-validation-for="FileDescription" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="form-group col-md-5">
+                        <label class="control-label">@Localizer["Specification file (PDF)"]</label>
+                        <div class="custom-file">
+                            <label class="custom-file-label" asp-for="File" data-browse="Bestand kiezen">
+                            @Localizer["Only 1 pdf file can be added"]</label>
+                            <input type="file" class="form-control custom-file-input" asp-for="File">
+                            <span asp-validation-for="File" class="text-danger"></span>
+                        </div>
+
+                    </div>
+
+
+                    @*<div class="form-group col-md-5">
+                    <label class="control-label">@Localizer["Specification file (PDF)"]</label>
+                    <div class="custom-file">
+                        <label class="custom-file-label" asp-for="File">
+                        @Localizer["Only 1 pdf file can be added"]</label>
+                        <input class="form-control custom-file-input" asp-for="File">
+                        <span asp-validation-for="File" class="text-danger"></span>
+                    </div>
+
+                </div>*@
+
+                    @*<div class="form-group">
+                    <div class="custom-file">
+                        <label asp-for="Photo" class="custom-file-label">@Localizer["Click here to change your photo"]</label>
+
+                        <input asp-for="Photo" class="form-control custom-file-input" />
+                    </div>
+                </div>*@
+
+
+
+                    @if (Model.hardware.HasFile == true)
+                    {
+                        <div class="col-md-2">
+                            <label></label>
+                            <div class="btn-group">
+                                <a class="btn btn-info" asp-action="DownloadFile" asp-route-productID="@Model.hardware.ProductID"
+                                target="_blank">@Localizer["Open PDF"]</a>
+                                @*<button class="btn btn-danger" asp-action="RemoveSpecificationFilePdf"
+                                asp-route-productID="@Model.hardware.ProductID">@Localizer["Delete PDF"]</button>*@
+                                <button class="submitbutton btn btn-danger" asp-action="RemoveSpecificationFilePdf"
+                                asp-route-id="@Model.hardware.ProductID" formmethod="post">@Localizer["Delete PDF"]</button>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                @*<input type="submit" value="Save" class="btn btn-primary" /> |*@
+                <button class="submitbutton btn btn-primary" formmethod="post">@Localizer["Save"]</button> |
+                @*<button class="btn btn-primary" id="Test5">Test5</button> |*@
+                <a class="btn btn-outline-info" asp-action="Index">@Localizer["Back to index"]</a>
+
+                @if (ViewData["AssetID"] != null)
+                {
+                    <a class="btn btn-outline-info" asp-controller="Asset" 
+                    asp-action="Edit" asp-route-id="@ViewData["assetID"]">@Localizer["Back to Asset"]</a>
+                }
+
+            </div>
+            <hr />
+
+            @*Product details(s)*@
+            <div>
+                <div class="float-sm-left">
+                    <h3>Product details(s)</h3>
+                </div>
+                <div class="text-sm-right">
+                    <a class="create" asp-controller="ProductDetail" asp-action="Create" asp-route-productID="@Model.hardware.ProductID"
+                    asp-route-productChild="@Model.hardware.ProductType.ProductChild.ToString()"><h3>@Localizer["Add product detail"]</h3></a>
+                    <button class="submitbutton btn-link" style="background-color: transparent; border:none"
+                    asp-action="Edit" asp-route-id="@Model.hardware.ProductID" 
+                    asp-route-productChild="@Model.hardware.ProductType.ProductChild.ToString()"
+                    asp-route-goToProductDetail="true" formmethod="post"><h3>@Localizer["Add product detail"]</h3></button>
+                </div>
+                <partial name="PartialViews/_ListProductDetailsPartial" model="@Model.productDetails" />
+            </div>
+            <br />
+
+            @*Suppliers Subform*@
+            <div>
+                <div class="float-sm-left">
+                    <h3>Supplier(s)</h3>
+                </div>
+                <div class="text-sm-right">
+                    <a class="create" asp-controller="ProductSupplier" asp-action="Create"
+                    asp-route-productID="@Model.hardware.ProductID"
+                    asp-route-productChild="@Model.hardware.ProductType.ProductChild.ToString()">
+                    <h3>@Localizer["Add supplier"]</h3></a>
+                    <button class="submitbutton btn-link" style="background-color: transparent; border:none"
+                    asp-action="Edit" asp-route-id="@Model.hardware.ProductID"
+                    asp-route-productChild="@Model.hardware.ProductType.ProductChild.ToString()"
+                    asp-route-goToProductSupplier="true" formmethod="post"><h3>@Localizer["Add supplier"]</h3></button>
+                </div>
+                <partial name="PartialViews/_ListProductSuppliersPartial" model="@Model.productSuppliers" />
+            </div>
+
+            @*Purchase items*@
+            <div>
+                @if (Model.purchaseItems.Count() > 0)
+                {
+                    <br />
+                    <h3>@Localizer["Purchase item(s)"]</h3>
+
+                    <partial name="PartialViews/_ListPurchaseItemsPartial" model="@Model.purchaseItems" />
+                }
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('.btn-link').hide();
+
+        var isChanged = false;
+        var isSubmit = false;
+
+        $('#onchange').change(function () {
+
+            if (isChanged == false) {
+                $('.create').hide();
+                $('.btn-link').show();
+
+                isChanged = true;
+            }
+        });
+
+        $('.submitbutton').click(function () {
+            isSubmit = true;
+        });
+
+        window.onbeforeunload = function (e) {
+            if (isChanged && (!isSubmit)) {
+                return "Make sure to save all changes.";
+            }
+        };
+
+        //$("#Test5").click(function () {
+        //    //event.preventDefault();
+        //    $.ajax({
+        //        @*url: '/Hardware/Edit',*@
+        //        url: this.action,
+        //        type: 'POST',
+        //        data: this.serialize(),
+        //        datatype: 'json',
+        //    });
+        //});
+
+        //$('#RemoveSpecificationFilePdf2').click(function () {
+
+        //    $.ajax({
+        //        url: '/Hardware/RemoveSpecificationFilePdf',
+        //        type: 'POST',
+        //        data: this.serialize(),
+        //        datatype: 'json',
+        //        //success: function (data) {
+
+
+        //        //    $('#FileDescription').val(data);
+        //        //    location.reload(true);
+
+        //        //}
+        //    });
+        //});
+
+    });
+
+</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

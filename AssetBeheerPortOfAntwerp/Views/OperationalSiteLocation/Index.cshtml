@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Models.OperationalSiteLocation>
+
+@{
+    ViewData["Title"] = "Operational Site Location - Index";
+    ViewData["PageTitle"] = "Operational site location";
+    ViewData["PageType"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div class="text-right">
+    <h4><a asp-action="Create">Create New</a></h4>
+</div>
+<table class="table">
+    <thead style="background-color: lightgrey">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OperationalSite)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OperationalSite.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location.LocationDescription)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.OperationalSiteLocationID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.OperationalSiteLocationID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.OperationalSiteLocationID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

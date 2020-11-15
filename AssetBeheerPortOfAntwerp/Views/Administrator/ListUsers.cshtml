@@ -1,0 +1,96 @@
+﻿@*In de administrator controller geven we de users mee
+    met een Iqueryable van de applicationUser dus hier een
+    lijst opvragen met*@
+@model IEnumerable<Models.ApplicationUser>
+
+
+@{
+    ViewData["Title"] = "ListUsers";
+    ViewData["PageTitle"] = "List off users";
+    //ViewData["PageType"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    
+        <div class="row">
+            <div class="col-md-5">
+                <form asp-action="ListUsers">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    @*zijn er users in het model*@
+                    @if (Model.Any())
+                    {
+                        <div class="form-group">
+
+                            <a asp-action="Register" asp-controller="Register" class="btn btn-primary">
+                                @Localizer["Add user"]
+                            </a>
+                        </div>
+                        foreach (var user in Model)
+                        { <div class="form-group card-deck">
+                                <div class="card border-dark">
+                                    <div class="card-header">
+                                        Functie : @user.Afdeling
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">@user.UserName</h5>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="form-group">
+                                            <a type="button" value="Edit" class="btn btn-primary"
+                                               asp-controller="Administrator" asp-action="EditUser"
+                                               asp-route-id="@user.Id">@Localizer["Edit"]</a>  |
+
+                                            @*gebruik maken van user.id om de delete uniek te maken*@
+                                            <span id="confirmDeleteSpan_@user.Id" style="display:none">
+                                                <span>@Localizer["Delete User?"]</span>
+                                                <button type="submit" class="btn btn-danger"
+                                                        asp-controller="Administrator" asp-action="DeleteUser"
+                                                        asp-route-id="@user.Id">
+                                                    @Localizer["Yes"]
+                                                </button>
+                                                @* onclick => hierin roepen we de methode uit het CustomScript
+                                                en we geven mee de ID , en true or false voor het al dan niet
+                                                indrukken van de knop*@
+                                                <a href="#" class="btn btn-primary" onclick="confirmDelete('@user.Id', false)">@Localizer["No"]</a>
+                                            </span>
+
+                                            <span id="deleteSpan_@user.Id">
+                                                <a href="#" class="btn btn-danger" onclick="confirmDelete('@user.Id', true)">@Localizer["Delete"]</a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+
+
+                    }
+                    else
+                    {
+                        <div class="card">
+                            <div class="card-header">@Localizer["No users added"]</div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <h5 class="card-title">@Localizer["Use button to create a user"]</h5>
+                                    <a class="btn btn-primary" asp-controller="Register" asp-action="Register">
+                                        @Localizer["Add user"]
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                    }
+                </form>
+            </div>
+        </div>
+    
+@* oproepen script nodig voor de delete knop met bevestiging *@
+@section Scripts {
+    <script src="~/js/CustomScript.js"></script>
+
+}

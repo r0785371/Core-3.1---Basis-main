@@ -1,0 +1,96 @@
+﻿@model List<Models.License>
+
+@{
+    ViewData["Title"] = "License - Index";
+    ViewData["PageTitle"] = "License";
+    ViewData["PageType"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<p>
+        <a asp-action="Create">Create New</a>
+    </p>*@
+
+@using (Html.BeginForm("AllUnusedLicenses", "License", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+
+    <table class="table col-sm-12">
+        <thead>
+            <tr>
+                <th hidden>Index</th>
+                <th>Select</th>
+                <th>Status</th>
+                <th>Software</th>
+                @*<th>No</th>
+                <th>Key</th>
+                <th>Validity Type Time</th>*@
+                <th>License Type</th>
+                <th width="100">Qty still available</th>
+                <th>License Validity Type</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+            <tr>
+                <td hidden>
+                    @Html.TextBoxFor(m => m[i].LicenseID, new { @class = "form-control", @type = "hidden" })
+                    @Html.ValidationMessageFor(m => m[i].LicenseID, "", new { @class = "text-danger", @type = "hidden" })
+                </td>
+                <td>
+                    @Html.CheckBoxFor(m => m[i].AddToAsset, new { @class = "form-control" })
+                    @*@Html.CheckBox("AddLicense");*@
+                </td>
+                <td>
+                    @Html.DropDownListFor(m => m[i].StatusID, ViewBag.StatusID as List<SelectListItem>, "---Select item---", new { @class = "form-control", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(m => m[i].StatusID, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @*@:First Name: @Html.EditorFor(m => m[i].PurchaseItemID) @readonly = "readonly"*@
+                    @Html.DropDownListFor(m => m[i].PurchaseItemID, ViewBag.PurchaseItemID as List<SelectListItem>, "---Select item---", new { @class = "form-control", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(m => m[i].PurchaseItemID, "", new { @class = "text-danger" })
+                </td>
+                @*<td>
+                    @Html.TextBoxFor(m => m[i].No, new { @class = "form-control", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(m => m[i].No, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m[i].Key, new { @class = "form-control", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(m => m[i].Key, "", new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m[i].ValidityTypeTime, new { @class = "form-control", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(m => m[i].ValidityTypeTime, "", new { htmlAttributes = new { @class = "text-danger" } })
+                </td>*@
+                <td>
+                    @Html.DropDownListFor(m => m[i].LicenseTypeID, ViewBag.LicenseTypeID as List<SelectListItem>, "---Select item---", new { @class = "form-control", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(m => m[i].LicenseTypeID, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m[i].QtyLimited, new { @class = "form-control", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(m => m[i].QtyLimited, "", new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.DropDownListFor(m => m[i].LicenseValidityTypeID, ViewBag.LicenseValidityTypeID as List<SelectListItem>, "---Select item---", new { @class = "form-control", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(m => m[i].LicenseValidityTypeID, "", new { htmlAttributes = new { @class = "text-danger" } })
+                </td>
+                @*<td>
+            @Html.DropDownListFor(m => m[i].AssetID, ViewBag.AssetID as List<SelectListItem>, "---Select item---", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m[i].AssetID, "", new { @class = "text-danger" })
+        </td>*@
+
+            </tr>
+            }
+        </tbody>
+    </table>
+
+    <form asp-action="AllUnusedLicenses">
+        @*<input type="submit" value="Add" class="btn btn-primary" asp-route-assetID="@ViewData["AssetID"]" />*@
+        <button type="submit" class="btn btn-primary" value="Add" asp-route-assetID="@ViewData["AssetID"]">Add</button>
+    </form>
+    
+}

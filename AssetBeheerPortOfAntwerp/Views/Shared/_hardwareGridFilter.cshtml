@@ -1,0 +1,28 @@
+﻿@model BLL.ViewModels.HardwareGridFilterModel
+@*@{
+    ViewData["Title"] = "_hardwareGridFilter";
+}*@
+
+@*<h1>_hardwareGridFilter</h1>*@
+
+<div class="dropdown">
+    <span class="button-group">
+        @Model.HeadingText <span class="dropdown-toggle glyphicon glyphicon-filter" data-toggle="dropdown"></span>
+        <ul class="dropdown-menu">
+            <li>
+                <a href="#" class="small" data-value="all" tabIndex="-1">
+                    <input type="checkbox" checked />&nbsp;Select All
+                </a>
+            </li>
+            <li class="divider"></li>
+            @foreach (var hardware in Model.Hardwares.OrderBy(Model.Property))
+            {
+                <li>
+                    <a href="#" class="small" data-value="@hardware.ProductID" tabIndex="-1">
+                        <input type="checkbox" class="filterbox" checked />&nbsp;@Model.Property(hardware)
+                    </a>
+                </li>
+            }
+        </ul>
+    </span>
+</div>

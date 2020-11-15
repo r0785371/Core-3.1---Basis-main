@@ -1,0 +1,114 @@
+﻿@model Models.ProductType
+
+@{
+    ViewData["Title"] = "Product type - Details";
+    ViewData["PageTitle"] = "Product type";
+    ViewData["PageType"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ProductChild)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ProductChild)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Ref)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Ref)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IsGroup)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IsGroup)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ProductTypeGroup)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ProductTypeGroup.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IsProduct)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IsProduct)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IsLicense)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IsLicense)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IsAsset)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IsAsset)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ExpirePeriodMonth)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ExpirePeriodMonth)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.WarningPeriod)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.WarningPeriod.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TagNo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TagNo)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IsComponent)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IsComponent)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.HasBackup)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.HasBackup)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BackupInterval)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BackupInterval)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.GoInRack)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.GoInRack)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.ProductTypeID">Edit</a> |
+    <a class="btn btn-outline-info" asp-action="Index">Back to List</a>
+</div>

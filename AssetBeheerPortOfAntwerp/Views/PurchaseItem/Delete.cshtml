@@ -1,0 +1,119 @@
+﻿@model Models.PurchaseItem
+
+@{
+    ViewData["Title"] = "Purchase items - Delete";
+    ViewData["PageTitle"] = "Purchase items";
+    ViewData["PageType"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var listAssets = ViewData["ListAssets"] as List<Models.Asset>;
+    int qtyAssets = listAssets.Count();
+    string assets = qtyAssets > 1 ? "Assets" : "Asset";
+
+    var listLicence = ViewData["ListLicense"] as List<Models.License>;
+    int qtyLicence = listLicence.Count();
+    string licenses = qtyAssets > 1 ? "Licenses" : "License";
+
+    int qty = qtyAssets + qtyLicence >= 0 ? qtyAssets + qtyLicence : -1;
+
+    ViewData["PurchaseItemID"] = @Model.PurchaseItemID;
+
+}
+
+<br />
+
+@if (qty > 0)
+{
+    <h3>Attention: You can't delete this purchase item @Model.Product.Name!</h3>
+    <hr />
+    <h4>"@Model.Product.Name" is linked to:</h4>
+    <br />
+    <ul>
+        <li>@qtyAssets x @assets</li>
+        <li>@qtyLicence x @licenses</li>
+    </ul>
+    <p>It's not possible (recomendated) to delete @Model.Product.Name!</p>
+    <hr />
+
+    <form>
+        <button asp-controller="PurchaseItem" asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.PurchaseItemID">Edit</button>
+        <button asp-controller="Purchase" asp-action="Edit" asp-route-id="@Model.PurchaseID" class="btn btn-outline-info">Back to list</button>
+    </form>
+
+    <br />
+
+    @if (qtyAssets > 0)
+    {
+        <hr />
+        <h3>@assets</h3>
+
+        <partial name="PartialViews/_ListOfAssetsPartial" model="@listAssets" />
+    }
+
+    @if (qtyLicence > 0)
+    {
+        <hr />
+        <h3>@licenses</h3>
+
+        <partial name="PartialViews/_ListLicensesPartial" model="@listLicence" view-data="ViewData" />
+    }
+}
+
+@if (qty == 0)
+{
+
+    <div>
+        <h3>Are you sure you want to delete this purchase item: @Model.Product.Name!</h3>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Purchase)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Purchase.No)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Status)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Status.Name)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.PurchaseQty)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.PurchaseQty)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Price)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Price)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.WarentyIntervalMonth)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.WarentyIntervalMonth)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.DeliveryDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DeliveryDate)
+            </dd>
+
+        </dl>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="PurchaseItemID" />
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            <a class="btn btn-outline-info" asp-controller="Purchase" asp-action="Edit" asp-route-id="@Model.PurchaseID">Back to Purchase</a>
+        </form>
+    </div>
+}
+
+@if (qty < 0)
+{
+    <partial name="PartialViews/_DeleteRecordErrorPartial" />
+}

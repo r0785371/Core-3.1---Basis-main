@@ -1,0 +1,30 @@
+﻿@model List<Models.ProductSupplier>
+
+    <table class="table-sm col-sm-12">
+        <thead>
+            <tr>
+                <th hidden></th>
+                <th scope="col">@Html.DisplayNameFor(model => model[0].Supplier.Name)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model[0].RefSupplier)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model[0].ProductNameSupplier)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model[0].Price)</th>
+                <th scope="col" width="70"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.OrderBy(x => x.Price))
+            {
+                <tr>
+                    <td hidden>@item.ProductSupplierID</td>
+                    <td>@item.Supplier.Name</td>
+                    <td>@item.RefSupplier</td>
+                    <td>@item.ProductNameSupplier</td>
+                    <td>@item.Price</td>
+                    <td>
+                        <a asp-controller="ProductSupplier" asp-action="Edit" asp-route-id="@item.ProductSupplierID"><img src="~/images/icons/Edit.png" style="max-height:30px; max-width:30px" /></a>
+                        <a asp-controller="ProductSupplier" asp-action="Delete" asp-route-id="@item.ProductSupplierID"><img src="~/images/icons/Delete.png" style="max-height:30px; max-width:30px" /></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>

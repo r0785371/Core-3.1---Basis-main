@@ -1,0 +1,122 @@
+﻿@model BLL.ViewModels.LicenseViewModel
+@*@model Models.License*@
+
+@{
+    ViewData["Title"] = "License - Delete";
+    ViewData["PageTitle"] = "License";
+    ViewData["PageType"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int qty = -1;
+    var test = int.TryParse(ViewData["Qty"] as string, out qty);
+}
+
+<br />
+
+@if (qty > 0)
+{
+    <h3>@Localizer["Attention: You can't delete this license @Model.license.PurchaseItem.Product.Name!"]</h3>
+    <hr />
+    <h4>@Localizer["The @Model.license.PurchaseItem.Product.Name is linked to @ViewData["QtyAssets"]x assets)."]</h4>
+    <br />
+    <p>@Localizer["It's not possible to delete @Model.license.PurchaseItem.Product.Name! (recomendated)"]</p>
+    <hr />
+    <form>
+        <button asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.license.LicenseID">
+        @Localizer["Edit"]</button> |
+        <button asp-action="Index" class="btn btn-outline-info">@Localizer["Back"]</button>
+    </form>
+    <br />
+
+    @if (Model.assets != null)
+    {
+        <hr />
+        <h3>Asstes</h3>
+
+        <partial name="PartialViews/_ListOfAssetsPartial" model="@Model.assets" />
+    }
+
+
+}
+
+@if (qty == 0)
+{
+
+    <h3>@Localizer["Are you sure you want to delete this?"]</h3>
+    <div>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.license.Status)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.license.StatusID)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.license.PurchaseItem)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.license.PurchaseItem.PurchaseItemID)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.license.No)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.license.No)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.license.Key)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.license.Key)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.license.HasCol)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.license.HasCol)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.license.ColFileName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.license.ColFileName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.license.ValidityTypeTime)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.license.ValidityTypeTime)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.license.LicenseType)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.license.LicenseType.Name)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.license.QtyLimited)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.license.QtyLimited)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.license.LicenseValidityType)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.license.LicenseValidityType.Name)
+            </dd>
+        </dl>
+
+        <form asp-action="Delete" class="form-control-lg">
+            <input type="hidden" asp-for="license.LicenseID" />
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            <a class="btn btn-outline-info" asp-action="Index">@Localizer["Back to List"]</a>
+        </form>
+    </div>
+}
+
+@if (qty < 0)
+{
+    <partial name="PartialViews/_DeleteRecordErrorPartial" />
+}

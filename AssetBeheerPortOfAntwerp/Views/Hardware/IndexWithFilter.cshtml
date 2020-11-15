@@ -1,0 +1,132 @@
+﻿@model IEnumerable<Models.Hardware>
+
+@{
+    ViewData["Title"] = "Hardware - Index";
+    ViewData["PageTitle"] = "Hardware";
+    ViewData["PageType"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+
+<form asp-action="Index" method="get">
+        <div class="row col-md-12">
+
+            <div class="col-md-6">
+                <h4><a asp-action="Create">@Localizer["Create New"]</a></h4>
+            </div>
+
+            <div class="row col-sm-6">
+                <div class="input-group col-md-8">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><img src="~/images/icons/search.png"
+                        style="max-height: 20px; max-width: 20px;" /></div>
+                    </div>
+                    <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]"
+                    class="form-control" />
+                    <input type="submit" value="Search" class="btn-default" />
+
+                </div>
+                <div class="col-md-4">
+                    <a class="btn btn-info" asp-action="Index">@Localizer["Back to Full list"]</a>
+                </div>
+            </div>
+        </div>
+
+    <div class="row col-md-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["StatusSortParm"]"
+                        asp-route-searchString="@ViewData["CurrentFilter"]">
+                            <img src="~/images/icons/search.png" style="max-height: 15px; max-width: 15px; " />@Html.DisplayNameFor(model => model.Status)
+                        </a>
+                    </th>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["ProductTypeSortParm"]"
+                        asp-route-searchString="@ViewData["CurrentFilter"]">
+                            <img src="~/images/icons/search.png" style="max-height: 15px; max-width: 15px; " />@Html.DisplayNameFor(model => model.ProductType)
+                        </a>
+                    </th>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["NameTypeSortParm"]"
+                        asp-route-searchString="@ViewData["CurrentFilter"]">
+                            <img src="~/images/icons/search.png" style="max-height: 15px; max-width: 15px; " />@Html.DisplayNameFor(model => model.Name)
+                        </a>
+                    </th>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["DescriptionSortParm"]"
+                        asp-route-searchString="@ViewData["CurrentFilter"]">
+                            <img src="~/images/icons/search.png" style="max-height: 15px; max-width: 15px; " />@Html.DisplayNameFor(model => model.Description)
+                        </a>
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.InfoUrl)
+                    </th>
+                    @*<th>
+                            @Html.DisplayNameFor(model => model.HasFile)
+                        </th>*@
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["SpecificationFileNameSortParm"]"
+                        asp-route-searchString="@ViewData["CurrentFilter"]">
+                            <img src="~/images/icons/search.png" style="max-height: 15px; max-width: 15px; " />@Html.DisplayNameFor(model => model.SpecificationFileName)
+                        </a>
+                    </th>
+                    <th>
+                        Info PDF
+                    </th>
+                    <th width="120"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductType.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.InfoUrl)
+                        </td>
+                        @*<td>
+                                @Html.DisplayFor(modelItem => item.HasFile)
+                            </td>*@
+                        <td>
+                            @if (item.HasFile == true)
+                            {
+                                @Html.DisplayFor(modelItem => item.SpecificationFileName)
+                            }
+                        </td>
+                        <td>
+                            @if (item.HasFile == true)
+                            {
+                                <a asp-action="DownloadFile" asp-route-productID="@item.ProductID" target="_blank">PDF</a>
+                            }
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.ProductID">
+                            <img src="~/images/icons/Edit.png" style="max-height:30px; max-width:30px" /></a>
+                            <a asp-action="Details" asp-route-id="@item.ProductID">
+                            <img src="~/images/icons/Clipboard.png" style="max-height:30px; max-width:30px" /></a>
+                            <a asp-action="Delete" asp-route-id="@item.ProductID">
+                            <img src="~/images/icons/Delete.png" style="max-height:30px; max-width:30px" /></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</form>
+
+

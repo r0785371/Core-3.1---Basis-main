@@ -1,0 +1,95 @@
+﻿@model Models.SoftwareType
+
+@{
+    ViewData["Title"] = "Software type - Delete";
+    ViewData["PageTitle"] = "Software type";
+    ViewData["PageType"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int qty = -1;
+    var test = int.TryParse(ViewData["Qty"] as string, out qty);
+
+    int qtySoftware = 0;
+    var test1 = int.TryParse(ViewData["QtySoftware"] as string, out qtySoftware);
+
+    string software = qtySoftware > 1 ? " Software" : " Software";
+
+}
+
+@if (qty > 0)
+{
+    <br />
+    <h3>Attention: You can't delete this Software Type: "@Model.Name"!</h3>
+    <hr />
+    <h4>"@Model.Name" is linked to:</h4>
+    <ul>
+        <li>@qtySoftware x @software</li>
+    </ul>
+
+    <p>It's not possible to delete @Model.Name! (recomendated)</p>
+    <hr />
+    <form>
+        <button asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.SoftwareTypeID">Edit</button> |
+        <button asp-action="Index" class="btn btn-outline-info">Back</button>
+    </form>
+    <br />
+    <hr />
+
+    @if (qtySoftware > 0)
+    {
+        <h2>@software</h2>
+        <table class="table-sm col-sm-12">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th width="70px"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.ListSoftware as List<Models.Software>)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            <a asp-controller="Software" asp-action="Edit" asp-route-id="@item.ProductID"><img src="~/images/icons/Edit.png" style="max-height:30px; max-width:30px" /></a>
+                            <a asp-controller="Software" asp-action="Details" asp-route-id="@item.ProductID"><img src="~/images/icons/Clipboard.png" style="max-height:30px; max-width:30px" /></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+}
+
+@if (qty == 0)
+{
+    <h3>Are you sure you want to delete this Software Type: "@Model.Name"?</h3>
+    <div>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+        </dl>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="SoftwareTypeID" />
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            <a class="btn btn-outline-info" asp-action="Index">Back to List</a>
+        </form>
+    </div>
+}
+
+@if (qty < 0)
+{
+    <partial name="PartialViews/_DeleteRecordErrorPartial" />
+}

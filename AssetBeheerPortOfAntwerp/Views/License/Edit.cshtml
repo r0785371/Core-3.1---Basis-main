@@ -1,0 +1,251 @@
+﻿@model BLL.ViewModels.LicenseViewModel
+
+@*@model Models.License*@
+
+@{
+    ViewData["Title"] = "License - Edit";
+    ViewData["PageTitle"] = "License";
+    ViewData["PageType"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Edit" enctype="multipart/form-data" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="license.LicenseID" />
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label asp-for="license.StatusID" class="control-label"></label>
+                    <select asp-for="license.StatusID" class="form-control" asp-items="ViewBag.StatusID" required>
+                    <option disabled selected>---Select---</option></select>
+                    <span asp-validation-for="license.StatusID" class="text-danger"></span>
+                </div>
+
+
+
+                <div class="form-group col-md-4">
+                    <label asp-for="license.PurchaseItemID" class="control-label"></label>
+                    <a class="form-control btn-outline-info" asp-controller="Software"
+                    asp-action="Edit" asp-route-id="@Model.license.PurchaseItem.ProductID"
+                    asp-route-licenseID="@Model.license.LicenseID">
+                        @Model.license.PurchaseItem.Product.Name
+                    </a>
+                    <span asp-validation-for="license.PurchaseItemID" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-5">
+                    <label asp-for="license.PurchaseItem.Purchase" class="control-label"></label>
+                    <a class="form-control btn-outline-info" asp-controller="PurchaseItem"
+                    asp-action="Edit" asp-route-id="@Model.license.PurchaseItemID"
+                    asp-route-licenseID="@Model.license.LicenseID">
+                        @Model.license.PurchaseItem.Purchase.Supplier.Name - No: @Model.license.PurchaseItem.Purchase.No from @Model.license.PurchaseItem.Purchase.Date.ToShortDateString()
+                    </a>
+                    <span asp-validation-for="license.PurchaseItemID" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label asp-for="license.LicenseTypeID" class="control-label"></label>
+                    <select id="LicenseTypeID" asp-for="license.LicenseTypeID" class="form-control"
+                    asp-items="ViewBag.LicenseTypeID"><option disabled selected>---Select---</option></select>
+                    <span asp-validation-for="license.LicenseTypeID" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="license.QtyLimited" class="control-label"></label>
+                    <input id="QtyLimited" type="number" asp-for="license.QtyLimited" class="form-control" />
+                    <span asp-validation-for="license.QtyLimited" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="license.LicenseValidityTypeID" class="control-label"></label>
+                    <select asp-for="license.LicenseValidityTypeID" class="form-control"
+                    asp-items="ViewBag.LicenseValidityTypeID">
+                    <option disabled selected>---Select---</option></select>
+                    <span asp-validation-for="license.LicenseValidityTypeID" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="license.ValidityTypeTime" class="control-label"></label>
+                    <input asp-for="license.ValidityTypeTime" class="form-control" />
+                    <span asp-validation-for="license.ValidityTypeTime" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label asp-for="license.No" class="control-label"></label>
+                    <input asp-for="license.No" class="form-control" />
+                    <span asp-validation-for="license.No" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="license.Key" class="control-label"></label>
+                    <input asp-for="license.Key" class="form-control" />
+                    <span asp-validation-for="license.Key" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-9">
+                    <label asp-for="license.ParentLicenseID" class="control-label"></label>
+                    <select asp-for="license.ParentLicenseID" class="form-control" asp-items="ViewBag.ParentLicenseID" ><option disabled selected>---Select---</option></select>
+                    <span asp-validation-for="license.ParentLicenseID" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-1">
+                    <label asp-for="license.HasCol" class="form-label"></label>
+                    <input class="form-control check-input" asp-for="license.HasCol" />
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label asp-for="FileDescription" class="control-label"></label>
+                    <input asp-for="FileDescription" class="form-control" />
+                    <span asp-validation-for="FileDescription" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-5">
+                    <label class="control-label">Specification file (PDF)</label>
+                    <div class="custom-file">
+                        <label class="custom-file-label" asp-for="File" data-browse="Bestand kiezen">Max. add 1 pdf</label>
+                        <input type="file" class="form-control custom-file-input" asp-for="File">
+                        <span asp-validation-for="File" class="text-danger"></span>
+                    </div>
+                </div>
+                @if (Model.license.HasCol == true)
+                {
+                    <div class="custom-file col-md-2">
+                        <label></label>
+                        <a class="form-control btn btn-info" asp-action="DownloadFile"
+                        asp-route-licenseID="@Model.license.LicenseID" target="_blank">@Localizer["Open PDF"]</a>
+                    </div>
+                }
+
+            </div>
+
+            <div class="form-group btn-group-lg">
+
+                <input type="submit" value="Save" class="btn btn-primary" asp-route-assetID="@ViewData["assetID"]" />
+
+                @if (ViewData["GoToPurchaseItemEdit"] != null)
+                {
+                    <a type="button" class="btn btn-outline-info" asp-controller="PurchaseItem"
+                    asp-action="Edit" asp-route-id="@ViewData["GoToPurchaseItemEdit"]">@Localizer["Back"]</a>
+                }
+                else if (ViewData["assetID"] != null)
+                {
+                    <a type="button" class="btn btn-outline-info" asp-controller="Asset" asp-action="Edit"
+                    asp-route-id="@ViewData["assetID"]">@Localizer["Back"]</a>
+                }
+                else
+                {
+                    <a class="btn btn-outline-info" asp-action="Index">@Localizer["Back to List"]</a>
+                }
+            </div>
+        </form>
+    </div>
+</div>
+
+<hr />
+<h3>@Localizer["Assets with this licensie installed"]</h3>
+<br />
+<table class="table">
+    <thead style="background-color: lightgrey">
+        <tr>
+            @*<th>
+                QR Code
+            </th>*@
+            <th>AssetTag</th>
+            <th>Status</th>
+            <th>Asset</th>
+            <th>Target</th>
+            <th>Owner</th>
+            <th>Location</th>
+            <th width="90"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if ( Model.assets != null)
+        {
+            @foreach (var item in Model.assets)
+            {
+                <tr>
+                    @*<td>
+                        @{ if (item.QrCode != null)
+                            {
+                                <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(item.QrCode))" height="70" width="70" />
+                            }
+                        }
+                    </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AssetTag)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PurchaseItem.Product.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TargetDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AssetOwner.OwnerDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OperationalSiteLocation.Location.LocationDescription)
+                        @*@Html.DisplayFor(modelItem => item.OperationalSiteLocation.Location.LocationDescription)*@
+                    </td>
+                    <td>
+                        <a asp-controller="Asset" asp-action="Edit" asp-route-id="@item.AssetID">
+                        <img src="~/images/icons/Edit.png" style="max-height:30px; max-width:30px" /></a>
+                        <a asp-controller="Asset" asp-action="Details" asp-route-id="@item.AssetID">
+                        <img src="~/images/icons/Clipboard.png" style="max-height:30px; max-width:30px" /></a>
+                        @*<a asp-controller="Asset" asp-action="Delete" asp-route-id="@item.AssetID">
+                        <img src="~/images/icons/Delete.png" style="max-height:30px; max-width:30px" /></a>*@
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+
+<script>
+
+    $(document).ready(function () {
+        //$("#QtyLimited").closest("div").hide();
+
+        qtyLimitedVisible();
+
+        $('#LicenseTypeID').change(function () {
+            qtyLimitedVisible();
+
+            var qty = $("#QtyLimited").val();
+            var newQty = 1;
+            if (qty == 0) {
+                $("#QtyLimited").val(newQty)
+
+               
+            }
+        });
+    });
+
+    function qtyLimitedVisible() {
+
+        var v = $('#LicenseTypeID').val();
+
+        if (v == "4") {
+            $("#QtyLimited").closest("div").show();
+        } else {
+            $("#QtyLimited").closest("div").hide();
+        }
+
+    }
+
+</script>
+
+
+
+
+@*<div>
+        <a asp-action="Index">@Localizer["Back to List"]</a>
+    </div>*@
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

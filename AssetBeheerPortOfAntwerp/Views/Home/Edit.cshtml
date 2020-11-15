@@ -1,0 +1,77 @@
+﻿@model BLL.ViewModels.EmployeeEditViewModel
+
+
+@{
+    ViewData["Title"] = "EditEmployee";
+    ViewData["PageTitle"] = "Edit user";
+    //ViewData["PageType"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var photoPath = "~/Images/" + (Model.ExistingPhotoPath ?? "noimage.png");
+}
+
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input hidden asp-for="Id" />
+            <input hidden asp-for="ExistingPhotoPath" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Afdeling" class="control-label"></label>
+                <select asp-for="Afdeling" class="form-control" asp-items="Html.GetEnumSelectList<Models.Dept>()"><option disabled selected>---Select---</option></select>
+                <span asp-validation-for="Afdeling" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Functie" class="control-label"></label>
+                <input asp-for="Functie" class="form-control" />
+                @*<span asp-validation-for="Functie" class="text-danger"></span>*@
+            </div>
+            <div class="form-group">
+                <div class="custom-file">
+                    <label asp-for="Photo" class="custom-file-label">Klik hier om u foto te wijzigen</label>
+                    @*geen specificatie van file upload , die komt doordat in de klasse Employee
+                Photo van het type IformFile is*@
+                    <input asp-for="Photo" class="form-control custom-file-input" />
+                </div>
+            </div>
+            <div class="form-group">
+            <img src="@photoPath" class="imageThumbnail" asp-append-version="true" />
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Update" class="btn btn-primary" />
+                <a asp-controller="home" asp-action="index" class="btn btn-primary">@Localizer["Back"]</a>
+            </div>
+            @section Scripts {
+                <script>
+                    $(document).ready(function () {
+                        $('.custom-file-input').on("change", function () {
+                            //console.log($(this));
+                            var fileName = $(this).val().split("\\").pop();
+                            //console.log(fileName);
+                            //$(this).next('.custom-file-label').html(fileName);
+                            $('.custom-file-label').html(fileName);
+                        });
+                    })
+                </script>
+            }
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">@Localizer["Back to List"]</a>
+</div>
+
+

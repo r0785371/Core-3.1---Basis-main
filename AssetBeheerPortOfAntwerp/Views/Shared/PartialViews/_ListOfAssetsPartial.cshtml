@@ -1,0 +1,57 @@
+﻿@model List<Models.Asset>
+
+<table class="table-sm col-sm-12">
+    <thead style="background-color: lightgrey">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model[0].AssetTag)</th>
+            <th>@Html.DisplayNameFor(model => model[0].Status)</th>
+            <th>@Html.DisplayNameFor(model => model[0].PurchaseItem.Product.Name)</th>
+            <th>@Html.DisplayNameFor(model => model[0].AssetOwner.OwnerDescription)</th>
+            <th>@Html.DisplayNameFor(model => model[0].OperationalSiteLocation.Location.LocationDescription)</th>
+            <th>@Html.DisplayNameFor(model => model[0].RackLocation.RackNo)</th>
+            <th>@Html.DisplayNameFor(model => model[0].URack.Name)</th>
+            <th>@Html.DisplayNameFor(model => model[0].TargetDescription)</th>
+            <th width="70"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+
+            @foreach (var item in Model.OrderBy(a => a.AssetTag))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AssetTag)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PurchaseItem.Product.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AssetOwner.OwnerDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OperationalSiteLocation.Location.LocationDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RackLocation.RackNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.URack.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TargetDescription)
+                    </td>
+                    <td>
+                        <a asp-controller="Asset" asp-action="Edit" asp-route-id="@item.AssetID"><img src="~/images/icons/Edit.png" style="max-height:30px; max-width:30px" /></a>
+                        <a asp-controller="Asset" asp-action="Details" asp-route-id="@item.AssetID"><img src="~/images/icons/Clipboard.png" style="max-height:30px; max-width:30px" /></a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
