@@ -25,15 +25,15 @@
 
 @if (qty > 0)
 {
-    <h3>@Localizer["Attention: You can't delete this hardware @Model.Name!"]</h3>
+<h3>@Localizer["Attention: You can't delete this hardware "] @Model.Name!</h3>
     <hr />
-    <h4>@Localizer[""@Model.Name" is linked to:"]</h4>
+    <h4>@Model.Name @Localizer[" is linked to:"]</h4>
     <ul>
         <li>@qtyProductDetail x @productDetail</li>
         <li>@qtyProductSupplier x @productSuppliers</li>
         <li>@qtyPurchaseItem x @purchaseItem</li>
     </ul>
-    <p>@Localizer["It's not possible (recomendated) to delete @Model.Name!"]</p>
+    <p>@Localizer["It's not possible (recomendated) to delete "] @Model.Name!</p>
     <hr />
 
     <form>
@@ -70,7 +70,7 @@
 @if (qty == 0)
 {
 
-    <h3>@Localizer["Are you sure you want to delete this hardware: @Model.Name?"]</h3>
+<h3>@Localizer["Are you sure you want to delete this hardware: "] @Model.Name?</h3>
     <div>
         <hr />
         <dl class="row">

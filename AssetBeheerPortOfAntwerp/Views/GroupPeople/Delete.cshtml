@@ -22,15 +22,15 @@
 
 @if (qty > 0)
 {
-    <h3>@Localizer["Attention: You can't delete this Group of people: "@Model.GroupName"!"]</h3>
+<h3>@Localizer["Attention: You can't delete this Group of people: "] @Model.GroupName!</h3>
     <hr />
-    <h4>@Localizer[""@Model.GroupName" is linked to:"]</h4>
+    <h4>@Model.GroupName @Localizer[" is linked to:"]</h4>
     <ul>
         <li>@qtyPeople x @people</li>
         <li>@qtyAsstes x @assets</li>
     </ul>
 
-    <p>@Localizer["It's not possible (recomendated) to delete @Model.GroupName!"]</p>
+    <p>@Localizer["It's not possible (recomendated) to delete "] @Model.GroupName!</p>
     <hr />
     <form>
         <button asp-action="Edit" class="btn btn-primary" 
@@ -61,7 +61,7 @@
 
 @if (qty == 0)
 {
-    <h3>@Localizer["Are you sure you want to delete "@Model.GroupName"?"]</h3>
+<h3>@Localizer["Are you sure you want to delete "] @Model.GroupName?</h3>
     <div>
         <h4>@Localizer["GroupPeople"]</h4>
         <hr />

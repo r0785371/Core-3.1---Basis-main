@@ -25,16 +25,16 @@
 {
     <br />
     <br />
-    <h3>@Localizer["Attention: You can't delete this Detail: "@Model.DetailMain.Name - @Model.DetailSub.Name"!"]</h3>
+    <h3>@Localizer["Attention: You can't delete this Detail: "] @Model.DetailMain.Name - @Model.DetailSub.Name!</h3>
     <hr />
-    <h4>@Localizer[""@Model.DetailMain.Name - @Model.DetailSub.Name" is linked to:"]</h4>
+    <h4>@Model.DetailMain.Name - @Model.DetailSub.Name @Localizer[" is linked to:"]</h4>
     <br />
     <ul>
         <li>@qtyProductDetail x @productDetails</li>
         <li>@qtyAssetDetail x @assetDetail</li>
     </ul>
 
-    <p>@Localizer["It's not possible (recomendated) to delete @Model.DetailMain.Name - @Model.DetailSub.Name!"]</p>
+    <p>@Localizer["It's not possible (recomendated) to delete "] @Model.DetailMain.Name - @Model.DetailSub.Name!</p>
     <hr />
     <form>
         <button asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.DetailID">@Localizer["Edit"]</button> |

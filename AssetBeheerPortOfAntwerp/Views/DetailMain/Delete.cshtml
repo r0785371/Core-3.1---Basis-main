@@ -22,15 +22,15 @@
 {
     <br />
     <br />
-    <h3>@Localizer["Attention: You can't delete this Detail: "@Model.Name"!"]</h3>
+    <h3>@Localizer["Attention: You can't delete this Detail: "] @Model.Name!</h3>
     <hr />
-    <h4>@Localizer[""@Model.Name" is linked to:"]</h4>
+    <h4>@Model.Name @Localizer[" is linked to:"]</h4>
     <br />
     <ul>
         <li>@qtyDetails x @details</li>
     </ul>
 
-    <p>@Localizer["It's not possible to delete @Model.Name!  (recomendated)"]</p>
+    <p>@Localizer["It's not possible to delete" + @Model.Name + "! " + "(recomendated)"]</p>
     <hr />
     <form>
         <button asp-action="Edit" class="btn btn-primary" 
