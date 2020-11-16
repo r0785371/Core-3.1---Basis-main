@@ -136,11 +136,108 @@ namespace AssetBeheerPortOfAntwerp
                     policy => policy.RequireRole("Administrator"));
             });
 
+            services.AddTransient<IAssetService, AssetService>();
+            services.AddTransient<IAssetRepository, AssetRepository>();
+            services.AddTransient<IAssetDetailService, AssetDetailService>();
+            services.AddTransient<IAssetDetailRepository, AssetDetailRepository>();
+            services.AddTransient<IAssetHistoryRepository, AssetHistoryRepository>();
+            services.AddTransient<IAssetHistoryService, AssetHistoryService>();
 
+            services.AddTransient<IAssetLicenseService, AssetLicenseService>();
+            services.AddTransient<IAssetLicenseRepository, AssetLicenseRepository>();
+            services.AddTransient<IAssetOwnerService, AssetOwnerService>();
+            services.AddTransient<IAssetOwnerRepository, AssetOwnerRepository>();
 
+            services.AddTransient<IBackupService, BackupService>();
+            services.AddTransient<IBackupRepository, BackupRepository>();
+            services.AddTransient<IBackupTypeService, BackupTypeService>();
+            services.AddTransient<IBackupTypeRepository, BackupTypeRepository>();
+            services.AddTransient<IBuildingService, BuildingService>();
+            services.AddTransient<IBuildingRepository, BuildingRepository>();
 
+            services.AddTransient<IDepartmentService, DepartmentService>();
+            services.AddTransient<IDepartmentRepository, DepartmentRepository>();
+
+            services.AddTransient<IDetailService, DetailService>();
+            services.AddTransient<IDetailRepository, DetailRepository>();
+            services.AddTransient<IDetailMainService, DetailMainService>();
+            services.AddTransient<IDetailMainRepository, DetailMainRepository>();
+            services.AddTransient<IDetailSubService, DetailSubService>();
+            services.AddTransient<IDetailSubRepository, DetailSubRepository>();
+
+            services.AddTransient<IExternCompanyRepository, ExternCompanyRepository>();
+            services.AddTransient<IExternCompanyService, ExternCompanyService>();
+
+            services.AddTransient<IFloorService, FloorService>();
+            services.AddTransient<IFloorRepository, FloorRepository>();
+
+            services.AddTransient<IGroupPeopleService, GroupPeopleService>();
+            services.AddTransient<IGroupPeopleRepository, GroupPeopleRepository>();
+
+            services.AddTransient<IHardwareService, HardwareService>();
+            services.AddTransient<IHardwareRepository, HardwareRepository>();
+
+            services.AddTransient<ILicenseService, LicenseService>();
+            services.AddTransient<ILicenseRepository, LicenseRepository>();
+            services.AddTransient<ILicenseTypeService, LicenseTypeService>();
+            services.AddTransient<ILicenseTypeRepository, LicenseTypeRepository>();
+            services.AddTransient<ILicenseValidityTypeService, LicenseValidityTypeService>();
+            services.AddTransient<ILicenseValidityTypeRepository, LicenseValidityTypeRepository>();
+
+            services.AddTransient<ILocationService, LocationService>();
+            services.AddTransient<ILocationRepository, LocationRepository>();
+
+            services.AddTransient<IOperationalSiteService, OperationalSiteService>();
+            services.AddTransient<IOperationalSiteRepository, OperationalSiteRepository>();
+            services.AddTransient<IOperationalSiteLocationService, OperationalSiteLocationService>();
+            services.AddTransient<IOperationalSiteLocationRepository, OperationalSiteLocationRepository>();
+
+            services.AddTransient<IPersonService, PersonService>();
+            services.AddTransient<IPersonRepository, PersonRepository>();
+            services.AddTransient<IPersonGroupPeopleService, PersonGroupPeopleService>();
+            services.AddTransient<IPersonGroupPeopleRepository, PersonGroupPeopleRepository>();
+
+            services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddTransient<IProductDetailService, ProductDetailService>();
+            services.AddTransient<IProductDetailRepository, ProductDetailRepository>();
+            services.AddTransient<IProductSupplierService, ProductSupplierService>();
+            services.AddTransient<IProductSupplierRepository, ProductSupplierRepository>();
+            services.AddTransient<IProductTypeService, ProductTypeService>();
+            services.AddTransient<IProductTypeRepository, ProductTypeRepository>();
+
+            services.AddTransient<IPurchaseService, PurchaseService>();
+            services.AddTransient<IPurchaseRepository, PurchaseRepository>();
+            services.AddTransient<IPurchaseItemService, PurchaseItemService>();
+            services.AddTransient<IPurchaseItemRepository, PurchaseItemRepository>();
+            services.AddTransient<IPurchaseTypeService, PurchaseTypeService>();
+            services.AddTransient<IPurchaseTypeRepository, PurchaseTypeRepository>();
+
+            services.AddTransient<IRackService, RackService>();
+            services.AddTransient<IRackRepository, RackRepository>();
+            services.AddTransient<IRackLocationService, RackLocationService>();
+            services.AddTransient<IRackLocationRepository, RackLocationRepository>();
+            services.AddTransient<IRoomService, RoomService>();
+            services.AddTransient<IRoomRepository, RoomRepository>();
+
+            services.AddTransient<ISoftwareService, SoftwareService>();
+            services.AddTransient<ISoftwareRepository, SoftwareRepository>();
+            services.AddTransient<ISoftwareTypeService, SoftwareTypeService>();
+            services.AddTransient<ISoftwareTypeRepository, SoftwareTypeRepository>();
             services.AddTransient<ISupplierService, SupplierService>();
             services.AddTransient<ISupplierRepository, SupplierRepository>();
+
+            services.AddTransient<IStatusService, StatusService>();
+            services.AddTransient<IStatusRepository, StatusRepository>();
+
+            services.AddTransient<IURackService, URackService>();
+            services.AddTransient<IURackRepository, URackRepository>();
+
+            services.AddTransient<IWarehouseService, WarehouseService>();
+            services.AddTransient<IWarehouseRepository, WarehouseRepository>();
+            services.AddTransient<IWarningPeriodService, WarningPeriodService>();
+            services.AddTransient<IWarningPeriodRepository, WarningPeriodRepository>();
+
 
         }
 
