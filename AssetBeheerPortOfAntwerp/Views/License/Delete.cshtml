@@ -15,11 +15,11 @@
 
 @if (qty > 0)
 {
-    <h3>@Localizer["Attention: You can't delete this license @Model.license.PurchaseItem.Product.Name!"]</h3>
+<h3>@Localizer["Attention: You can't delete this license "] @Model.license.PurchaseItem.Product.Name!</h3>
     <hr />
-    <h4>@Localizer["The @Model.license.PurchaseItem.Product.Name is linked to @ViewData["QtyAssets"]x assets)."]</h4>
+    <h4>@Localizer["The" + @Model.license.PurchaseItem.Product.Name + "is linked to " + @ViewData["QtyAssets"] + "x assets)."]</h4>
     <br />
-    <p>@Localizer["It's not possible to delete @Model.license.PurchaseItem.Product.Name! (recomendated)"]</p>
+    <p>@Localizer["It's not possible to delete " + @Model.license.PurchaseItem.Product.Name + "! (recomendated)"]</p>
     <hr />
     <form>
         <button asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.license.LicenseID">

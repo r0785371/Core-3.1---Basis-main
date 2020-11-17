@@ -20,9 +20,9 @@
 
 @if (qty > 0)
 {
-    <h3>@Localizer["Attention: You can't delete this department: "@Model.Name"!"]</h3>
+<h3>@Localizer["Attention: You can't delete this department: "] @Model.Name!</h3>
     <hr />
-    <h4>@Localizer[""@Model.Name" is linked to:"]</h4>
+    <h4>@Model.Name @Localizer[" is linked to:"]</h4>
     <ul>
         <li>@qtyPerson x @person</li>
     </ul>
@@ -46,7 +46,7 @@
 
 @if (qty == 0)
 {
-    <h3>@Localizer["Are you sure you want to delete this department: "@Model.Name"?"]</h3>
+<h3>@Localizer["Are you sure you want to delete this department: "] @Model.Name?</h3>
     <div>
         <hr />
         <dl class="row">
