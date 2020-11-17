@@ -16,26 +16,28 @@
 
 @if (qty > 0)
 {
-    <h3>Attention: You can't delete this Operational Site Location:</h3>
-    <h3>"@Model.Location.LocationDescription"!</h3>
-    <h4>as it's linked to:</h4>
+    <h3>@Localizer["Attention: You can't delete this Operational Site Location:"]</h3>
+    <h3>@Localizer[""@Model.Location.LocationDescription"!"]</h3>
+    <h4>@Localizer["as it's linked to:"]</h4>
     <br />
     <ul>
         <li>@qty x @assets</li>
     </ul>
 
-    <p>It's not possible (recomendated) to delete @Model.Location.LocationDescription!</p>
+    <p>@Localizer["It's not possible (recomendated) to delete @Model.Location.LocationDescription!"]</p>
     <hr />
     <form>
-        <button asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.OperationalSiteLocationID">Edit</button> |
-        <button class="btn btn-outline-info" asp-controller="OperationalSite" asp-action="Edit" asp-route-id="@Model.OperationalSiteID" class="btn btn-primary">Back</button>
+        <button asp-action="Edit" class="btn btn-primary"
+        asp-route-id="@Model.OperationalSiteLocationID">@Localizer["Edit"]</button> |
+        <button class="btn btn-outline-info" asp-controller="OperationalSite"
+        asp-action="Edit" asp-route-id="@Model.OperationalSiteID" class="btn btn-primary">@Localizer["Back"]</button>
     </form>
     <br />
     <hr />
 
     @if (qty > 0)
     {
-        <h2>Details</h2>
+        <h2>@Localizer["Details"]</h2>
         <br />
         <table class="table">
             <thead>
@@ -64,8 +66,10 @@
                             @Html.DisplayFor(modelItem => item.AssetOwner.OwnerDescription)
                         </td>
                         <td>
-                            <a asp-controller="Asset" asp-action="Edit" asp-route-id="@item.AssetID"><img src="~/images/icons/Edit.png" style="max-height:30px; max-width:30px" /></a>
-                            <a asp-controller="Asset" asp-action="Details" asp-route-id="@item.AssetID"><img src="~/images/icons/Clipboard.png" style="max-height:30px; max-width:30px" /></a>
+                            <a asp-controller="Asset" asp-action="Edit" asp-route-id="@item.AssetID">
+                            <img src="~/images/icons/Edit.png" style="max-height:30px; max-width:30px" /></a>
+                            <a asp-controller="Asset" asp-action="Details" asp-route-id="@item.AssetID">
+                            <img src="~/images/icons/Clipboard.png" style="max-height:30px; max-width:30px" /></a>
 
                         </td>
                     </tr>
@@ -79,9 +83,9 @@
 
 @if (qty == 0)
 {
-    <h3>Are you sure you want to delete this?</h3>
+    <h3>@Localizer["Are you sure you want to delete this?"]</h3>
     <div>
-        <h4>OperationalSiteLocation</h4>
+        <h4>@Localizer["OperationalSiteLocation"]</h4>
         <hr />
         <dl class="row">
             <dt class="col-sm-2">
@@ -101,7 +105,8 @@
         <form asp-action="Delete">
             <input type="hidden" asp-for="OperationalSiteLocationID" />
             <input type="submit" value="Delete" class="btn btn-danger" /> |
-            <a class="btn btn-outline-info" asp-controller="OperationalSite" asp-action="Edit" asp-route-id="@Model.OperationalSiteID">Back to List</a>
+            <a class="btn btn-outline-info" asp-controller="OperationalSite"
+            asp-action="Edit" asp-route-id="@Model.OperationalSiteID">@Localizer["Back to List"]</a>
         </form>
     </div>
 }

@@ -12,17 +12,21 @@
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="form-group">
         <label asp-for="GroupPeopleID" class="control-label"></label>
-        <select asp-for="GroupPeopleID" class="form-control" asp-items="ViewBag.ListGroupPeopleID" disabled><option disabled selected>---Select---</option></select>
+        <select asp-for="GroupPeopleID" class="form-control"
+        asp-items="ViewBag.ListGroupPeopleID" disabled><option disabled selected>---Select---</option></select>
         <span asp-validation-for="GroupPeopleID" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="PersonID" class="control-label"></label>
-        <select asp-for="PersonID" class="form-control" asp-items="ViewBag.ListPersonID" ><option disabled selected>---Select---</option></select>
+        <select asp-for="PersonID" class="form-control"
+        asp-items="ViewBag.ListPersonID" ><option disabled selected>---Select---</option></select>
         <span asp-validation-for="PersonID" class="text-danger"></span>
     </div>
 
 
-    <button type="submit" class="btn btn-primary" value="Create" asp-route-groupPeopleID="@ViewData["GroupPeopleID"]">Create</button> |
-    <a class="btn btn-outline-info" asp-controller="GroupPeople" asp-action="Edit" asp-route-id="@ViewData["GroupPeopleID"]">Back to List</a>
+    <button type="submit" class="btn btn-primary" value="Create"
+    asp-route-groupPeopleID="@ViewData["GroupPeopleID"]">@Localizer["Create"]</button> |
+    <a class="btn btn-outline-info" asp-controller="GroupPeople" asp-action="Edit"
+    asp-route-id="@ViewData["GroupPeopleID"]">@Localizer["Back to List"]</a>
 
 </form>

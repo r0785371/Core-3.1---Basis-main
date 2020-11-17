@@ -117,10 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Learn about" xml:space="preserve">
-    <value>&lt;a href="https://docs.microsoft.com/aspnet/core"&gt;maak Web apps met ASP.NET Core&lt;/a&gt;.</value>
+  <data name="Back to Full list" xml:space="preserve">
+    <value>Terug naar volledige lijst</value>
   </data>
-  <data name="Welcome" xml:space="preserve">
-    <value>Welkom</value>
+  <data name="COL" xml:space="preserve">
+    <value>COL</value>
+  </data>
+  <data name="Create New" xml:space="preserve">
+    <value>Nieuw aanmaken</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Aanpassen</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>Bekijken</value>
+  </data>
+  <data name="Welcome on the dashboard of the assets application" xml:space="preserve">
+    <value>Welkom op het dashbord van het assetbeer.</value>
   </data>
 </root>

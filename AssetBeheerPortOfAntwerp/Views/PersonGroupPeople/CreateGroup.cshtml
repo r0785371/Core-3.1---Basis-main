@@ -13,16 +13,20 @@
 
     <div class="form-group">
         <label asp-for="PersonID" class="control-label"></label>
-        <select asp-for="PersonID" class="form-control" asp-items="ViewBag.ListPersonID" disabled><option disabled selected>---Select---</option></select>
+        <select asp-for="PersonID" class="form-control"
+        asp-items="ViewBag.ListPersonID" disabled><option disabled selected>---Select---</option></select>
         <span asp-validation-for="PersonID" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="GroupPeopleID" class="control-label"></label>
-        <select asp-for="GroupPeopleID" class="form-control" asp-items="ViewBag.GroupPeopleID"><option disabled selected>---Select---</option></select>
+        <select asp-for="GroupPeopleID" class="form-control"
+        asp-items="ViewBag.GroupPeopleID"><option disabled selected>---Select---</option></select>
         <span asp-validation-for="GroupPeopleID" class="text-danger"></span>
     </div>
 
-    <button type="submit" class="btn btn-primary" value="Create" asp-route-personID="@ViewData["PersonID"]" >Create</button> |
-    <a class="btn btn-outline-info" asp-controller="Person" asp-action="Edit" asp-route-id="@ViewData["PersonID"]">Back to List</a>
+    <button type="submit" class="btn btn-primary" value="Create"
+    asp-route-personID="@ViewData["PersonID"]" >@Localizer["Create"]</button> |
+    <a class="btn btn-outline-info" asp-controller="Person" asp-action="Edit"
+    asp-route-id="@ViewData["PersonID"]">@Localizer["Back to List"]</a>
 
 </form>

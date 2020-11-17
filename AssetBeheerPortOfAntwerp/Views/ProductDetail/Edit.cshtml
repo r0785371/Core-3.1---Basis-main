@@ -29,16 +29,19 @@
                 <span asp-validation-for="Definition2" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <button type="submit" value="Save" class="btn btn-primary" asp-route-productID="@Model.ProductID" asp-route-productChild="@Model.Product.ProductType.ProductChild.ToString()">Save</button> |
+                <button type="submit" value="Save" class="btn btn-primary" asp-route-productID="@Model.ProductID"
+                asp-route-productChild="@Model.Product.ProductType.ProductChild.ToString()">@Localizer["Save"]</button> |
 
                 @*As this view is used by Software and Hardware, when go back needs to go to the correct controller*@
                 @if (Model.Product.ProductType.ProductChild.ToString() == "Software")
                 {
-                    <a class="btn btn-outline-info" asp-controller="Software" asp-action="Edit" asp-route-id="@Model.ProductID">Back to List</a>
+                    <a class="btn btn-outline-info" asp-controller="Software" asp-action="Edit"
+                    asp-route-id="@Model.ProductID">@Localizer["Back to List"]</a>
                 }
                 @if (Model.Product.ProductType.ProductChild.ToString() == "Hardware")
                 {
-                    <a class="btn btn-outline-info" asp-controller="Hardware" asp-action="Edit" asp-route-id="@Model.ProductID">Back to List</a>
+                    <a class="btn btn-outline-info" asp-controller="Hardware" asp-action="Edit"
+                    asp-route-id="@Model.ProductID">@Localizer["Back to List"]</a>
                 }
             </div>
         </form>

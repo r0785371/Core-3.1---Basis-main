@@ -8,8 +8,8 @@
 }
 
 <br/>
-<h3>Are you sure you want to delete this location: </h3>
-<h3>@Model.LocationDescription?</h3>
+<h3>@Localizer["Are you sure you want to delete this location: "]</h3>
+<h3>@Localizer["@Model.LocationDescription?"]</h3>
 <div>
     <hr />
     <dl class="row">
@@ -48,6 +48,6 @@
     <form asp-action="Delete">
         <input type="hidden" asp-for="LocationID" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a class="btn btn-outline-info" asp-action="Index">Back to List</a>
+        <a class="btn btn-outline-info" asp-action="Index">@Localizer["Back to List"]</a>
     </form>
 </div>

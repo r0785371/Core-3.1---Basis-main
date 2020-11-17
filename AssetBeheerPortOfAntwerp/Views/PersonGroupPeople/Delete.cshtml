@@ -10,7 +10,8 @@
 
 
 <br />
-<h3>Are you sure you want to remove this person: "@Model.Person.FullName" from the group: "@Model.GroupPeoples.GroupName"?</h3>
+<h3>@Localizer["Are you sure you want to remove this person: "@Model.Person.FullName" from the group:
+"@Model.GroupPeoples.GroupName"?"]</h3>
     <div>
         <hr />
         <dl class="row">
@@ -36,15 +37,18 @@
             @if ((bool)ViewData["GoToGroup"] == true)
             {
                 <input type="submit" value="Delete" class="btn btn-danger" asp-route-goToGroup="@ViewBag.GoToGroup" />
-                <a class="btn btn-outline-info" asp-controller="GroupPeople" asp-action="Edit" asp-route-id="@Model.GroupPeopleID">Back</a>
+                <a class="btn btn-outline-info" asp-controller="GroupPeople"
+                asp-action="Edit" asp-route-id="@Model.GroupPeopleID">@Localizer["Back"]</a>
             }
             @if ((bool)ViewData["GoToPerson"] == true)
             {
                 <input type="submit" value="Delete" class="btn btn-danger" asp-route-goToPerson="@ViewBag.GoToPerson" />
-                <a class="btn btn-outline-info" asp-controller="Person" asp-action="Edit" asp-route-id="@Model.PersonID">Back</a>
+                <a class="btn btn-outline-info" asp-controller="Person" asp-action="Edit"
+                asp-route-id="@Model.PersonID">@Localizer["Back"]</a>
             }
 
             @*<input type="submit" value="Delete" class="btn btn-danger" /> |
-            <a class="btn btn-outline-info" asp-controller="Person" asp-action="Edit" asp-route-id="@Model.PersonID">Back</a>*@
+            <a class="btn btn-outline-info" asp-controller="Person" asp-action="Edit"
+            asp-route-id="@Model.PersonID">@Localizer["Back"]</a>*@
         </form>
     </div>

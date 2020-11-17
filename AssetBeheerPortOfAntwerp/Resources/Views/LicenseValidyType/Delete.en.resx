@@ -144,6 +144,12 @@
   <data name="Bent u zeker dat u het externe bedrijf: &quot;@Model.Name&quot; wil verwijderen?" xml:space="preserve">
     <value>Are you sure you want to delete this extern company: @Model.Name?</value>
   </data>
+  <data name="Bent u zeker dat u het licentie type: &quot;@Model.Name&quot; wil verwijderen?" xml:space="preserve">
+    <value>Are you sure you want to delete this License Type: "@Model.Name"?</value>
+  </data>
+  <data name="Bent u zeker dat u het licentie validatie type: &quot;@Model.Name&quot; wil verwijderen?" xml:space="preserve">
+    <value>Are you sure you want to delete this License Validity Type: "@Model.Name"?</value>
+  </data>
   <data name="Bewerken" xml:space="preserve">
     <value>Edit</value>
   </data>
@@ -174,6 +180,9 @@
   <data name="Opgelet: Deze hardware kan niet verwijdert worden : &quot;@Model.Name&quot;!" xml:space="preserve">
     <value>Attention: You can't delete this hardware @Model.Name!</value>
   </data>
+  <data name="Opgelet: Deze licentie validatie type kan niet verwijdert worden: &quot;@Model.Name&quot;!&quot;" xml:space="preserve">
+    <value>Attention: You can't delete this License Validity Type: "@Model.Name"!</value>
+  </data>
   <data name="Opgelet: Deze verdieping  kan niet verwijdert worden: &quot;@Model.Name&quot;!&quot;" xml:space="preserve">
     <value>Attention: You can't delete this floor: "@Model.Name"!</value>
   </data>
@@ -191,6 +200,9 @@
   </data>
   <data name="Opgelet: Dit gebouw kan niet verwijdert worden : &quot;@Model.Name&quot;!" xml:space="preserve">
     <value>Attention: You can't delete this Building: "@Model.Name"!</value>
+  </data>
+  <data name="Opgelet: Dit licentie type kan niet verwijdert worden: &quot;@Model.Name&quot;!&quot;" xml:space="preserve">
+    <value>Attention: You can't delete this License Type: "@Model.Name"!</value>
   </data>
   <data name="Product details" xml:space="preserve">
     <value>Product details</value>

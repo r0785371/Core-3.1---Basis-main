@@ -25,19 +25,20 @@
 @if (qty > 0)
 {
     <br />
-    <h3>Attention: You can't delete this person: "@Model.FullName"!</h3>
+    <h3>@Localizer["Attention: You can't delete this person: "@Model.FullName"!"]</h3>
     <hr />
-    <h4>"@Model.FullName" is linked to:</h4>
+    <h4>@Localizer[""@Model.FullName" is linked to:"]</h4>
     <ul>
         <li>@qtyPersonGroup x @personGroups</li>
         <li>@qtyAsstes x @assets</li>
     </ul>
 
-    <p>It's not possible (recomendated) to delete @Model.FullName!</p>
+    <p>@Localizer["It's not possible (recomendated) to delete @Model.FullName!"]</p>
     <hr />
     <form>
-        <button asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.PersonID">Edit</button> |
-        <button asp-action="Index" class="btn btn-outline-info">Back</button>
+        <button asp-action="Edit" class="btn btn-primary"
+        asp-route-id="@Model.PersonID">@Localizer["Edit"]</button> |
+        <button asp-action="Index" class="btn btn-outline-info">@Localizer["Back"]</button>
     </form>
     <br />
     <hr />
@@ -61,7 +62,7 @@
 @if (qty == 0)
 {
 
-    <h3>Are you sure you want to delete: "@Model.FullName"?</h3>
+    <h3>@Localizer["Are you sure you want to delete: "@Model.FullName"?"]</h3>
     <div>
         <hr />
         <dl class="row">
@@ -112,7 +113,7 @@
         <form asp-action="Delete">
             <input type="hidden" asp-for="PersonID" />
             <input type="submit" value="Delete" class="btn btn-danger" /> |
-            <a class="btn btn-outline-info" asp-action="Index">Back to List</a>
+            <a class="btn btn-outline-info" asp-action="Index">@Localizer["Back to List"]</a>
         </form>
     </div>
 }

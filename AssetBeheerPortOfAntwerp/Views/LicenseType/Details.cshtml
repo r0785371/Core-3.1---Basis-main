@@ -8,7 +8,7 @@
 }
 
 <div>
-    <h4>LicenseType</h4>
+    <h4>@Localizer["LicenseType"]</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -32,6 +32,6 @@
     </dl>
 </div>
 <div>
-    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.LicenseTypeID">Edit</a> |
-    <a class="btn btn-outline-info" asp-action="Index">Back to List</a>
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.LicenseTypeID">@Localizer["Edit"]</a> |
+    <a class="btn btn-outline-info" asp-action="Index">@Localizer["Back to List"]</a>
 </div>

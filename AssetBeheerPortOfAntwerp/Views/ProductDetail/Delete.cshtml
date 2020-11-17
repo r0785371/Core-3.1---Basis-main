@@ -8,7 +8,7 @@
 }
 
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>@Localizer["Are you sure you want to delete this?"]</h3>
 <div>
     <hr />
     <dl class="row">
@@ -34,16 +34,19 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="ProductDetailID" />
-        <input type="submit" value="Delete" class="btn btn-danger" asp-route-productChild="@Model.Product.ProductType.ProductChild.ToString()" /> |
+        <input type="submit" value="Delete" class="btn btn-danger"
+        asp-route-productChild="@Model.Product.ProductType.ProductChild.ToString()" /> |
 
         @*As this view is used by Software and Hardware, when go back needs to go to the correct controller*@
         @if (Model.Product.ProductType.ProductChild.ToString() == "Software")
         {
-            <a class="btn btn-outline-info" asp-controller="Software" asp-action="Edit" asp-route-id="@Model.ProductID">Back to List</a>
+            <a class="btn btn-outline-info" asp-controller="Software" asp-action="Edit"
+            asp-route-id="@Model.ProductID">@Localizer["Back to List"]</a>
         }
         @if (Model.Product.ProductType.ProductChild.ToString() == "Hardware")
         {
-            <a class="btn btn-outline-info" asp-controller="Hardware" asp-action="Edit" asp-route-id="@Model.ProductID">Back to List</a>
+            <a class="btn btn-outline-info" asp-controller="Hardware" asp-action="Edit"
+            asp-route-id="@Model.ProductID">@Localizer["Back to List"]</a>
         }
     </form>
 </div>

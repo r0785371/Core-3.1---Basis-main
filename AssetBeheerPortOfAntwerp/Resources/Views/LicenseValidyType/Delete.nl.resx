@@ -141,6 +141,12 @@
   <data name="Are you sure you want to delete this hardware: @Model.Name?" xml:space="preserve">
     <value>Bent u zeker dat u deze hardware: "@Model.Name" wil verwijderen?</value>
   </data>
+  <data name="Are you sure you want to delete this License Type: &quot;@Model.Name&quot;?" xml:space="preserve">
+    <value>Bent u zeker dat u het licentie type: "@Model.Name" wil verwijderen?</value>
+  </data>
+  <data name="Are you sure you want to delete this License Validity Type: &quot;@Model.Name&quot;?" xml:space="preserve">
+    <value>Bent u zeker dat u het licentie validatie type: "@Model.Name" wil verwijderen?</value>
+  </data>
   <data name="Are you sure you want to delete this?" xml:space="preserve">
     <value>Weet u zeker dat je dit wil verwijderen?</value>
   </data>
@@ -173,6 +179,12 @@
   </data>
   <data name="Attention: You can't delete this license @Model.license.PurchaseItem.Product.Name!" xml:space="preserve">
     <value>Opgelet: Deze licentie kan niet verwijdert worden:  @Model.license.PurchaseItem.Product.Name!</value>
+  </data>
+  <data name="Attention: You can't delete this License Type: &quot;@Model.Name&quot;!" xml:space="preserve">
+    <value>Opgelet: Dit licentie type kan niet verwijdert worden: "@Model.Name"!"</value>
+  </data>
+  <data name="Attention: You can't delete this License Validity Type: &quot;@Model.Name&quot;!" xml:space="preserve">
+    <value>Opgelet: Deze licentie validatie type kan niet verwijdert worden: "@Model.Name"!"</value>
   </data>
   <data name="Back" xml:space="preserve">
     <value>Terug</value>

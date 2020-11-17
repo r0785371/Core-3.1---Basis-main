@@ -22,19 +22,20 @@
 @if (qty > 0)
 {
     <br />
-    <h3>Attention: You can't delete this Operational site: "@Model.Name"!</h3>
+    <h3>@Localizer["Attention: You can't delete this Operational site: "@Model.Name"!"]</h3>
     <hr />
-    <h4>"@Model.Name" is linked to:</h4>
+    <h4>@Localizer[""@Model.Name" is linked to:"]</h4>
     <br />
     <ul>
         <li>@qtyAsstes x @assets</li>
     </ul>
 
-    <p>It's not possible (recomendated) to delete @Model.Name!</p>
+    <p>@Localizer["It's not possible (recomendated) to delete @Model.Name!"]</p>
     <hr />
     <form>
-        <button asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.OperationalSiteID">Edit</button> |
-        <button asp-action="Index" class="btn btn-outline-info">Back</button>
+        <button asp-action="Edit" class="btn btn-primary"
+        asp-route-id="@Model.OperationalSiteID">@Localizer["Edit"]</button> |
+        <button asp-action="Index" class="btn btn-outline-info">@Localizer["Back"]</button>
     </form>
     <br />
     <hr />
@@ -48,7 +49,7 @@
 
 @if (qty == 0)
 {
-    <h3>Are you sure you want to delete this?</h3>
+    <h3>@Localizer["Are you sure you want to delete this?"]</h3>
     <div>
         <hr />
         <dl class="row">
@@ -81,7 +82,7 @@
         <form asp-action="Delete">
             <input type="hidden" asp-for="OperationalSiteID" />
             <input type="submit" value="Delete" class="btn btn-danger" /> |
-            <a class="btn btn-outline-info" asp-action="Index">Back to List</a>
+            <a class="btn btn-outline-info" asp-action="Index">@Localizer["Back to List"]</a>
         </form>
     </div>
 }

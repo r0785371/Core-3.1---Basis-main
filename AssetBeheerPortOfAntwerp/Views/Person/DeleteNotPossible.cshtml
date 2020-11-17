@@ -9,10 +9,10 @@
 }
 
 <br />
-<h3>Attention: You can't delete @ViewBag.Owner!</h3>
+<h3>@Localizer["Attention: You can't delete @ViewBag.Owner!"]</h3>
 <hr />
-<h5>There are @ViewData["QtyAssets"] Assets still linked to this person.</h5>
-<p>If you really want to delete @ViewData["Owner"], pls go to each Asset bellow and change the owner.</p>
+<h5>@Localizer["There are @ViewData["QtyAssets"] Assets still linked to this person."]</h5>
+<p>@Localizer["If you really want to delete @ViewData["Owner"], pls go to each Asset bellow and change the owner."]</p>
 <hr />
 
 
@@ -50,7 +50,7 @@
                     @Html.DisplayFor(modelItem => item.OperationalSiteLocation.Location.LocationDescription)
                 </td>
                 <td>
-                    <a asp-controller="Asset" asp-action="Edit" asp-route-id="@item.AssetID">Edit</a>
+                    <a asp-controller="Asset" asp-action="Edit" asp-route-id="@item.AssetID">@Localizer["Edit"]</a>
                 </td>
             </tr>
         }
@@ -60,7 +60,7 @@
 <form asp-action="DeleteNotPossible">
     <input type="hidden" asp-for="@ViewData["ID"]"  />
     <input type="submit" value="Delete person" class="btn btn-danger"  asp-route-id="@ViewData["ID"]" /> |
-    <a class="btn btn-outline-info" asp-action="Index">Back to List</a>
+    <a class="btn btn-outline-info" asp-action="Index">@Localizer["c"]</a>
 </form>
 
 @section Scripts {

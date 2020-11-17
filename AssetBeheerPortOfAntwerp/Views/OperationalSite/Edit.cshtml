@@ -47,7 +47,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <input type="submit" value="Save" class="submitbutton btn btn-primary" /> |
-                <a class="btn btn-outline-info" asp-action="Index">Back to List</a>
+                <a class="btn btn-outline-info" asp-action="Index">@Localizer["Back to List"]</a>
             </div>
         </div>
 
@@ -56,11 +56,16 @@
         @*SubForm: Locations*@
         <div>
             <div class="float-sm-left">
-                <h3>Location(s)</h3>
+                <h3>@Localizer["Location(s)"]</h3>
             </div>
             <div class="text-sm-right">
-                <a class="create" asp-controller="OperationalSiteLocation" asp-action="Create" asp-route-operationalSiteID="@Model.operationalSite.OperationalSiteID"><h3>Add location</h3></a>
-                <button class="submitbutton btn-link" asp-action="Edit" asp-route-id="@Model.operationalSite.OperationalSiteID" asp-route-goToOperationSiteLocation="true" formmethod="post" style="background-color: transparent; border:none"><h3>Add location</h3></button>
+                <a class="create" asp-controller="OperationalSiteLocation"
+                asp-action="Create" asp-route-operationalSiteID="@Model.operationalSite.OperationalSiteID">
+                <h3>@Localizer["Add location"]</h3></a>
+                <button class="submitbutton btn-link"
+                asp-action="Edit" asp-route-id="@Model.operationalSite.OperationalSiteID"
+                asp-route-goToOperationSiteLocation="true" formmethod="post"
+                style="background-color: transparent; border:none"><h3>@Localizer["Add location"]</h3></button>
             </div>
         </div>
     </form>
@@ -127,7 +132,7 @@
 <hr />
 
 @*SubForm: Assets - Only for info*@
-<h3>Asset(s)</h3>
+<h3>@Localizer["Asset(s)"]</h3>
 <div>
     <partial name="PartialViews/_ListOfAssetsPartial" model="Model.assets" />
 </div>
